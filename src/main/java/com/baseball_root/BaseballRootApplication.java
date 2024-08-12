@@ -1,8 +1,6 @@
 package com.baseball_root;
 
-import com.baseball_root.global.ScheduleDto;
-import com.baseball_root.global.WeatherCrawler;
-import com.baseball_root.global.WebCrawler;
+import com.baseball_root.global.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.boot.SpringApplication;
@@ -15,15 +13,20 @@ import java.util.List;
 public class BaseballRootApplication {
 	public static void main(String[] args) throws IOException {
 		// KBO
-//		WebCrawler webCrawler = new WebCrawler();
-//		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("2024", "07");
-//
-//		for (ScheduleDto scheduleDto : scheduleDtoList) {
-//			System.out.println(scheduleDto);
-//		}
+		/*WebCrawler webCrawler = new WebCrawler();
+		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("2024", "05");
+
+		for (ScheduleDto scheduleDto : scheduleDtoList) {
+			System.out.println(scheduleDto);
+		}*/
+
+        DiningcodeCrawler diningcodeCrawler = new DiningcodeCrawler();
+        System.out.println(diningcodeCrawler.searchRestaurantByLocalName("잠실운동장"));
+
+
 
 		// 날씨
-		WeatherCrawler weatherCrawler = new WeatherCrawler();
+		/*WeatherCrawler weatherCrawler = new WeatherCrawler();
 
 		String[] v = new String[5];
 		String s = weatherCrawler.get(58, 125, v);
@@ -39,6 +42,7 @@ public class BaseballRootApplication {
 		else
 		{ // error
 			System.out.println("Error : " + s);
-		}
+		}*/
+
 	}
 }
