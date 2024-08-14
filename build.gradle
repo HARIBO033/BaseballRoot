@@ -33,6 +33,7 @@ dependencies {
 	implementation 'org.seleniumhq.selenium:selenium-java:4.23.0'
     implementation 'org.seleniumhq.selenium:selenium-http-jdk-client'
     implementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
 
 }
 

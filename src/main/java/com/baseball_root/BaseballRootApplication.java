@@ -13,15 +13,15 @@ import java.util.List;
 public class BaseballRootApplication {
 	public static void main(String[] args) throws IOException {
 		// KBO
-		/*WebCrawler webCrawler = new WebCrawler();
-		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("2024", "05");
+		WebCrawler webCrawler = new WebCrawler();
+		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("20240522");
 
 		for (ScheduleDto scheduleDto : scheduleDtoList) {
 			System.out.println(scheduleDto);
-		}*/
+		}
 
         DiningcodeCrawler diningcodeCrawler = new DiningcodeCrawler();
-        System.out.println(diningcodeCrawler.searchRestaurantByLocalName("잠실운동장"));
+        //System.out.println(diningcodeCrawler.searchRestaurantByLocalName("잠실운동장"));
 
 
 
