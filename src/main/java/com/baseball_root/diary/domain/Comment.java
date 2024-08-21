@@ -20,15 +20,15 @@ public class Comment {
     private Member author;  // 댓글 작성자 */
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "diary_id", nullable = false)
     private Diary diary;  // 댓글이 달린 게시글
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
-    private Comment parent;  // 부모 댓글 (null일 경우 최상위 댓글)
+    private Comment parent;  // 부모 댓글 (null일 경우 최상위 댓글)*/
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> childComments = new ArrayList<>();  // 대댓글 리스트
+   /* @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> childComments = new ArrayList<>();  // 대댓글 리스트*/
 
     @Column(nullable = false)
     private LocalDateTime createdAt;  // 댓글 작성 시간

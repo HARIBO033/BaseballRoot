@@ -5,15 +5,16 @@ import com.baseball_root.diary.service.DiaryService;
 import com.baseball_root.global.ScheduleDto;
 import com.baseball_root.global.WebCrawler;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/diary")
+@RequestMapping("/diarys")
 public class DiaryController {
-
     private final DiaryService diaryService;
 
     //캘린더에서 날짜를 선택하면 리스트를 반환
@@ -25,20 +26,25 @@ public class DiaryController {
 
 
     @GetMapping("/{id}")
-    public void getDiary(@PathVariable Long id, @PathVariable String date){
-        diaryService.getDiary(id);
+    public DiaryDto.Response getDetailDiary(@PathVariable Long id){
+        return diaryService.getDetailDiary(id);
     }
 
-    @PostMapping("/")
-    public void createDiary(@RequestBody DiaryDto.Request diaryDto){
-        diaryService.saveDiary(diaryDto);
+    @PostMapping("/save")
+    public DiaryDto.Response createDiary(@RequestBody DiaryDto.Request diaryDto){
+        log.info("request : {}", diaryDto);
+        return diaryService.saveDiary(diaryDto);
     }
 
     @PutMapping("/{id}")
-    public void updateDiary(@PathVariable Long id){
+    public DiaryDto.Response updateDiary(@PathVariable("id") Long id, @RequestBody DiaryDto.Request diaryDto){
+        log.info("@@ CONTROLLER TEST request : {}", diaryDto);
+        return diaryService.updateDiary(id, diaryDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDiary(@PathVariable Long id){
+    public Long deleteDiary(@PathVariable("id") long id){
+        log.info("delete id : {}", id);
+        return diaryService.deleteDiary(id);
     }
 }
