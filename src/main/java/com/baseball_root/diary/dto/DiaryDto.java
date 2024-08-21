@@ -1,11 +1,13 @@
 package com.baseball_root.diary.dto;
 
 import com.baseball_root.diary.domain.Diary;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
+@Builder
 public class DiaryDto {
 
     @Getter
@@ -31,11 +33,32 @@ public class DiaryDto {
         }
     }
 
-
+    @Builder
+    @Getter
     public static class Response{
-        private Long id;
+        private String imageUrl;
+        private String homeVsAway;
+        private String place;
+        private String seat;
         private String title;
         private String content;
+        private String lineUp;
+        private String mvp;
         private String author;
+
+        public static Response fromEntity(Diary diary){
+            return DiaryDto.Response.builder()
+                    .imageUrl(diary.getImageUrl())
+                    .homeVsAway(diary.getHomeVsAway())
+                    .place(diary.getPlace())
+                    .seat(diary.getSeat())
+                    .title(diary.getTitle())
+                    .content(diary.getContent())
+                    .lineUp(diary.getLineUp())
+                    .mvp(diary.getMvp())
+                    .author(diary.getAuthor())
+                    .build();
+        }
+
     }
 }
