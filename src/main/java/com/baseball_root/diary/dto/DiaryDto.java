@@ -1,6 +1,7 @@
 package com.baseball_root.diary.dto;
 
 import com.baseball_root.diary.domain.Diary;
+import com.baseball_root.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +27,9 @@ public class DiaryDto {
         private String lineUp;
         private String mvp;
 
-        private String author;//todo: 작성자 타입 객체로 변경
+        private Member author;//todo: 작성자 타입 객체로 변경
 
-        public Diary toEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, String author){
+        public Diary toEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member author){
             return new Diary(imageUrl, homeVsAway, place, seat, title, content, lineUp, mvp, author);
         }
     }
@@ -44,7 +45,7 @@ public class DiaryDto {
         private String content;
         private String lineUp;
         private String mvp;
-        private String author;
+        private Member author;
 
         public static Response fromEntity(Diary diary){
             return DiaryDto.Response.builder()
