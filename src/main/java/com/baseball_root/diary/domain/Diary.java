@@ -1,6 +1,7 @@
 package com.baseball_root.diary.domain;
 
 
+import com.baseball_root.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,11 +50,11 @@ public class Diary {
     private String mvp;
 
     @Column(name = "author", nullable = false)
-    private String author; //todo: 작성자 타입 객체로 변경
+    private Member author; //todo: 작성자 타입 객체로 변경
 
-    /*@OneToMany(mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "comment_id")
-    private List<Comment> comment;*/
+    private List<Comment> comment;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -62,7 +63,7 @@ public class Diary {
     private LocalDateTime updatedAt;
 
 
-    public Diary(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, String author) {
+    public Diary(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member author) {
         this.imageUrl = imageUrl;
         this.homeVsAway = homeVsAway;
         this.place = place;
@@ -74,7 +75,7 @@ public class Diary {
         this.author = author;
     }
 
-    public Diary fromEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, String author) {
+    public Diary fromEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member author) {
         this.imageUrl = imageUrl;
         this.homeVsAway = homeVsAway;
         this.place = place;
