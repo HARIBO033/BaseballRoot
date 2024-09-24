@@ -2,6 +2,7 @@ package com.baseball_root.diary.domain;
 
 
 import com.baseball_root.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,11 +50,13 @@ public class Diary {
     @Column(name = "mvp", nullable = true)
     private String mvp;
 
-    @Column(name = "author", nullable = false)
-    private Member author; //todo: 작성자 타입 객체로 변경
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "comment_id")
+    @Column(name = "comment")
+    @OneToMany(fetch= FetchType.LAZY, mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comment;
 
     @CreatedDate
@@ -63,7 +66,7 @@ public class Diary {
     private LocalDateTime updatedAt;
 
 
-    public Diary(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member author) {
+    public Diary(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
         this.imageUrl = imageUrl;
         this.homeVsAway = homeVsAway;
         this.place = place;
@@ -72,10 +75,10 @@ public class Diary {
         this.content = content;
         this.lineUp = lineUp;
         this.mvp = mvp;
-        this.author = author;
+        this.member = member;
     }
 
-    public Diary fromEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member author) {
+    public Diary fromEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
         this.imageUrl = imageUrl;
         this.homeVsAway = homeVsAway;
         this.place = place;
@@ -84,7 +87,7 @@ public class Diary {
         this.content = content;
         this.lineUp = lineUp;
         this.mvp = mvp;
-        this.author = author;
+        this.member = member;
         return this;
     }
 
