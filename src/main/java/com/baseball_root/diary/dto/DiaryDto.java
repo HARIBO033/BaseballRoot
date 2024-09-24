@@ -27,10 +27,10 @@ public class DiaryDto {
         private String lineUp;
         private String mvp;
 
-        private Member author;//todo: 작성자 타입 객체로 변경
+        private String nickname;
 
-        public Diary toEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member author){
-            return new Diary(imageUrl, homeVsAway, place, seat, title, content, lineUp, mvp, author);
+        public Diary toEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member member){
+            return new Diary(imageUrl, homeVsAway, place, seat, title, content, lineUp, mvp, member);
         }
     }
 
@@ -45,10 +45,10 @@ public class DiaryDto {
         private String content;
         private String lineUp;
         private String mvp;
-        private Member author;
+        private String nickname;
 
         public static Response fromEntity(Diary diary){
-            return DiaryDto.Response.builder()
+            return Response.builder()
                     .imageUrl(diary.getImageUrl())
                     .homeVsAway(diary.getHomeVsAway())
                     .place(diary.getPlace())
@@ -57,7 +57,7 @@ public class DiaryDto {
                     .content(diary.getContent())
                     .lineUp(diary.getLineUp())
                     .mvp(diary.getMvp())
-                    .author(diary.getAuthor())
+                    .nickname(diary.getMember().getNickname())
                     .build();
         }
 
