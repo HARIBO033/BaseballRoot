@@ -2,7 +2,6 @@ package com.baseball_root.diary.domain;
 
 import com.baseball_root.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,6 +49,7 @@ public class Comment {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> children = new ArrayList<>();  // 대댓글 리스트
 
+    private Long reactionCount = 0L;  // 댓글의 반응 수
     @CreatedDate
     private LocalDateTime createdAt;  // 댓글 작성 시간
 
@@ -59,5 +59,19 @@ public class Comment {
 
     public void setParentComment(Comment comment) {
         this.parent = comment;
+    }
+
+    public void increaseReactionCount() {
+        this.reactionCount++;
+    }
+
+    public void decreaseReactionCount() {
+        this.reactionCount--;
+    }
+
+    public void nullCheck(Comment comment){
+        if(comment.getReactionCount()==null){
+            this.reactionCount = 0L;
+        }
     }
 }

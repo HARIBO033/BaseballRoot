@@ -25,6 +25,8 @@ public class CommentDto {
                     .diary(diary)
                     .build();
         }
+
+
     }
 
     @Getter
@@ -35,8 +37,9 @@ public class CommentDto {
         private Long commentId;
         private String content;
         private Long parentId;
-
         private List<CommentDto.Response> children;
+
+        private boolean reactionType;
 
         public Response(Comment comment) {
             this.diaryId = comment.getDiary().getId();
@@ -47,6 +50,7 @@ public class CommentDto {
             }
             if (!comment.getChildren().isEmpty())
                 this.children = CommentDto.Response.toDto(comment.getChildren());
+
         }
 
         private static List<Response> toDto(List<Comment> children) {
