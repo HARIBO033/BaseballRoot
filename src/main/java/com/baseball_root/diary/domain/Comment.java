@@ -62,10 +62,16 @@ public class Comment {
     }
 
     public void increaseReactionCount() {
+        if (this.reactionCount == null) {
+            this.reactionCount = 0L;  // 기본값 설정
+        }
         this.reactionCount++;
     }
 
     public void decreaseReactionCount() {
+        if (this.reactionCount == null || this.reactionCount == 0L) {
+            throw new IllegalStateException("ReactionCount 는 0보다 작을 수 없습니다.");
+        }
         this.reactionCount--;
     }
 
