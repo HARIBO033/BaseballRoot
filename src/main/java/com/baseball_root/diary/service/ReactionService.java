@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 public class ReactionService {
@@ -19,7 +21,9 @@ public class ReactionService {
         boolean requestReactionType = reactionDto.isReactionType();
         reactionRepository.save(reactionDto.toDto());
 
-        Comment comment = commentRepository.findById(reactionDto.getCommentId()).orElseThrow();
+        Comment comment = commentRepository.findById(reactionDto.getCommentId())
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Comment not found for id: " + reactionDto.getCommentId()));
         comment.nullCheck(comment);
 
         if (requestReactionType) {
