@@ -51,7 +51,7 @@ public class CommentService {
     public List<Comment> getCommentsByDiary(Long diaryId) {
         // 해당 다이어리가 있는지 확인
         Diary diary = diaryRepository.findById(diaryId)
-                .orElseThrow(() -> new IllegalArgumentException("Diary not found with id: " + diaryId));
+                .orElseThrow(() -> new IllegalArgumentException("다이어리 ID를 찾을 수 없습니다: " + diaryId));
         // 해당 다이어리의 댓글들을 가져옴
         return commentRepository.findByDiaryAndParentIsNull(diary);
         //return commentRepository.findByDiaryIdAndParentIsNull(diary.getId());
