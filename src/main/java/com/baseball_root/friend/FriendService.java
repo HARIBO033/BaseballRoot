@@ -3,6 +3,7 @@ package com.baseball_root.friend;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberDto;
 import com.baseball_root.member.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,42 +18,51 @@ public class FriendService {
     private final FriendManagementRepository friendManagementRepository;
 
 
-    public List<FriendManagement> getFriendRequestedList(Long memberId){
+    public List<FriendManagementDto> getFriendRequestedList(Long memberId) {
+        List<FriendManagementDto> friendManagementList =
+                friendManagementRepository.findByReceiverIdAndStatus_Requested(memberId)
+                        .stream()
+                        .map(FriendManagement::toDto)
+                        .collect(Collectors.toList());
 
-        return friendManagementRepository.findByReceiverIdAndStatus_Requested(memberId);
+        return friendManagementList;
     }
-    public void sendFriendRequest(FriendRequestDto friendRequestDto) {
+
+    public void sendFriendRequest(Long senderId, Long receiverId) {
+        Member sender = memberRepository.findById(senderId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
+        Member receiver = memberRepository.findById(receiverId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
+
+        // 만약 이미 친구 요청을 받은 상태라면
+        if (friendManagementRepository.findBySenderAndReceiverAndStatus_Requested(senderId, receiverId) != null) {
+            throw new IllegalArgumentException("친구 요청 중입니다");
+        }
+
         FriendManagement friendManagement = FriendManagement.builder()
-                .sender(friendRequestDto.getSender())
-                .receiver(friendRequestDto.getReceiver())
+                .sender(sender)
+                .receiver(receiver)
                 .status(FriendStatus.REQUESTED)
                 .build();
+
+
         friendManagementRepository.save(friendManagement);
     }
 
     /*  */
     @Transactional
-    public void acceptFriendRequest(Long requestId) {
-        Member sender = memberRepository.findById(requestId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid member id"));
-        FriendManagement entity = friendManagementRepository.findById(requestId).orElseThrow(() -> new IllegalArgumentException("Invalid friend request id"));
-        Member receiver = entity.getReceiver();
-        //친추요청아이디로 친구요청을 찾음
-        friendManagementRepository.findById(requestId)
-                //친구요청이 있으면
-                .ifPresentOrElse(friendManagement -> {
-                    //친구요청의 상태를 수락으로 변경
-                    friendManagement.setStatus(FriendStatus.ACCEPTED);
-                    //친구요청을 저장
-                    //friendManagementRepository.save(friendManagement);
-                    //멤버의 friends에 친구요청을 보낸 사람을 추가
-                    sender.addFriend(friendManagement.getSender());
-                    receiver.addFriend(friendManagement.getReceiver());
-                    // 해당 요청 삭제
-                    //friendManagementRepository.deleteById(requestId);
-                }, () -> {
-                    throw new IllegalArgumentException("Invalid friend request id");
-                });
+    public void acceptFriendRequest(Long senderId, Long receiverId) {
+        FriendManagement friendManagement = friendManagementRepository
+                .findBySenderAndReceiverAndStatus_Requested(senderId, receiverId);
+        //sender와 receiver 둘 다 친구목록에 추가되어야함
+        Member sender = memberRepository.findById(senderId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
+        Member receiver = memberRepository.findById(receiverId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
+
+        sender.addFriend(receiver);
+        receiver.addFriend(sender);
+        friendManagement.setStatus(FriendStatus.ACCEPTED);
 
     }
 
@@ -66,20 +76,28 @@ public class FriendService {
                 });
     }
 
-    public void deleteFriend(Long memberId) {
-        FriendManagement friendManagement = friendManagementRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member id"));
+    public void deleteFriend(Long memberId, Long friendId) {
 
+        FriendManagement friendManagement = friendManagementRepository
+                .findBySenderAndReceiverAndStatus_Accepted(memberId, friendId);
+        if (friendManagement == null) {
+            throw new EntityNotFoundException("Friend relationship not found.");
+        }
         Member member = memberRepository.findById(friendManagement.getSender().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid member id"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member id (M)"));
         Member friend = memberRepository.findById(friendManagement.getReceiver().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid member id"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member id (F)"));
+
         member.getFriends().remove(friend);
         friend.getFriends().remove(member);
     }
 
-    public List<MemberDto> getFriends(Long memberId) {
+    public List<MemberDto> getFriendList(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member id"));
-        return member.getFriends().stream().map(Member::toDto).collect(Collectors.toList());
+
+        return member.getFriends().stream()
+                .map(Member::toDto)
+                .collect(Collectors.toList());
     }
 }

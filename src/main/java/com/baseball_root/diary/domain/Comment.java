@@ -75,8 +75,8 @@ public class Comment {
         this.reactionCount--;
     }
 
-    public void nullCheck(Comment comment){
-        if(comment.getReactionCount()==null){
+    public void nullCheck(){
+        if(this.reactionCount == null){
             this.reactionCount = 0L;
         }
     }

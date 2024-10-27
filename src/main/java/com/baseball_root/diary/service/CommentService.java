@@ -24,14 +24,16 @@ public class CommentService {
 
     public List<Comment> getComments(Long diaryId) {
         List<Comment> commentList = commentRepository.findAll();
-        System.out.println(commentList.toString());
+        System.out.println(commentList);
         return commentList;
     }
     @Transactional
     public void createComment(Long diaryId, CommentDto.Request commentDto) {
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+commentDto.getMemberId().toString());
         Member author = validationMember(commentDto);
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow();
+        Diary diary = diaryRepository.findById(diaryId).orElseThrow(
+                () -> new IllegalArgumentException("다이어리 ID를 찾을 수 없습니다: " + diaryId)
+        );
         Comment comment = commentDto.toEntity(diary, author);
 
         if (commentDto.getParentCommentId() == null) {
@@ -65,7 +67,6 @@ public class CommentService {
         if (commentDto.getMemberId() == null) {
             throw new IllegalArgumentException("회원 정보가 없습니다.");
         }
-        Member author = memberRepository.findById(commentDto.getMemberId()).orElseThrow();
-        return author;
+        return memberRepository.findById(commentDto.getMemberId()).orElseThrow();
     }
 }

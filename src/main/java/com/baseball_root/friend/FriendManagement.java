@@ -38,4 +38,12 @@ public class FriendManagement {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    public FriendManagementDto toDto() {
+        return FriendManagementDto.builder()
+                .id(this.id)
+                .senderName(this.sender.getName())
+                .receiverId(this.receiver.getId())
+                .status(this.status)
+                .build();
+    }
 }
