@@ -32,6 +32,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 	// https://mvnrepository.com/artifact/org.projectlombok/lombok
 	compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
 // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
 	implementation 'org.seleniumhq.selenium:selenium-java:4.23.0'
     implementation 'org.seleniumhq.selenium:selenium-http-jdk-client'
