@@ -24,7 +24,7 @@ public class ReactionService {
         Comment comment = commentRepository.findById(reactionDto.getCommentId())
                 .orElseThrow(() -> new NoSuchElementException(
                         "Comment not found for id: " + reactionDto.getCommentId()));
-        comment.nullCheck(comment);
+        comment.nullCheck();
 
         if (requestReactionType) {
             comment.increaseReactionCount();

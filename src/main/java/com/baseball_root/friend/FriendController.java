@@ -13,35 +13,42 @@ public class FriendController {
 
     private final FriendService friendService;
 
+    // 받은 친구 요청 리스트 조회
     @GetMapping("/{memberId}")
-    public ResponseEntity<List<FriendManagement>> getFriendRequestedList(@PathVariable Long memberId) {
+    public ResponseEntity<List<FriendManagementDto>> getFriendRequestedList(@PathVariable("memberId") Long memberId) {
 
         return ResponseEntity.ok(friendService.getFriendRequestedList(memberId));
     }
 
-    @PostMapping("/request")
-    public ResponseEntity<String> sendFriendRequest(@RequestBody FriendRequestDto friendRequestDto) {
+    @GetMapping("/request/{senderId}/send/{receiverId}")
+    public ResponseEntity<String> sendFriendRequest(@PathVariable(name = "senderId") Long senderId,
+                                                    @PathVariable(name = "receiverId") Long receiverId) {
         System.out.println("친구추가");
-        friendService.sendFriendRequest(friendRequestDto);
-        return ResponseEntity.ok("친구 추가 요청");
+        System.out.println("@@@@@@" + senderId+ " " + receiverId);
+        friendService.sendFriendRequest(senderId, receiverId);
+        return ResponseEntity.ok(senderId + "번 유저가 " + receiverId + "번 유저에게 " + "친구 추가 요청");
     }
 
-    @PutMapping("/{requestId}")
-    public ResponseEntity<String> respondToFriendRequest(@PathVariable Long requestId, @RequestParam String action) {
+    // 친구 요청 수락 or 거절
+    @PutMapping("/request/{senderId}/response/{receiverId}")
+    public ResponseEntity<String> respondToFriendRequest(@PathVariable(name = "senderId") Long senderId,
+                                                         @PathVariable(name = "receiverId") Long receiverId,
+                                                         @RequestParam(name = "action") String action) {
         // 수락 혹은 거절 처리 로직
         if (action.equals("ACCEPTED")) {
-            friendService.acceptFriendRequest(requestId);
+            friendService.acceptFriendRequest(senderId, receiverId);
             return ResponseEntity.ok("친구 요청 수락됨");
         } else if (action.equals("REJECTED")) {
-            friendService.rejectFriendRequest(requestId);
+            friendService.rejectFriendRequest(senderId);
             return ResponseEntity.ok("친구 요청 거부됨");
         }
         return ResponseEntity.badRequest().body("Invalid action");
     }
 
-    @DeleteMapping("/{requestId}")
-    public ResponseEntity<String> deleteFriendRequest(@PathVariable Long requestId) {
-        friendService.deleteFriend(requestId);
+    @DeleteMapping("/request/{requestId}/delete/{friendId}")
+    public ResponseEntity<String> deleteFriendRequest(@PathVariable(name = "requestId") Long requestId,
+                                                      @PathVariable(name = "friendId") Long friendId) {
+        friendService.deleteFriend(requestId,friendId);
         return ResponseEntity.ok("친구 삭제 완료");
     }
 }

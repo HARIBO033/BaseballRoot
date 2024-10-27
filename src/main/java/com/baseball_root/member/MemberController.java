@@ -1,6 +1,5 @@
 package com.baseball_root.member;
 
-import com.baseball_root.friend.FriendRequestDto;
 import com.baseball_root.friend.FriendService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +16,8 @@ public class MemberController {
     private final FriendService friendService;
 
     @GetMapping("/members/{memberId}/friends")
-    public ResponseEntity<List<MemberDto>> getFriends(@PathVariable Long memberId) {
-        List<MemberDto> friends = friendService.getFriends(memberId);
+    public ResponseEntity<List<MemberDto>> getFriends(@PathVariable(name = "memberId") Long memberId) {
+        List<MemberDto> friends = friendService.getFriendList(memberId);
         return ResponseEntity.ok(friends);
     }
 }
