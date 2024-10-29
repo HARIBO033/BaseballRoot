@@ -55,6 +55,7 @@ public class DiaryService {
         return DiaryDto.Response.fromEntity(diary);
     }
 
+    @Transactional
     public DiaryDto.Response updateDiary(Long id, DiaryDto.Request diaryDto){
         System.out.println("diaryDto = " + diaryDto);
         Diary diary = diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 일기가 없습니다. id=" + id));

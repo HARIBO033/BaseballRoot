@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/diarys")
+@RequestMapping("/diaries")
 public class DiaryController {
     private final DiaryService diaryService;
 

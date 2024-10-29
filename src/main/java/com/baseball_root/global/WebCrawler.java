@@ -29,8 +29,8 @@ public class WebCrawler {
             Select years = new Select(driver.findElement(By.id("ddlYear")));
             Select months = new Select(driver.findElement(By.id("ddlMonth")));
 
-            years.selectByValue(date.substring(0,4));//01234567
-            months.selectByValue(date.substring(4,6));
+            years.selectByValue(date.substring(0, 4));//01234567
+            months.selectByValue(date.substring(4, 6));
             //Jsoup, selenium 라이브러리 -> 크롤링 라이브러리
             Document doc = Jsoup.parse(driver.getPageSource());
             Elements baseballSchedule = doc.select("#tblScheduleList > tbody > tr");
@@ -49,8 +49,8 @@ public class WebCrawler {
                 }
 
                 if (day != null && (currentDay == null || !currentDay.equals(day.text()))) {
-                        currentDay = day.text();
-                    }
+                    currentDay = day.text();
+                }
 
 
                 if (time != null) {

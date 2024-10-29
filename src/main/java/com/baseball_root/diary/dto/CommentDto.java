@@ -41,6 +41,8 @@ public class CommentDto {
 
         private boolean reactionType;
 
+        private Long reactionCount;
+
         public Response(Comment comment) {
             this.diaryId = comment.getDiary().getId();
             this.commentId = comment.getId();
@@ -50,7 +52,7 @@ public class CommentDto {
             }
             if (!comment.getChildren().isEmpty())
                 this.children = CommentDto.Response.toDto(comment.getChildren());
-
+            this.reactionCount = comment.getReactionCount();
         }
 
         private static List<Response> toDto(List<Comment> children) {

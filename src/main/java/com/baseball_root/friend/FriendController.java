@@ -39,7 +39,7 @@ public class FriendController {
             friendService.acceptFriendRequest(senderId, receiverId);
             return ResponseEntity.ok("친구 요청 수락됨");
         } else if (action.equals("REJECTED")) {
-            friendService.rejectFriendRequest(senderId);
+            friendService.rejectFriendRequest(senderId, receiverId);
             return ResponseEntity.ok("친구 요청 거부됨");
         }
         return ResponseEntity.badRequest().body("Invalid action");

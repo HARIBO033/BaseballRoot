@@ -35,7 +35,7 @@ public class FriendService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
 
         // 만약 이미 친구 요청을 받은 상태라면
-        if (friendManagementRepository.findBySenderAndReceiverAndStatus_Requested(senderId, receiverId) != null) {
+        if (friendManagementRepository.findBySenderAndReceiverAndStatus_Requested(senderId, receiverId).isPresent()) {
             throw new IllegalArgumentException("친구 요청 중입니다");
         }
 
@@ -53,7 +53,8 @@ public class FriendService {
     @Transactional
     public void acceptFriendRequest(Long senderId, Long receiverId) {
         FriendManagement friendManagement = friendManagementRepository
-                .findBySenderAndReceiverAndStatus_Requested(senderId, receiverId);
+                .findBySenderAndReceiverAndStatus_Requested(senderId, receiverId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
         //sender와 receiver 둘 다 친구목록에 추가되어야함
         Member sender = memberRepository.findById(senderId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
@@ -65,17 +66,16 @@ public class FriendService {
         friendManagement.setStatus(FriendStatus.ACCEPTED);
 
     }
-
-    public void rejectFriendRequest(Long requestId) {
-        friendManagementRepository.findById(requestId)
-                .ifPresentOrElse(friendManagement -> {
-                    friendManagement.setStatus(FriendStatus.REJECTED);
-                    //friendManagementRepository.save(friendManagement);
-                }, () -> {
-                    throw new IllegalArgumentException("Invalid friend request id");
-                });
+    @Transactional
+    public void rejectFriendRequest(Long senderId, Long receiverId) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@"+ senderId + " " + receiverId);
+         FriendManagement friendManagement = friendManagementRepository
+                .findBySenderAndReceiverAndStatus_Requested(senderId, receiverId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
+        friendManagement.setStatus(FriendStatus.REJECTED);
     }
 
+    @Transactional
     public void deleteFriend(Long memberId, Long friendId) {
 
         FriendManagement friendManagement = friendManagementRepository

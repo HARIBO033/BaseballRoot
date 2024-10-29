@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/diarys/{diaryId}/comments")
+@RequestMapping("/diaries/{diaryId}/comments")
 @Slf4j
 public class CommentController {
 
@@ -31,7 +31,7 @@ public class CommentController {
     }
 
     @PostMapping("")
-    public void createComment(@PathVariable("diaryId") Long diaryId, @RequestBody CommentDto.Request commentDto) {
+    public void createComment(@PathVariable("diary-id") Long diaryId, @RequestBody CommentDto.Request commentDto) {
         log.info("request : {}", commentDto);
         commentService.createComment(diaryId, commentDto);
     }
