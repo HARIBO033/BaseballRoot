@@ -1,7 +1,9 @@
-package com.baseball_root.global;
+package com.baseball_root.crawler;
 
+import lombok.Getter;
 import lombok.ToString;
 
+@Getter
 public class ScheduleDto {
     private final String currentDay;
     private final String time;
