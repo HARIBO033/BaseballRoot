@@ -2,10 +2,7 @@ package com.baseball_root.member;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
@@ -40,9 +37,13 @@ public class Member {
     @Column(name = "gender", nullable = false)
     private String gender;
 
+    @Column(name = "favoriteTeam", nullable = true)
+    private String favoriteTeam;
+
     //고유코드
     @Column(name = "memberCode", nullable = false)
     private String memberCode;
+
 
     @ManyToMany
     @JoinTable(
@@ -51,6 +52,7 @@ public class Member {
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private List<Member> friends = new ArrayList<>();
+
     public String makeMemberCode() {
         this.memberCode = this.nickname + this.id;
         return memberCode;
@@ -66,4 +68,12 @@ public class Member {
     public void addFriend(Member friend){
         this.friends.add(friend);
     }
+
+    public void update(String nickname, String favoriteTeam) {
+        this.nickname = nickname;
+        this.favoriteTeam = favoriteTeam;
+    }
+
+
+
 }

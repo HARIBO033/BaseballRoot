@@ -1,8 +1,5 @@
 package com.baseball_root;
 
-import com.baseball_root.global.*;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -17,20 +14,20 @@ public class BaseballRootApplication {
 
         SpringApplication.run(BaseballRootApplication.class, args);
 
-		/*// KBO
-		WebCrawler webCrawler = new WebCrawler();
-		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("20240522");
+
+
+            // KBO
+		/*WebCrawler webCrawler = new WebCrawler();
+		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("20241022");
 
 		for (ScheduleDto scheduleDto : scheduleDtoList) {
 			System.out.println(scheduleDto);
-		}
-*/
-        //DiningcodeCrawler diningcodeCrawler = new DiningcodeCrawler();
-        //System.out.println(diningcodeCrawler.searchRestaurantByLocalName("잠실운동장"));
+		}*/
+            //DiningcodeCrawler diningcodeCrawler = new DiningcodeCrawler();
+            //System.out.println(diningcodeCrawler.searchRestaurantByLocalName("잠실운동장"));
 
 
-
-		// 날씨
+            // 날씨
 		/*WeatherCrawler weatherCrawler = new WeatherCrawler();
 
 		String[] v = new String[5];

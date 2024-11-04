@@ -1,5 +1,6 @@
-package com.baseball_root.global;
+package com.baseball_root.crawler;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,7 +18,8 @@ public class WebCrawler {
     public List<ScheduleDto> scrapeSchedule(String date) {
         List<ScheduleDto> scheduleList = new ArrayList<>();
 
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/static/driver/chromedriver.exe");
+        WebDriverManager.chromedriver().setup(); // WebDriverManager를 사용하면 별도로 드라이버를 다운로드 받지 않아도 됨
+        //System.setProperty("webdriver.chrome.driver", "src/main/resources/static/driver/chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
@@ -44,7 +46,7 @@ public class WebCrawler {
                 Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
                 Element location = schedule.selectFirst("td:nth-child(8)");
 
-                if ("-".equals(location.text())) {
+                if (location == null ||"-".equals(location.text())) {
                     location = schedule.selectFirst("td:nth-child(7)");
                 }
 
@@ -65,4 +67,6 @@ public class WebCrawler {
         }
         return scheduleList;
     }
+
+
 }
