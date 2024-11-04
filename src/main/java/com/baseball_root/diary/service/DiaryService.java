@@ -26,23 +26,14 @@ public class DiaryService {
         Diary diary = diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 일기가 없습니다. id=" + id));
         return DiaryDto.Response.fromEntity(diary);
     }
+
     @Transactional
     public DiaryDto.Response saveDiary(DiaryDto.Request diaryDto){
         Member author = memberRepository.findByNickname(diaryDto.getNickname());
-        /*Diary diary = diaryDto.toEntity(
-                diaryDto.getImageUrl(),
-                diaryDto.getHomeVsAway(),
-                diaryDto.getPlace(),
-                diaryDto.getSeat(),
-                diaryDto.getTitle(),
-                diaryDto.getContent(),
-                diaryDto.getLineUp(),
-                diaryDto.getMvp(),
-                author
-        );*/
+
         Diary diary  = Diary.builder()
                 .imageUrl(diaryDto.getImageUrl())
-                .homeVsAway(diaryDto.getHomeVsAway())
+                .home(diaryDto.getHome())
                 .place(diaryDto.getPlace())
                 .seat(diaryDto.getSeat())
                 .title(diaryDto.getTitle())
@@ -50,6 +41,8 @@ public class DiaryService {
                 .lineUp(diaryDto.getLineUp())
                 .mvp(diaryDto.getMvp())
                 .member(author)
+                .location(diaryDto.getLocation())
+                .gameResult(diaryDto.getGameResult())
                 .build();
         diaryRepository.save(diary);
         return DiaryDto.Response.fromEntity(diary);
@@ -77,4 +70,5 @@ public class DiaryService {
         diaryRepository.delete(diary);
         return id;
     }
+
 }

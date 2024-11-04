@@ -17,7 +17,9 @@ public class DiaryDto {
         @NotBlank
         private String imageUrl;
         @NotBlank
-        private String homeVsAway;
+        private String home;
+        @NotBlank
+        private String away;
         @NotBlank
         private String place;
         private String seat;
@@ -29,8 +31,12 @@ public class DiaryDto {
 
         private String nickname;
 
-        public Diary toEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member member){
-            return new Diary(imageUrl, homeVsAway, place, seat, title, content, lineUp, mvp, member);
+        private String location;
+        private String gameResult;
+        private String gameDate;
+
+        public Diary toEntity(String imageUrl, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
+            return new Diary(imageUrl, home,away, place, seat, title, content, lineUp, mvp, member);
         }
     }
 
@@ -38,7 +44,8 @@ public class DiaryDto {
     @Getter
     public static class Response{
         private String imageUrl;
-        private String homeVsAway;
+        private String home;
+        private String away;
         private String place;
         private String seat;
         private String title;
@@ -46,11 +53,15 @@ public class DiaryDto {
         private String lineUp;
         private String mvp;
         private String nickname;
+        private String location;
+        private String gameResult;
+        private String gameDate;
 
         public static Response fromEntity(Diary diary){
             return Response.builder()
                     .imageUrl(diary.getImageUrl())
-                    .homeVsAway(diary.getHomeVsAway())
+                    .home(diary.getHome())
+                    .away(diary.getAway())
                     .place(diary.getPlace())
                     .seat(diary.getSeat())
                     .title(diary.getTitle())
@@ -58,6 +69,9 @@ public class DiaryDto {
                     .lineUp(diary.getLineUp())
                     .mvp(diary.getMvp())
                     .nickname(diary.getMember().getNickname())
+                    .location(diary.getLocation())
+                    .gameResult(diary.getGameResult())
+                    .gameDate(diary.getGameDate())
                     .build();
         }
 

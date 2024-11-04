@@ -24,14 +24,15 @@ import java.util.List;
 public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     private String imageUrl;
 
-    @Column(name = "homeVsAway", nullable = false)
-    private String homeVsAway;
+    @Column(name = "home", nullable = false)
+    private String home;
 
+    @Column(name = "away", nullable = false)
+    private String away;
     @Column(name = "place", nullable = false)
     private String place;
 
@@ -59,6 +60,15 @@ public class Diary {
     @OneToMany(fetch= FetchType.LAZY, mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comment;
 
+    @Column(name = "location", nullable = true)
+    private String location;
+
+    @Column(name = "game_result", nullable = true)
+    private String gameResult;
+
+    @Column(name = "game_date", nullable = true)
+    private String gameDate;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -66,9 +76,10 @@ public class Diary {
     private LocalDateTime updatedAt;
 
 
-    public Diary(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
+    public Diary(String imageUrl, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
         this.imageUrl = imageUrl;
-        this.homeVsAway = homeVsAway;
+        this.home = home;
+        this.away = away;
         this.place = place;
         this.seat = seat;
         this.title = title;
@@ -78,18 +89,6 @@ public class Diary {
         this.member = member;
     }
 
-    public Diary fromEntity(String imageUrl, String homeVsAway, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
-        this.imageUrl = imageUrl;
-        this.homeVsAway = homeVsAway;
-        this.place = place;
-        this.seat = seat;
-        this.title = title;
-        this.content = content;
-        this.lineUp = lineUp;
-        this.mvp = mvp;
-        this.member = member;
-        return this;
-    }
 
     public void update(String imageUrl, String seat, String title, String content, String lineUp, String mvp) {
         this.imageUrl = imageUrl;
