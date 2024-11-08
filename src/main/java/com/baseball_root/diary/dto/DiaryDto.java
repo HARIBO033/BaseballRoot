@@ -7,9 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Builder
 public class DiaryDto {
+
+
 
     @Getter
     @Setter
@@ -56,6 +59,9 @@ public class DiaryDto {
         private String location;
         private String gameResult;
         private String gameDate;
+        private LocalDateTime createdAt;
+
+
 
         public static Response fromEntity(Diary diary){
             return Response.builder()
@@ -72,6 +78,7 @@ public class DiaryDto {
                     .location(diary.getLocation())
                     .gameResult(diary.getGameResult())
                     .gameDate(diary.getGameDate())
+                    .createdAt(diary.getCreatedAt())
                     .build();
         }
 

@@ -11,6 +11,13 @@ public class MemberDto {
     private Long id;
     private String nickname;
 
+    public static MemberDto fromEntity(Member member) {
+        return MemberDto.builder()
+                .id(member.getId())
+                .nickname(member.getNickname())
+                .build();
+    }
+
     @Getter
     @Builder
     @NoArgsConstructor
