@@ -1,5 +1,6 @@
 package com.baseball_root.member;
 
+import com.baseball_root.friend.FriendDto;
 import com.baseball_root.friend.FriendService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class MemberController {
 
     //프로필 수정
     @PutMapping("/members/{memberId}")
-    public ResponseEntity<MemberDto.Response> updateMember(@PathVariable(name = "memberId") Long memberId, @RequestBody MemberDto.Request memberDto) {
+    public ResponseEntity<MemberDto.Response> updateMemberInfo(@PathVariable(name = "memberId") Long memberId, @RequestBody MemberDto.Request memberDto) {
         MemberDto.Response updatedMember = memberService.updateMember(memberId, memberDto);
         return ResponseEntity.ok(updatedMember);
     }
