@@ -28,12 +28,14 @@ public class DiaryService {
     }
 
     @Transactional
-    public DiaryDto.Response saveDiary(DiaryDto.Request diaryDto){
-        Member author = memberRepository.findByNickname(diaryDto.getNickname());
+    public DiaryDto.Response saveDiary(Long memberId, DiaryDto.Request diaryDto){
+        Member author = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + memberId));
 
         Diary diary  = Diary.builder()
                 .imageUrl(diaryDto.getImageUrl())
                 .home(diaryDto.getHome())
+                .away(diaryDto.getAway())
                 .place(diaryDto.getPlace())
                 .seat(diaryDto.getSeat())
                 .title(diaryDto.getTitle())
@@ -43,6 +45,7 @@ public class DiaryService {
                 .member(author)
                 .location(diaryDto.getLocation())
                 .gameResult(diaryDto.getGameResult())
+                .gameDate(diaryDto.getGameDate())
                 .build();
         diaryRepository.save(diary);
         return DiaryDto.Response.fromEntity(diary);

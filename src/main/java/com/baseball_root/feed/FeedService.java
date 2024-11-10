@@ -26,14 +26,14 @@ public class FeedService {
         List<Diary> diaryList = getMember(memberId).getDiaries();
         diaryList.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
 
-        return diaryList.stream().map(DiaryDto.Response::fromEntity).collect(Collectors.toList());
+        return diaryList.stream().map(DiaryDto.Response::of).collect(Collectors.toList());
     }
 
     public List<DiaryDto.Response> getFriendFeedList(Long memberId) {
         List<Diary> diaryList = getMember(memberId).getDiaries();
         diaryList.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
 
-        return diaryList.stream().map(DiaryDto.Response::fromEntity).collect(Collectors.toList());
+        return diaryList.stream().map(DiaryDto.Response::of).collect(Collectors.toList());
     }
 
     public List<MemberDto> getFeedSortedFriendList(Long memberId) {
@@ -77,7 +77,7 @@ public class FeedService {
 
         diaryList.sort((d1, d2) -> d2.getCreatedAt().compareTo(d1.getCreatedAt()));
 
-        return diaryList.stream().map(DiaryDto.Response::fromEntity).collect(Collectors.toList());
+        return diaryList.stream().map(DiaryDto.Response::of).collect(Collectors.toList());
     }
 
 

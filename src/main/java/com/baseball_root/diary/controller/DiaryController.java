@@ -39,10 +39,10 @@ public class DiaryController {
         log.info("request : {}", diaryDto);
         return diaryService.saveDiaryPage1(diaryDto);
     }*/
-    @PostMapping("/save")
-    public DiaryDto.Response createDiary(@RequestBody DiaryDto.Request diaryDto){
+    @PostMapping("/save/{memberId}")
+    public DiaryDto.Response createDiary(@PathVariable(name = "memberId") Long memberId, @RequestBody DiaryDto.Request diaryDto){
         log.info("request : {}", diaryDto);
-        return diaryService.saveDiary(diaryDto);
+        return diaryService.saveDiary(memberId, diaryDto);
     }
 
     @PutMapping("/{diaryId}")

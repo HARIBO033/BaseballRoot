@@ -60,13 +60,13 @@ public class Diary {
     @OneToMany(fetch= FetchType.LAZY, mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comment;
 
-    @Column(name = "location", nullable = true)
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "game_result", nullable = true)
+    @Column(name = "game_result", nullable = false)
     private String gameResult;
 
-    @Column(name = "game_date", nullable = true)
+    @Column(name = "game_date", nullable = false)
     private String gameDate;
 
     @CreatedDate

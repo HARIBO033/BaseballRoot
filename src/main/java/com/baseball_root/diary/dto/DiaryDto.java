@@ -19,9 +19,7 @@ public class DiaryDto {
     public static class Request{
         @NotBlank
         private String imageUrl;
-        @NotBlank
         private String home;
-        @NotBlank
         private String away;
         @NotBlank
         private String place;
@@ -31,8 +29,6 @@ public class DiaryDto {
         private String content;
         private String lineUp;
         private String mvp;
-
-        private String nickname;
 
         private String location;
         private String gameResult;
@@ -55,13 +51,46 @@ public class DiaryDto {
         private String content;
         private String lineUp;
         private String mvp;
-        private String nickname;
         private String location;
         private String gameResult;
         private String gameDate;
+        private String nickname;
         private LocalDateTime createdAt;
 
+        private Response(String imageUrl, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, LocalDateTime createdAt) {
+            this.imageUrl = imageUrl;
+            this.home = home;
+            this.away = away;
+            this.place = place;
+            this.seat = seat;
+            this.title = title;
+            this.content = content;
+            this.lineUp = lineUp;
+            this.mvp = mvp;
+            this.location = location;
+            this.gameResult = gameResult;
+            this.gameDate = gameDate;
+            this.nickname = nickname;
+            this.createdAt = createdAt;
+        }
 
+        public static Response of(Diary diary){
+            return new Response(
+                    diary.getImageUrl(),
+                    diary.getHome(),
+                    diary.getAway(),
+                    diary.getPlace(),
+                    diary.getSeat(),
+                    diary.getTitle(),
+                    diary.getContent(),
+                    diary.getLineUp(),
+                    diary.getMvp(),
+                    diary.getLocation(),
+                    diary.getGameResult(),
+                    diary.getGameDate(),
+                    diary.getMember().getNickname(),
+                    diary.getCreatedAt());
+        }
 
         public static Response fromEntity(Diary diary){
             return Response.builder()
@@ -74,7 +103,6 @@ public class DiaryDto {
                     .content(diary.getContent())
                     .lineUp(diary.getLineUp())
                     .mvp(diary.getMvp())
-                    .nickname(diary.getMember().getNickname())
                     .location(diary.getLocation())
                     .gameResult(diary.getGameResult())
                     .gameDate(diary.getGameDate())
