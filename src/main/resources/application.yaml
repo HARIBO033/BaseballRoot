@@ -5,15 +5,26 @@
 #    username: root
 #    password: 1234
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2     # H2 콘솔의 접속 URL을 간결하게 함
-      datasource:
-        url: jdbc:h2:mem:test  # JDBC URL이 매번 랜덤하게 바뀌지 않도록 고정
-        username: sa
-        password:
-        driver-class-name: org.h2.Driver
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://15.165.85.56:3306/baseball_root
+    username: test
+    password: 123456
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/baseball_root
+#    username: root
+#    password: 123456
+  #  h2:
+  #    console:
+  #      enabled: true
+  #      path: /h2     # H2 콘솔의 접속 URL을 간결하게 함
+  #      datasource:
+  #        url: jdbc:h2:mem:test  # JDBC URL이 매번 랜덤하게 바뀌지 않도록 고정
+  #        username: sa
+  #        password:
+  #        driver-class-name: org.h2.Driver
+
 
   jpa:
     defer-datasource-initialization: true
