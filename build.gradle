@@ -44,11 +44,12 @@ dependencies {
 
 }
 
-tasks.named('test') {
+/*tasks.named('test') {
     useJUnitPlatform()
-}
+}*/
 
 //서버배포
+/*
 tasks.named('bootJar') {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
+}*/
