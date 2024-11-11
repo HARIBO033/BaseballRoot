@@ -49,7 +49,6 @@ dependencies {
 }*/
 
 //서버배포
-/*
 tasks.named('bootJar') {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}*/
+}
