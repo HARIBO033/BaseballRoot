@@ -2,12 +2,11 @@ package com.baseball_root.diary.dto;
 
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.member.Member;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import org.hibernate.validator.constraints.Length;
 
 @Builder
 public class DiaryDto {
@@ -26,6 +25,9 @@ public class DiaryDto {
         private String seat;
         @NotBlank
         private String title;
+
+        @Length(max = 500, message = "내용은 500자리를 넘을 수 없습니다.")
+        @NotBlank(message = "내용은 필수 입력값입니다.")
         private String content;
         private String lineUp;
         private String mvp;
@@ -33,6 +35,7 @@ public class DiaryDto {
         private String location;
         private String gameResult;
         private String gameDate;
+
 
         public Diary toEntity(String imageUrl, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
             return new Diary(imageUrl, home,away, place, seat, title, content, lineUp, mvp, member);
@@ -55,9 +58,9 @@ public class DiaryDto {
         private String gameResult;
         private String gameDate;
         private String nickname;
-        private LocalDateTime createdAt;
+        private String createdAt;
 
-        private Response(String imageUrl, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, LocalDateTime createdAt) {
+        private Response(String imageUrl, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
             this.imageUrl = imageUrl;
             this.home = home;
             this.away = away;
@@ -89,7 +92,7 @@ public class DiaryDto {
                     diary.getGameResult(),
                     diary.getGameDate(),
                     diary.getMember().getNickname(),
-                    diary.getCreatedAt());
+                    diary.getFormattedCreatedAt());
         }
 
         public static Response fromEntity(Diary diary){
@@ -106,7 +109,7 @@ public class DiaryDto {
                     .location(diary.getLocation())
                     .gameResult(diary.getGameResult())
                     .gameDate(diary.getGameDate())
-                    .createdAt(diary.getCreatedAt())
+                    .createdAt(diary.getFormattedCreatedAt())
                     .build();
         }
 
