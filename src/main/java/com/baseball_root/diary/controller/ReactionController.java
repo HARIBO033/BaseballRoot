@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/diaries/comments/reactions")
 @RequiredArgsConstructor
 public class ReactionController {
 
     private final ReactionService reactionService;
 
-    @PostMapping("")
+    @PostMapping("/diaries/comments/reactions")
     public void saveCommentReaction(@RequestBody ReactionDto.Request reactionDto) {
         System.out.println("reactionDto : " + reactionDto.toString());
         reactionService.saveCommentReaction(reactionDto);

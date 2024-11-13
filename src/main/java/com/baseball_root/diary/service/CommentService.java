@@ -1,5 +1,8 @@
 package com.baseball_root.diary.service;
 
+import com.baseball_root.Issue.Issue;
+import com.baseball_root.Issue.IssueRepository;
+import com.baseball_root.Issue.IssueType;
 import com.baseball_root.diary.domain.Comment;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.CommentDto;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -21,6 +25,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
     private final DiaryRepository diaryRepository;
+    private final IssueRepository issueRepository;
 
     public List<Comment> getComments(Long diaryId) {
         List<Comment> commentList = commentRepository.findAll();
@@ -38,6 +43,15 @@ public class CommentService {
 
         if (commentDto.getParentCommentId() == null) {
             commentRepository.save(comment);
+            if (!Objects.equals(diary.getMember().getId(), author.getId())){
+                Issue issue = Issue.builder()
+                        .sender(diary.getMember())
+                        .receiver(author)
+                        .issueType(IssueType.COMMENT)
+                        .isRead(false)
+                        .build();
+                issueRepository.save(issue);
+            }
         } else {
             //부모댓글 찾기
             Comment parentComment = commentRepository.findById(commentDto.getParentCommentId())
@@ -45,7 +59,17 @@ public class CommentService {
             //부모댓글의 자식댓글로 저장
             comment.setParentComment(parentComment);
             commentRepository.save(comment);
+            if (!Objects.equals(diary.getMember().getId(), author.getId())){
+                Issue issue = Issue.builder()
+                        .sender(diary.getMember())
+                        .receiver(author)
+                        .issueType(IssueType.COMMENT)
+                        .isRead(false)
+                        .build();
+                issueRepository.save(issue);
+            }
         }
+
     }
 
 
