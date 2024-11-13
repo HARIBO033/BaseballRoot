@@ -8,11 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Builder
-public class Diary {
+public class Diary extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -68,13 +65,6 @@ public class Diary {
 
     @Column(name = "game_date", nullable = false)
     private String gameDate;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
 
     public Diary(String imageUrl, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
         this.imageUrl = imageUrl;
