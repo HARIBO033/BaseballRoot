@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment {
+public class Comment extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,11 +50,6 @@ public class Comment {
     private List<Comment> children = new ArrayList<>();  // 대댓글 리스트
 
     private Long reactionCount = 0L;  // 댓글의 반응 수
-    @CreatedDate
-    private LocalDateTime createdAt;  // 댓글 작성 시간
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;  // 댓글 수정 시간
 
 
     public void setParentComment(Comment comment) {
