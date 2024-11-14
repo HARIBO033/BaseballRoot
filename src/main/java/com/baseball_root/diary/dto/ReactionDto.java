@@ -6,16 +6,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 public class ReactionDto {
+
     @Getter
     @Setter
     @ToString
     public static class Request{
-        private long commentId;
-        private long memberId;
+        private Long diaryId;
+        private Long commentId;
+        private Long memberId;
         private boolean reactionType;
 
-        public Reaction toDto(){
+        public Reaction toEntity(){
             return Reaction.builder()
+                    .diaryId(diaryId)
                     .commentId(commentId)
                     .memberId(memberId)
                     .reactionType(reactionType)

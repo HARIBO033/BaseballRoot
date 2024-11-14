@@ -32,6 +32,8 @@ public class CommentService {
         System.out.println(commentList);
         return commentList;
     }
+
+    //댓글 생성
     @Transactional
     public void createComment(Long diaryId, CommentDto.Request commentDto) {
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+commentDto.getMemberId().toString());
@@ -41,33 +43,17 @@ public class CommentService {
         );
         Comment comment = commentDto.toEntity(diary, author);
 
-        if (commentDto.getParentCommentId() == null) {
-            commentRepository.save(comment);
-            if (!Objects.equals(diary.getMember().getId(), author.getId())){
-                Issue issue = Issue.builder()
-                        .sender(diary.getMember())
-                        .receiver(author)
-                        .issueType(IssueType.COMMENT)
-                        .isRead(false)
-                        .build();
-                issueRepository.save(issue);
-            }
-        } else {
+        if (commentDto.getParentCommentId() != null) {
             //부모댓글 찾기
             Comment parentComment = commentRepository.findById(commentDto.getParentCommentId())
                     .orElseThrow(() -> new IllegalArgumentException("부모 댓글이 없습니다."));
             //부모댓글의 자식댓글로 저장
             comment.setParentComment(parentComment);
-            commentRepository.save(comment);
-            if (!Objects.equals(diary.getMember().getId(), author.getId())){
-                Issue issue = Issue.builder()
-                        .sender(diary.getMember())
-                        .receiver(author)
-                        .issueType(IssueType.COMMENT)
-                        .isRead(false)
-                        .build();
-                issueRepository.save(issue);
-            }
+        }
+
+        commentRepository.save(comment);
+        if (!Objects.equals(diary.getMember().getId(), author.getId())){
+            issueRepository.save(Issue.createIssue(diary.getMember(), author, IssueType.COMMENT));
         }
 
     }
@@ -82,6 +68,9 @@ public class CommentService {
         return commentRepository.findByDiaryAndParentIsNull(diary);
         //return commentRepository.findByDiaryIdAndParentIsNull(diary.getId());
     }
+
+    // 댓글 삭제
+    @Transactional
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         commentRepository.delete(comment);

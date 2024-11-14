@@ -4,8 +4,10 @@ import com.baseball_root.Issue.Issue;
 import com.baseball_root.Issue.IssueRepository;
 import com.baseball_root.Issue.IssueType;
 import com.baseball_root.diary.domain.Comment;
+import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.ReactionDto;
 import com.baseball_root.diary.repository.CommentRepository;
+import com.baseball_root.diary.repository.DiaryRepository;
 import com.baseball_root.diary.repository.ReactionRepository;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
@@ -23,35 +25,48 @@ public class ReactionService {
     private final CommentRepository commentRepository;
     private final IssueRepository issueRepository;
     private final MemberRepository memberRepository;
+    private final DiaryRepository diaryRepository;
 
     @Transactional
-    public void saveCommentReaction(ReactionDto.Request reactionDto) {
+    public void saveDiaryOrCommentReaction(ReactionDto.Request reactionDto) {
         boolean requestReactionType = reactionDto.isReactionType();
-        reactionRepository.save(reactionDto.toDto());
+        // 댓글에 대한 반응인지 다이어리에 대한 반응인지 확인
+        if (reactionDto.getDiaryId() != null && reactionDto.getCommentId() == null) {
+            Diary diary = diaryRepository.findById(reactionDto.getDiaryId())
+                    .orElseThrow(() -> new NoSuchElementException(
+                            "Diary not found for id: " + reactionDto.getDiaryId()));
+            diary.nullCheck();
+            if (requestReactionType) {
+                diary.increaseReactionCount();
+            } else {
+                diary.decreaseReactionCount();
+            }
+            Member sender = memberRepository.findById(reactionDto.getMemberId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
 
-        Comment comment = commentRepository.findById(reactionDto.getCommentId())
-                .orElseThrow(() -> new NoSuchElementException(
-                        "Comment not found for id: " + reactionDto.getCommentId()));
-        comment.nullCheck();
+            Member receiver = memberRepository.findById(diary.getMember().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
 
-        if (requestReactionType) {
-            comment.increaseReactionCount();
+            issueRepository.save(Issue.createIssue(sender, receiver, IssueType.DIARY_REACTION));
         } else {
-            comment.decreaseReactionCount();
+            Comment comment = commentRepository.findById(reactionDto.getCommentId())
+                    .orElseThrow(() -> new NoSuchElementException(
+                            "Comment not found for id: " + reactionDto.getCommentId()));
+            comment.nullCheck();
+            if (requestReactionType) {
+                comment.increaseReactionCount();
+            } else {
+                comment.decreaseReactionCount();
+            }
+            Member sender = memberRepository.findById(reactionDto.getMemberId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
+
+            Member receiver = memberRepository.findById(comment.getMember().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
+
+            issueRepository.save(Issue.createIssue(sender, receiver, IssueType.COMMENT_REACTION));
         }
-
-        Member sender = memberRepository.findById(reactionDto.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
-
-        Member receiver = memberRepository.findById(comment.getMember().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
-        Issue issue = Issue.builder()
-                .sender(sender)
-                .receiver(receiver)
-                .issueType(IssueType.REACTION)
-                .isRead(false)
-                .build();
-        issueRepository.save(issue);
-
+        reactionRepository.save(reactionDto.toEntity());
     }
+
 }
