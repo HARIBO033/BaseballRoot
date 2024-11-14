@@ -109,6 +109,7 @@ public class DiaryDto {
                     .location(diary.getLocation())
                     .gameResult(diary.getGameResult())
                     .gameDate(diary.getGameDate())
+                    .nickname(diary.getMember().getNickname())
                     .createdAt(diary.getFormattedCreatedAt())
                     .build();
         }
