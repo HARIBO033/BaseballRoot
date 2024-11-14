@@ -5,19 +5,18 @@ import com.baseball_root.diary.service.ReactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/diaries/comments/reactions")
 @RequiredArgsConstructor
 public class ReactionController {
 
     private final ReactionService reactionService;
 
-    @PostMapping("")
-    public void saveCommentReaction(@RequestBody ReactionDto.Request reactionDto) {
+    @PostMapping("/diaries/reactions")
+    public void saveDiaryOrCommentReaction(@RequestBody ReactionDto.Request reactionDto) {
         System.out.println("reactionDto : " + reactionDto.toString());
-        reactionService.saveCommentReaction(reactionDto);
+        reactionService.saveDiaryOrCommentReaction(reactionDto);
     }
+
 }

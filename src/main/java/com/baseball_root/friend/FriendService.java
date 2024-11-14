@@ -1,5 +1,8 @@
 package com.baseball_root.friend;
 
+import com.baseball_root.Issue.Issue;
+import com.baseball_root.Issue.IssueRepository;
+import com.baseball_root.Issue.IssueType;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberDto;
 import com.baseball_root.member.MemberRepository;
@@ -16,7 +19,7 @@ import java.util.stream.Collectors;
 public class FriendService {
     private final MemberRepository memberRepository;
     private final FriendManagementRepository friendManagementRepository;
-
+    private final IssueRepository issueRepository;
 
     public List<FriendManagementDto> getFriendRequestedList(Long memberId) {
         List<FriendManagementDto> friendManagementList =
@@ -45,7 +48,14 @@ public class FriendService {
                 .status(FriendStatus.REQUESTED)
                 .build();
 
+        Issue issue = Issue.builder()
+                .sender(sender)
+                .receiver(receiver)
+                .issueType(IssueType.FOLLOW_REQUEST)
+                .isRead(false)
+                .build();
 
+        issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_REQUEST));
         friendManagementRepository.save(friendManagement);
     }
 
@@ -65,6 +75,7 @@ public class FriendService {
         receiver.addFriend(sender);
         friendManagement.setStatus(FriendStatus.ACCEPTED);
 
+        issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_ACCEPTED));
     }
     @Transactional
     public void rejectFriendRequest(Long senderId, Long receiverId) {

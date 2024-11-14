@@ -18,7 +18,10 @@ public class Reaction {
     @Column(name = "member_id", nullable = false)
     private Long memberId;
 
-    @Column(name = "comment_id", nullable = false)
+    @Column(name = "diary_id")
+    private Long diaryId;
+
+    @Column(name = "comment_id")
     private Long commentId;
 
     private boolean reactionType;

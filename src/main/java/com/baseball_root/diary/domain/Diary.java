@@ -66,6 +66,8 @@ public class Diary extends BaseTimeEntity{
     @Column(name = "game_date", nullable = false)
     private String gameDate;
 
+    private Long reactionCount = 0L;
+
     public Diary(String imageUrl, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
         this.imageUrl = imageUrl;
         this.home = home;
@@ -87,5 +89,25 @@ public class Diary extends BaseTimeEntity{
         this.content = content;
         this.lineUp = lineUp;
         this.mvp = mvp;
+    }
+
+    public void increaseReactionCount() {
+        if (this.reactionCount == null) {
+            this.reactionCount = 0L;  // 기본값 설정
+        }
+        this.reactionCount++;
+    }
+
+    public void decreaseReactionCount() {
+        if (this.reactionCount == null || this.reactionCount == 0L) {
+            throw new IllegalStateException("ReactionCount 는 0보다 작을 수 없습니다.");
+        }
+        this.reactionCount--;
+    }
+
+    public void nullCheck(){
+        if(this.reactionCount == null){
+            this.reactionCount = 0L;
+        }
     }
 }
