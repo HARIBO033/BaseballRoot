@@ -55,7 +55,7 @@ public class FriendService {
                 .isRead(false)
                 .build();
 
-        issueRepository.save(issue);
+        issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_REQUEST));
         friendManagementRepository.save(friendManagement);
     }
 
@@ -75,13 +75,7 @@ public class FriendService {
         receiver.addFriend(sender);
         friendManagement.setStatus(FriendStatus.ACCEPTED);
 
-        Issue issue = Issue.builder()
-                .sender(sender)
-                .receiver(receiver)
-                .issueType(IssueType.FOLLOW_ACCEPTED)
-                .isRead(false)
-                .build();
-        issueRepository.save(issue);
+        issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_ACCEPTED));
     }
     @Transactional
     public void rejectFriendRequest(Long senderId, Long receiverId) {

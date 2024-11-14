@@ -2,10 +2,7 @@ package com.baseball_root.Issue;
 
 import com.baseball_root.member.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -33,4 +30,13 @@ public class Issue {
 
     private boolean isRead;
 
+
+    public static Issue createIssue(Member sender, Member receiver, IssueType issueType) {
+        return Issue.builder()
+                .sender(sender)
+                .receiver(receiver)
+                .issueType(issueType)
+                .isRead(false)
+                .build();
+    }
 }
