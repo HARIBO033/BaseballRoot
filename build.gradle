@@ -25,6 +25,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'ch.qos.logback:logback-classic' // Logback은 기본적으로 포함됨
+    implementation 'org.slf4j:slf4j-log4j12' // Log4j와의 통합 제거
 
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
     implementation 'org.jsoup:jsoup:1.18.1'
@@ -43,8 +45,6 @@ dependencies {
 
     implementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
     //implementation 'javax.validation:validation-api:2.0.1.Final'
-
-    implementation 'ch.qos.logback:logback-classic:1.2.11'
 
 }
 
