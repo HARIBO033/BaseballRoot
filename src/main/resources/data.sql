@@ -1,23 +1,23 @@
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (3, 1, 'il', 'il', 'profilePhoto', 'male', 'memberCode', 'SSG 랜더스');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 2, 'yee', 'yee', 'profilePhoto', 'male', 'memberCode', 'LG 트윈스');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 3, 'sam', 'sam', 'profilePhoto', 'male', 'memberCode', '한화');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 4, 'sa', 'sa', 'profilePhoto', 'male', 'memberCode', '롯데');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 5, 'oh', 'oh', 'profilePhoto', 'male', 'memberCode', '롯데');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 6, 'nuri', 'momo3', 'profilePhoto', 'male', 'memberCode', '롯데');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 7, 'haun', 'momo4', 'profilePhoto', 'male', 'memberCode', '롯데');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 8, 'mina', 'momo5', 'profilePhoto', 'male', 'memberCode', '롯데');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 9, 'jin', 'momo6', 'profilePhoto', 'male', 'memberCode', 'LG');
-insert into member (age, id, name, nickname, profile_photo, gender, member_code, favorite_team)
-values (5, 10, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode', '롯데');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (3, 'il', 'il', 'profilePhoto', 'male', 'memberCode', 'SSG 랜더스');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'yee', 'yee', 'profilePhoto', 'male', 'memberCode', 'LG 트윈스');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'sam', 'sam', 'profilePhoto', 'male', 'memberCode', '한화');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'sa', 'sa', 'profilePhoto', 'male', 'memberCode', '롯데');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'oh', 'oh', 'profilePhoto', 'male', 'memberCode', '롯데');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'nuri', 'momo3', 'profilePhoto', 'male', 'memberCode', '롯데');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'haun', 'momo4', 'profilePhoto', 'male', 'memberCode', '롯데');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'mina', 'momo5', 'profilePhoto', 'male', 'memberCode', '롯데');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'jin', 'momo6', 'profilePhoto', 'male', 'memberCode', 'LG');
+insert into member (age, name, nickname, profile_photo, gender, member_code, favorite_team)
+values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode', '롯데');
 
 
 
