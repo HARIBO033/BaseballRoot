@@ -13,7 +13,7 @@ public class BaseballRootApplication {
 	public static void main(String[] args) throws IOException {
 
         SpringApplication.run(BaseballRootApplication.class, args);
-
+        System.out.println("Hello, World!");
 
 
             // KBO
