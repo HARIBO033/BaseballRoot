@@ -2,4 +2,4 @@ spring:
   profiles:
     active: prod  # 기본 활성 프로파일을 prod로 설정
 server:
-  port: 9090
+  port: 9091
