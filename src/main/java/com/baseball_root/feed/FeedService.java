@@ -52,7 +52,7 @@ public class FeedService {
     public List<DiaryDto.Response> getAllFeedList(Long memberId, String location, String gameDate, String team) { //TODO: 구단이름은 enum으로 관리하자
         List<Member> friends = getMember(memberId).getFriends();
         friends.sort(null);
-        LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);
+        LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);//TODO : 또 바뀐다고함
         List<Diary> diaryList = friends.stream()
                 .map(Member::getDiaries)
                 .flatMap(List::stream)
@@ -81,7 +81,7 @@ public class FeedService {
         }
 
         diaryList.sort((d1, d2) -> d2.getCreatedAt().compareTo(d1.getCreatedAt()));
-
+        System.out.println("diaryList = " + diaryList);
         return diaryList.stream().map(DiaryDto.Response::of).collect(Collectors.toList());
     }
     public Member getMember(Long memberId) {
