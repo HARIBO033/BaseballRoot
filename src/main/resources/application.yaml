@@ -1,5 +1,9 @@
 spring:
   profiles:
-    active: prod  # 기본 활성 프로파일을 prod로 설정
+    active: dev  # 기본 활성 프로파일을 prod로 설정
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
 server:
   port: 9090

@@ -10,14 +10,11 @@ spring:
     url: jdbc:mysql://15.165.85.56:3306/baseball_root
     username: test
     password: 123456
-  jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: update
-    show-sql: false
   sql:
     init:
-      mode: always
+      mode: never
+      platform: mysql
+
   logging:
     level:
       org:
