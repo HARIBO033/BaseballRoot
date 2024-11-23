@@ -42,7 +42,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
 // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
-    implementation 'org.seleniumhq.selenium:selenium-java:4.14.1'
+    implementation 'org.seleniumhq.selenium:selenium-java'
 
 
     implementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
