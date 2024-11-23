@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev  # 기본 활성 프로파일을 prod로 설정
+    active: prod  # 기본 활성 프로파일을 prod로 설정
   jpa:
     defer-datasource-initialization: true
     hibernate:
