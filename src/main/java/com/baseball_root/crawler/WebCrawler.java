@@ -18,11 +18,14 @@ public class WebCrawler {
     public List<ScheduleDto> scrapeSchedule(String date) {
         List<ScheduleDto> scheduleList = new ArrayList<>();
 
-        WebDriverManager.chromedriver().setup(); // WebDriverManager를 사용하면 별도로 드라이버를 다운로드 받지 않아도 됨
+        //WebDriverManager.chromedriver().setup(); // WebDriverManager를 사용하면 별도로 드라이버를 다운로드 받지 않아도 됨
         //System.setProperty("webdriver.chrome.driver", "src/main/resources/static/driver/chromedriver.exe");
-
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
+        options.addArguments("--headless"); // Headless 모드
+        options.addArguments("--no-sandbox"); // 샌드박스 비활성화
+        options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화
+        options.addArguments("--disable-gpu"); // GPU 사용 비활성화
         WebDriver driver = new ChromeDriver(options);
 
         try {

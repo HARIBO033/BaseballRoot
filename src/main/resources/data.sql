@@ -106,6 +106,26 @@ values ('imageUrl', 'LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', '
         '2023-11-03 23:20:11', '2023-11-03 23:20:11');
 insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
+values ('imageUrl', '롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'TIE', '2024',
+        '2024-10-03 23:20:11', '2024-10-03 23:20:11');
+insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
+                   game_result, game_date, created_at, modified_at)
+values ('imageUrl', '롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+        '2024-11-05 23:20:11', '2024-11-05 23:20:11');
+insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
+                   game_result, game_date, created_at, modified_at)
+values ('imageUrl', '롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+        '2024-11-11 23:20:11', '2024-11-11 23:20:11');
+insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
+                   game_result, game_date, created_at, modified_at)
+values ('imageUrl', '롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+        '2024-11-13 23:20:11', '2024-11-13 23:20:11');
+insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
+                   game_result, game_date, created_at, modified_at)
+values ('imageUrl', '롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+        '2024-11-14 23:20:11', '2024-11-14 23:20:11');
+insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
+                   game_result, game_date, created_at, modified_at)
 values ('imageUrl', 'LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 3, '직관', 'WIN', '2024',
         '2023-11-02 23:20:11', '2023-11-02 23:20:11');
 insert into diary (image_url, home, away, place, seat, title, content, line_up, mvp, member_id, location,
