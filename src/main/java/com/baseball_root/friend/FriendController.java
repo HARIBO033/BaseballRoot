@@ -20,13 +20,12 @@ public class FriendController {
         return ResponseEntity.ok(friendService.getFriendRequestedList(memberId));
     }
 
-    @GetMapping("/request/{senderId}/send/{receiverId}")
+    @GetMapping("/request/{senderId}/send")
     public ResponseEntity<String> sendFriendRequest(@PathVariable(name = "senderId") Long senderId,
-                                                    @PathVariable(name = "receiverId") Long receiverId) {
+                                                    @RequestParam(name = "memberCode") String memberCode) {
         System.out.println("친구추가");
-        System.out.println("@@@@@@" + senderId+ " " + receiverId);
-        friendService.sendFriendRequest(senderId, receiverId);
-        return ResponseEntity.ok(senderId + "번 유저가 " + receiverId + "번 유저에게 " + "친구 추가 요청");
+        friendService.sendFriendRequest(senderId, memberCode);
+        return ResponseEntity.ok(senderId + "번 유저가 " + memberCode + " 유저에게 " + "친구 추가 요청");
     }
 
     // 친구 요청 수락 or 거절

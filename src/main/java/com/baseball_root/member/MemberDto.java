@@ -26,6 +26,9 @@ public class MemberDto {
         private Long id;
         private String nickname;
         private String favoriteTeam;
+        private String profileImage;
+
+
     }
 
     @Getter
@@ -34,12 +37,14 @@ public class MemberDto {
         private Long id;
         private String nickname;
         private String favoriteTeam;
+        private String memberCode;
 
         public static Response fromEntity(Member member){
             return Response.builder()
                     .id(member.getId())
                     .nickname(member.getNickname())
                     .favoriteTeam(member.getFavoriteTeam())
+                    .memberCode(member.getMemberCode())
                     .build();
         }
     }

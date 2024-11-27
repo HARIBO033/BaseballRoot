@@ -40,69 +40,77 @@ public class WebCrawler {
             months.selectByValue(date.substring(4, 6));
             String strMonth = date.substring(4, 6);
             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@months : " + strMonth);
-            if (strMonth.equals("10") || strMonth.equals("11")) {
-                league.selectByValue("3,4,5,7");
+            switch (strMonth) {
+                case "10", "11" -> {
+                    league.selectByValue("3,4,5,7");
 
-                //Jsoup, selenium 라이브러리 -> 크롤링 라이브러리
-                Document doc = Jsoup.parse(driver.getPageSource());
-                Elements baseballSchedule = doc.select("#tblScheduleList > tbody > tr");
+                    //Jsoup, selenium 라이브러리 -> 크롤링 라이브러리
+                    Document doc = Jsoup.parse(driver.getPageSource());
+                    Elements baseballSchedule = doc.select("#tblScheduleList > tbody > tr");
 
-                String currentDay = null;
-                for (Element schedule : baseballSchedule) {
-                    Element day = schedule.selectFirst("td.day");
-                    Element time = schedule.selectFirst("td.time");
-                    Element team1 = schedule.selectFirst("td.play > span");
-                    Element vs = schedule.selectFirst("td.play > em");
-                    Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
-                    Element location = schedule.selectFirst("td:nth-child(8)");
+                    String currentDay = null;
+                    for (Element schedule : baseballSchedule) {
+                        Element day = schedule.selectFirst("td.day");
+                        Element time = schedule.selectFirst("td.time");
+                        Element team1 = schedule.selectFirst("td.play > span");
+                        Element vs = schedule.selectFirst("td.play > em");
+                        Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
+                        Element location = schedule.selectFirst("td:nth-child(8)");
 
-                    if (location == null || "-".equals(location.text())) {
-                        location = schedule.selectFirst("td:nth-child(7)");
+                        if (day == null) {
+                            scheduleList.add(null);
+                            break;
+                        }
+                        if (location == null || "-".equals(location.text())) {
+                            location = schedule.selectFirst("td:nth-child(7)");
+                        }
+
+                        if (day != null && (currentDay == null || !currentDay.equals(day.text()))) {
+                            currentDay = day.text();
+                        }
+
+
+                        if (time != null) {
+                            ScheduleDto dto = new ScheduleDto(currentDay, time.text(), team1.text(), vs.text(), team2.text(), location.text());
+                            scheduleList.add(dto);
+                        }
                     }
-
-                    if (day != null && (currentDay == null || !currentDay.equals(day.text()))) {
-                        currentDay = day.text();
-                    }
-
-
-                    if (time != null) {
-                        ScheduleDto dto = new ScheduleDto(currentDay, time.text(), team1.text(), vs.text(), team2.text(), location.text());
-                        scheduleList.add(dto);
-                    }
+                    break;
                 }
-            } else if (strMonth.equals("03") || strMonth.equals("04") || strMonth.equals("05") || strMonth.equals("06") || strMonth.equals("07") || strMonth.equals("08") || strMonth.equals("09")) {
-                league.selectByValue("0,9,6");
+                case "03", "04", "05", "06", "07", "08", "09" -> {
+                    league.selectByValue("0,9,6");
 
-                //Jsoup, selenium 라이브러리 -> 크롤링 라이브러리
-                Document doc = Jsoup.parse(driver.getPageSource());
-                Elements baseballSchedule = doc.select("#tblScheduleList > tbody > tr");
+                    //Jsoup, selenium 라이브러리 -> 크롤링 라이브러리
+                    Document doc = Jsoup.parse(driver.getPageSource());
+                    Elements baseballSchedule = doc.select("#tblScheduleList > tbody > tr");
 
-                String currentDay = null;
-                for (Element schedule : baseballSchedule) {
-                    Element day = schedule.selectFirst("td.day");
-                    Element time = schedule.selectFirst("td.time");
-                    Element team1 = schedule.selectFirst("td.play > span");
-                    Element vs = schedule.selectFirst("td.play > em");
-                    Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
-                    Element location = schedule.selectFirst("td:nth-child(8)");
+                    String currentDay = null;
+                    for (Element schedule : baseballSchedule) {
+                        Element day = schedule.selectFirst("td.day");
+                        Element time = schedule.selectFirst("td.time");
+                        Element team1 = schedule.selectFirst("td.play > span");
+                        Element vs = schedule.selectFirst("td.play > em");
+                        Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
+                        Element location = schedule.selectFirst("td:nth-child(8)");
 
-                    if (location == null || "-".equals(location.text())) {
-                        location = schedule.selectFirst("td:nth-child(7)");
+                        if (location == null || "-".equals(location.text())) {
+                            location = schedule.selectFirst("td:nth-child(7)");
+                        }
+
+                        if (day != null && (currentDay == null || !currentDay.equals(day.text()))) {
+                            currentDay = day.text();
+                        }
+
+
+                        if (time != null) {
+                            ScheduleDto dto = new ScheduleDto(currentDay, time.text(), team1.text(), vs.text(), team2.text(), location.text());
+                            scheduleList.add(dto);
+                        }
                     }
 
-                    if (day != null && (currentDay == null || !currentDay.equals(day.text()))) {
-                        currentDay = day.text();
-                    }
-
-
-                    if (time != null) {
-                        ScheduleDto dto = new ScheduleDto(currentDay, time.text(), team1.text(), vs.text(), team2.text(), location.text());
-                        scheduleList.add(dto);
-                    }
+                    break;
                 }
-
-            } else if (strMonth.equals("01") || strMonth.equals("02") || strMonth.equals("12")) {
-                scheduleList.add(null);
+                case "01", "02", "12" -> scheduleList.add(null);
             }
         } catch (Exception e) {
             e.printStackTrace();

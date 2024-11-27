@@ -23,6 +23,13 @@ public class MemberController {
         return ResponseEntity.ok(friends);
     }
 
+    //회원 추가
+    @PostMapping("/members")
+    public ResponseEntity<MemberDto.Response> saveMember(@RequestBody MemberDto.Request memberDto) {
+        MemberDto.Response savedMember = memberService.saveMember(memberDto);
+        return ResponseEntity.ok(savedMember);
+    }
+
     //프로필 수정
     @PutMapping("/members/{memberId}")
     public ResponseEntity<MemberDto.Response> updateMemberInfo(@PathVariable(name = "memberId") Long memberId, @RequestBody MemberDto.Request memberDto) {
