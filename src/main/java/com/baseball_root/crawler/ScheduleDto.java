@@ -27,7 +27,7 @@ public class ScheduleDto {
                 "currentDay='" + currentDay + '\'' +
                 ", time='" + time + '\'' +
                 ", team1='" + team1 + '\'' +
-                ", vs='" + vs + '\'' +
+                ", :='" + vs + '\'' +
                 ", team2='" + team2 + '\'' +
                 ", location='" + location + '\'' +
                 '}';

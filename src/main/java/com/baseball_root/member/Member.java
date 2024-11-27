@@ -24,19 +24,19 @@ public class Member implements Comparable<Member> {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     private String name;
 
-    @Column(name = "age", nullable = false)
+    @Column(name = "age", nullable = true)
     private Integer age;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname", nullable = true)
     private String nickname;
 
     @Column(name = "profilePhoto", nullable = true)
-    private String profilePhoto;
+    private String profileImage;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender", nullable = true)
     private String gender;
 
     @Column(name = "favoriteTeam", nullable = true)
@@ -63,7 +63,8 @@ public class Member implements Comparable<Member> {
     private List<Diary> diaries = new ArrayList<>();
 
     public String makeMemberCode() {
-        this.memberCode = this.nickname + this.id;
+        CreateUuid createUuid = new CreateUuid();
+        memberCode = createUuid.createUuid();
         return memberCode;
     }
 

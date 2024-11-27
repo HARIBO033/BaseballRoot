@@ -17,4 +17,17 @@ public class MemberService {
         member.update(memberDto.getNickname(), memberDto.getFavoriteTeam());
         return MemberDto.Response.fromEntity(member);
     }
+
+    @Transactional
+    public MemberDto.Response saveMember(MemberDto.Request memberDto) {
+        CreateUuid createUuid = new CreateUuid();
+        Member member = Member.builder()
+                .nickname(memberDto.getNickname())
+                .profileImage(memberDto.getProfileImage())
+                .favoriteTeam(memberDto.getFavoriteTeam())
+                .memberCode(createUuid.createUuid())
+                .build();
+        memberRepository.save(member);
+        return MemberDto.Response.fromEntity(member);
+    }
 }

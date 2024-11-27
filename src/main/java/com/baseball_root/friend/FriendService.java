@@ -31,31 +31,32 @@ public class FriendService {
         return friendManagementList;
     }
 
-    public void sendFriendRequest(Long senderId, Long receiverId) {
+    public void sendFriendRequest(Long senderId, String memberCode) {
         Member sender = memberRepository.findById(senderId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
-        Member receiver = memberRepository.findById(receiverId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
+        Member codeMatchingFriend = memberRepository.findByMemberCode(memberCode)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member code"));
 
         // 만약 이미 친구 요청을 받은 상태라면
-        if (friendManagementRepository.findBySenderAndReceiverAndStatus_Requested(senderId, receiverId).isPresent()) {
+        if (friendManagementRepository
+                .findBySenderAndReceiverAndStatus_Requested(senderId, codeMatchingFriend.getId()).isPresent()) {
             throw new IllegalArgumentException("친구 요청 중입니다");
         }
 
         FriendManagement friendManagement = FriendManagement.builder()
                 .sender(sender)
-                .receiver(receiver)
+                .receiver(codeMatchingFriend)
                 .status(FriendStatus.REQUESTED)
                 .build();
 
-        Issue issue = Issue.builder()
+        Issue.builder()
                 .sender(sender)
-                .receiver(receiver)
+                .receiver(codeMatchingFriend)
                 .issueType(IssueType.FOLLOW_REQUEST)
                 .isRead(false)
                 .build();
 
-        issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_REQUEST));
+        issueRepository.save(Issue.createIssue(sender, codeMatchingFriend, IssueType.FOLLOW_REQUEST));
         friendManagementRepository.save(friendManagement);
     }
 
@@ -77,10 +78,11 @@ public class FriendService {
 
         issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_ACCEPTED));
     }
+
     @Transactional
     public void rejectFriendRequest(Long senderId, Long receiverId) {
-        System.out.println("@@@@@@@@@@@@@@@@@@@"+ senderId + " " + receiverId);
-         FriendManagement friendManagement = friendManagementRepository
+        System.out.println("@@@@@@@@@@@@@@@@@@@" + senderId + " " + receiverId);
+        FriendManagement friendManagement = friendManagementRepository
                 .findBySenderAndReceiverAndStatus_Requested(senderId, receiverId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
         friendManagement.setStatus(FriendStatus.REJECTED);
