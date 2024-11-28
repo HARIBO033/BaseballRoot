@@ -57,6 +57,11 @@ public class WebCrawler {
                         Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
                         Element location = schedule.selectFirst("td:nth-child(8)");
 
+                        // team1과 team2 텍스트를 TeamName 타입으로 변환
+                        TeamName teamName1 = team1 != null ? TeamName.fromKoreanName(team1.text()) : TeamName.UNKNOWN;
+                        TeamName teamName2 = team2 != null ? TeamName.fromKoreanName(team2.text()) : TeamName.UNKNOWN;
+
+
                         if (day == null) {
                             scheduleList.add(null);
                             break;
@@ -71,7 +76,14 @@ public class WebCrawler {
 
 
                         if (time != null) {
-                            ScheduleDto dto = new ScheduleDto(currentDay, time.text(), team1.text(), vs.text(), team2.text(), location.text());
+                            ScheduleDto dto = new ScheduleDto(
+                                    currentDay,
+                                    time.text(),
+                                    teamName1,
+                                    vs != null ? vs.text() : "-", // vs가 null일 경우 기본값 "-"
+                                    teamName2,
+                                    location != null ? location.text() : "-"
+                            );
                             scheduleList.add(dto);
                         }
                     }
@@ -93,6 +105,10 @@ public class WebCrawler {
                         Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
                         Element location = schedule.selectFirst("td:nth-child(8)");
 
+                        // team1과 team2 텍스트를 TeamName 타입으로 변환
+                        TeamName teamName1 = team1 != null ? TeamName.fromKoreanName(team1.text()) : TeamName.UNKNOWN;
+                        TeamName teamName2 = team2 != null ? TeamName.fromKoreanName(team2.text()) : TeamName.UNKNOWN;
+
                         if (location == null || "-".equals(location.text())) {
                             location = schedule.selectFirst("td:nth-child(7)");
                         }
@@ -103,7 +119,14 @@ public class WebCrawler {
 
 
                         if (time != null) {
-                            ScheduleDto dto = new ScheduleDto(currentDay, time.text(), team1.text(), vs.text(), team2.text(), location.text());
+                            ScheduleDto dto = new ScheduleDto(
+                                    currentDay,
+                                    time.text(),
+                                    teamName1,
+                                    vs != null ? vs.text() : "-",
+                                    teamName2,
+                                    location != null ? location.text() : "-"
+                            );
                             scheduleList.add(dto);
                         }
                     }

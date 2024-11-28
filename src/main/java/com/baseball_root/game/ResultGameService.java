@@ -34,8 +34,8 @@ public class ResultGameService {
                     ResultGame resultGame = new ResultGame();
                     resultGame.setDate(scheduleDto.getCurrentDay());
                     resultGame.setTime(scheduleDto.getTime());
-                    resultGame.setHomeTeam(scheduleDto.getTeam1());
-                    resultGame.setAwayTeam(scheduleDto.getTeam2());
+                    resultGame.setHomeTeam(String.valueOf(scheduleDto.getTeam1()));
+                    resultGame.setAwayTeam(String.valueOf(scheduleDto.getTeam2()));
                     //years.selectByValue(date.substring(0, 4));
                     //System.out.println("rrrrrrrrrrrr" + scheduleDto.getVs().split("[^0-9]+")[0]);
                     resultGame.setHomeScore(Integer.valueOf(scheduleDto.getVs().split("[^0-9]+")[0]));
