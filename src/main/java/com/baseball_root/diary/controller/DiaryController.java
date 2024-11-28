@@ -40,7 +40,8 @@ public class DiaryController {
         return diaryService.saveDiaryPage1(diaryDto);
     }*/
     @PostMapping("/save/{memberId}")
-    public DiaryDto.Response createDiary(@PathVariable(name = "memberId") Long memberId, @RequestBody DiaryDto.Request diaryDto){
+    public DiaryDto.Response createDiary(@PathVariable(name = "memberId") Long memberId,
+                                         @RequestBody DiaryDto.Request diaryDto){
         log.info("request : {}", diaryDto);
         return diaryService.saveDiary(memberId, diaryDto);
     }

@@ -33,7 +33,7 @@ public class DiaryService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + memberId));
 
         Diary diary  = Diary.builder()
-                .imageUrl(diaryDto.getImageUrl())
+                .attachImages(diaryDto.getAttachImages())
                 .home(diaryDto.getHome())
                 .away(diaryDto.getAway())
                 .place(diaryDto.getPlace())
@@ -56,7 +56,7 @@ public class DiaryService {
         System.out.println("diaryDto = " + diaryDto);
         Diary diary = diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 일기가 없습니다. id=" + id));
         diary.update(
-                diaryDto.getImageUrl(),
+                diaryDto.getAttachImages(),
                 diaryDto.getSeat(),
                 diaryDto.getTitle(),
                 diaryDto.getContent(),

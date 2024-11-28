@@ -1,5 +1,6 @@
 package com.baseball_root.diary.dto;
 
+import com.baseball_root.attach.AttachImage;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.member.Member;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
 
 @Builder
 public class DiaryDto {
@@ -17,7 +20,7 @@ public class DiaryDto {
     @Setter
     public static class Request{
         @NotBlank
-        private String imageUrl;
+        private String attachImages;
         private String home;
         private String away;
         @NotBlank
@@ -37,15 +40,15 @@ public class DiaryDto {
         private String gameDate;
 
 
-        public Diary toEntity(String imageUrl, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
-            return new Diary(imageUrl, home,away, place, seat, title, content, lineUp, mvp, member);
+        public Diary toEntity(String attachImages, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
+            return new Diary(attachImages, home,away, place, seat, title, content, lineUp, mvp, member);
         }
     }
 
     @Builder
     @Getter
     public static class Response{
-        private String imageUrl;
+        private String attachImages;
         private String home;
         private String away;
         private String place;
@@ -60,8 +63,8 @@ public class DiaryDto {
         private String nickname;
         private String createdAt;
 
-        private Response(String imageUrl, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
-            this.imageUrl = imageUrl;
+        private Response(String attachImages, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
+            this.attachImages = attachImages;
             this.home = home;
             this.away = away;
             this.place = place;
@@ -79,7 +82,7 @@ public class DiaryDto {
 
         public static Response of(Diary diary){
             return new Response(
-                    diary.getImageUrl(),
+                    diary.getAttachImages(),
                     diary.getHome(),
                     diary.getAway(),
                     diary.getPlace(),
@@ -97,7 +100,7 @@ public class DiaryDto {
 
         public static Response fromEntity(Diary diary){
             return Response.builder()
-                    .imageUrl(diary.getImageUrl())
+                    .attachImages(diary.getAttachImages())
                     .home(diary.getHome())
                     .away(diary.getAway())
                     .place(diary.getPlace())

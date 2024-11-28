@@ -1,18 +1,17 @@
 package com.baseball_root.crawler;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 public class ScheduleDto {
     private final String currentDay;
     private final String time;
-    private final String team1;
+    private final TeamName team1;
     private final String vs;
-    private final String team2;
+    private final TeamName team2;
     private final String location;
 
-    public ScheduleDto(String currentDay, String time, String team1, String vs, String team2, String location) {
+    public ScheduleDto(String currentDay, String time, TeamName team1, String vs, TeamName team2, String location) {
         this.currentDay = currentDay;
         this.time = time;
         this.team1 = team1;
