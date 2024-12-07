@@ -15,8 +15,7 @@ public class WeatherCrawler {
         HttpURLConnection con = null;
         String s = null; // 에러 메시지
 
-        try
-        {
+        try {
             LocalDateTime t = LocalDateTime.now().minusMinutes(30); // 현재 시각 30분전
 
             URL url = new URL(
@@ -31,24 +30,22 @@ public class WeatherCrawler {
                             + "&ny=" + y // 예보지점의 Y 좌표값
             );
 
-            con = (HttpURLConnection)url.openConnection();
+            con = (HttpURLConnection) url.openConnection();
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(con.getInputStream());
 
             boolean ok = false; // <resultCode>00</resultCode> 획득 여부
 
             Element e;
             NodeList ns = doc.getElementsByTagName("header");
-            if (ns.getLength() > 0)
-            {
-                e = (Element)ns.item(0);
+            if (ns.getLength() > 0) {
+                e = (Element) ns.item(0);
                 if ("00".equals(e.getElementsByTagName("resultCode").item(0).getTextContent()))
                     ok = true; // 성공 여부
                 else // 에러 메시지
                     s = e.getElementsByTagName("resultMsg").item(0).getTextContent();
             }
 
-            if (ok)
-            {
+            if (ok) {
                 String fd = null, ft = null; // 가장 빠른 예보 시각
                 String pty = null; // 강수형태
                 String sky = null; // 하늘상태
@@ -56,16 +53,13 @@ public class WeatherCrawler {
                 String val; // fcstValue
 
                 ns = doc.getElementsByTagName("item");
-                for (int i = 0; i < ns.getLength(); i++)
-                {
-                    e = (Element)ns.item(i);
+                for (int i = 0; i < ns.getLength(); i++) {
+                    e = (Element) ns.item(i);
 
-                    if (ft == null)
-                    { // 가져올 예보 시간 결정
+                    if (ft == null) { // 가져올 예보 시간 결정
                         fd = e.getElementsByTagName("fcstDate").item(0).getTextContent(); // 예보 날짜
                         ft = e.getElementsByTagName("fcstTime").item(0).getTextContent(); // 예보 시각
-                    }
-                    else if (!fd.equals(e.getElementsByTagName("fcstDate").item(0).getTextContent()) ||
+                    } else if (!fd.equals(e.getElementsByTagName("fcstDate").item(0).getTextContent()) ||
                             !ft.equals(e.getElementsByTagName("fcstTime").item(0).getTextContent()))
                         continue; // 결정된 예보 시각과 같은 시각의 것만 취한다.
 
@@ -81,22 +75,18 @@ public class WeatherCrawler {
                 v[0] = fd;
                 v[1] = ft;
 
-                if ("0".equals(pty))
-                { // 강수형태 없으면, 하늘상태로 판단
+                if ("0".equals(pty)) { // 강수형태 없으면, 하늘상태로 판단
                     if ("1".equals(sky)) v[2] = "맑음";
                     else if ("3".equals(sky)) v[2] = "구름많음";
                     else if ("4".equals(sky)) v[2] = "흐림";
-                }
-                else if ("1".equals(pty)) v[2] = "비";
+                } else if ("1".equals(pty)) v[2] = "비";
                 else if ("2".equals(pty)) v[2] = "비/눈";
                 else if ("3".equals(pty)) v[2] = "눈";
                 else if ("5".equals(pty)) v[2] = "빗방울";
                 else if ("6".equals(pty)) v[2] = "빗방울눈날림";
                 else if ("7".equals(pty)) v[2] = "눈날림";
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             s = e.getMessage();
         }
 
