@@ -1,9 +1,18 @@
 spring:
   profiles:
     active: prod  # 기본 활성 프로파일을 prod로 설정
+    include: hidden, hidden-dev
   jpa:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0B
+      location: /temp
+      max-file-size: 100MB
+      max-request-size: 100MB
+
 server:
   port: 9090
