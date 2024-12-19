@@ -1,4 +1,4 @@
-package com.baseball_root.config;
+package com.baseball_root.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
