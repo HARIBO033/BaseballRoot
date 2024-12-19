@@ -3,7 +3,9 @@ package com.baseball_root.diary.dto;
 import com.baseball_root.attach.AttachImage;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.member.Member;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,36 +21,54 @@ public class DiaryDto {
     @Getter
     @Setter
     public static class Request{
-        @NotBlank
-        private String attachImages;
+        @JsonProperty("home")
         private String home;
+
+        @JsonProperty("away")
         private String away;
+
         @NotBlank
+        @JsonProperty("place")
         private String place;
+
+        @JsonProperty("seat")
         private String seat;
+
         @NotBlank
+        @JsonProperty("title")
         private String title;
 
         @Length(max = 500, message = "내용은 500자리를 넘을 수 없습니다.")
         @NotBlank(message = "내용은 필수 입력값입니다.")
+        @JsonProperty("content")
         private String content;
+
+        @JsonProperty("lineUp")
         private String lineUp;
+
+        @JsonProperty("mvp")
         private String mvp;
 
+        @JsonProperty("location")
         private String location;
+
+        @JsonProperty("gameResult")
         private String gameResult;
+
+        @JsonProperty("gameDate")
         private String gameDate;
 
 
-        public Diary toEntity(String attachImages, String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
-            return new Diary(attachImages, home,away, place, seat, title, content, lineUp, mvp, member);
+        public Diary toEntity(String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
+            return new Diary(home,away, place, seat, title, content, lineUp, mvp, member);
         }
     }
 
     @Builder
     @Getter
+    @AllArgsConstructor
     public static class Response{
-        private String attachImages;
+        private List<String> attachImagesUrl;
         private String home;
         private String away;
         private String place;
@@ -63,8 +83,7 @@ public class DiaryDto {
         private String nickname;
         private String createdAt;
 
-        private Response(String attachImages, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
-            this.attachImages = attachImages;
+        private Response( String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
             this.home = home;
             this.away = away;
             this.place = place;
@@ -82,7 +101,6 @@ public class DiaryDto {
 
         public static Response of(Diary diary){
             return new Response(
-                    diary.getAttachImages(),
                     diary.getHome(),
                     diary.getAway(),
                     diary.getPlace(),
@@ -98,9 +116,9 @@ public class DiaryDto {
                     diary.getFormattedCreatedAt());
         }
 
-        public static Response fromEntity(Diary diary){
+        public static Response fromEntity(Diary diary, List<String> attachImagesUrl){
             return Response.builder()
-                    .attachImages(diary.getAttachImages())
+                    .attachImagesUrl(attachImagesUrl)
                     .home(diary.getHome())
                     .away(diary.getAway())
                     .place(diary.getPlace())

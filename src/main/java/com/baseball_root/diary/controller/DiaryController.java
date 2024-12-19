@@ -6,7 +6,9 @@ import com.baseball_root.crawler.ScheduleDto;
 import com.baseball_root.crawler.WebCrawler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,17 +41,37 @@ public class DiaryController {
         log.info("request : {}", diaryDto);
         return diaryService.saveDiaryPage1(diaryDto);
     }*/
-    @PostMapping("/save/{memberId}")
+    /**
+     * @param memberId
+     * @param diaryDto
+     * @param files
+     * @return
+     * @throws Exception
+     * @RequestBody : JSON 형태로 데이터를 받음
+     * @RequestPart : 파일을 받을 때 사용
+     * @PathVariable : URL 경로에 변수를 넣어서 사용
+     * @RequestParam : URL 쿼리스트링으로 데이터를 받음
+     */
+    @PostMapping(value = "/save/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public DiaryDto.Response createDiary(@PathVariable(name = "memberId") Long memberId,
-                                         @RequestBody DiaryDto.Request diaryDto){
+                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
+                                         @RequestPart(required = false , value = "files")List<MultipartFile> files){
         log.info("request : {}", diaryDto);
-        return diaryService.saveDiary(memberId, diaryDto);
+
+        return diaryService.saveDiary(memberId, diaryDto, files);
     }
 
+    /**
+     * @param diaryId
+     * @param diaryDto
+     * @return DiaryDto.Response
+     */
     @PutMapping("/{diaryId}")
-    public DiaryDto.Response updateDiary(@PathVariable("diaryId") Long diaryId, @RequestBody DiaryDto.Request diaryDto){
+    public DiaryDto.Response updateDiary(@PathVariable("diaryId") Long diaryId,
+                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
+                                         @RequestPart(required = false , value = "files")List<MultipartFile> files){
         log.info("@@ CONTROLLER TEST request : {}", diaryDto);
-        return diaryService.updateDiary(diaryId, diaryDto);
+        return diaryService.updateDiary(diaryId, diaryDto, files);
     }
 
     @DeleteMapping("/{diaryId}")
