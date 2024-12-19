@@ -33,7 +33,7 @@ public class Member implements Comparable<Member> {
     @Column(name = "nickname", nullable = true)
     private String nickname;
 
-    @Column(name = "profilePhoto", nullable = true)
+    @Column(name = "profileImage", nullable = true)
     private String profileImage;
 
     @Column(name = "gender", nullable = true)
@@ -79,7 +79,8 @@ public class Member implements Comparable<Member> {
         this.friends.add(friend);
     }
 
-    public void update(String nickname, String favoriteTeam) {
+    public void update(String profileImage, String nickname, String favoriteTeam) {
+        this.profileImage = profileImage;
         this.nickname = nickname;
         this.favoriteTeam = favoriteTeam;
     }

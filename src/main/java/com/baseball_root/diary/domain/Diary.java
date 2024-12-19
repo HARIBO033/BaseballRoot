@@ -24,9 +24,9 @@ public class Diary extends BaseTimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AttachImage> attachImages;*/
-    private String attachImages;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AttachImage> attachImages;
+
     @Column(name = "home", nullable = false)
     private String home;
 
@@ -70,8 +70,7 @@ public class Diary extends BaseTimeEntity{
 
     private Long reactionCount = 0L;
 
-    public Diary(String imageUrl, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
-        this.attachImages = imageUrl;
+    public Diary(String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
         this.home = home;
         this.away = away;
         this.place = place;
@@ -84,8 +83,7 @@ public class Diary extends BaseTimeEntity{
     }
 
 
-    public void update(String imageUrl, String seat, String title, String content, String lineUp, String mvp) {
-        this.attachImages = imageUrl;
+    public void update(String seat, String title, String content, String lineUp, String mvp) {
         this.seat = seat;
         this.title = title;
         this.content = content;
@@ -112,4 +110,10 @@ public class Diary extends BaseTimeEntity{
             this.reactionCount = 0L;
         }
     }
+    public List<String> getAttachImagesUrl(Diary diary) {
+        return attachImages.stream()
+                .map(AttachImage::getUrl)
+                .toList();
+    }
+
 }

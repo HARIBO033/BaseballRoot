@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,8 +33,11 @@ public class MemberController {
 
     //프로필 수정
     @PutMapping("/members/{memberId}")
-    public ResponseEntity<MemberDto.Response> updateMemberInfo(@PathVariable(name = "memberId") Long memberId, @RequestBody MemberDto.Request memberDto) {
-        MemberDto.Response updatedMember = memberService.updateMember(memberId, memberDto);
+    public ResponseEntity<MemberDto.Response> updateMemberInfo(@PathVariable(name = "memberId") Long memberId,
+                                                               @RequestPart(value = "memberDto") MemberDto.Request memberDto,
+                                                               @RequestPart(required = false, value = "file") MultipartFile file) {
+        log.info("@@FIlE : {}", file);
+        MemberDto.Response updatedMember = memberService.updateMember(memberId, memberDto, file);
         return ResponseEntity.ok(updatedMember);
     }
 }
