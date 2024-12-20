@@ -61,7 +61,6 @@ public class WebCrawler {
                         TeamName teamName1 = team1 != null ? TeamName.fromKoreanName(team1.text()) : TeamName.UNKNOWN;
                         TeamName teamName2 = team2 != null ? TeamName.fromKoreanName(team2.text()) : TeamName.UNKNOWN;
 
-
                         if (day == null) {
                             scheduleList.add(null);
                             break;
@@ -84,6 +83,13 @@ public class WebCrawler {
                                     teamName2,
                                     location != null ? location.text() : "-"
                             );
+
+                            //vs 에 들어있는 3vs1 형식을 3:1 형식으로 변경
+                            String formatVs = vs.text();
+                            if (formatVs.contains("vs")) {
+                                formatVs = formatVs.replace("vs", ":");
+                                dto.setVs(formatVs);
+                            }
                             scheduleList.add(dto);
                         }
                     }
@@ -127,6 +133,12 @@ public class WebCrawler {
                                     teamName2,
                                     location != null ? location.text() : "-"
                             );
+                            //vs 에 들어있는 3vs1 형식을 3:1 형식으로 변경
+                            String formatVs = vs.text();
+                            if (formatVs.contains("vs")) {
+                                formatVs = formatVs.replace("vs", ":");
+                                dto.setVs(formatVs);
+                            }
                             scheduleList.add(dto);
                         }
                     }

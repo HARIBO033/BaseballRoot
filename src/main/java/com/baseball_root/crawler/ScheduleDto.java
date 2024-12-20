@@ -1,13 +1,16 @@
 package com.baseball_root.crawler;
 
 import lombok.Getter;
+import lombok.Setter;
 
+//@Getter
+@Setter
 @Getter
 public class ScheduleDto {
     private final String currentDay;
     private final String time;
     private final TeamName team1;
-    private final String vs;
+    private String vs;
     private final TeamName team2;
     private final String location;
 
