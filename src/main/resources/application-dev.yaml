@@ -23,14 +23,4 @@ spring:
 #      max-request-size: 10MB
 #
 #
-#cloud:
-#  aws:
-#    credentials:
-#      access-key: AKIAT5SBKEUB22ZY6USJ
-#      secret-key: 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
-#    region:
-#      static: ap-northeast-2 # 사용 중인 AWS 리전
-#    s3:
-#      bucket: baseball-root-images
-#    stack:
-#      auto: false
+

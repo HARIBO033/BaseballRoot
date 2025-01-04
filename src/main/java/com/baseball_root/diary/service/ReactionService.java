@@ -3,6 +3,7 @@ package com.baseball_root.diary.service;
 import com.baseball_root.Issue.Issue;
 import com.baseball_root.Issue.IssueRepository;
 import com.baseball_root.Issue.IssueType;
+import com.baseball_root.Notification.NotificationService;
 import com.baseball_root.diary.domain.Comment;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.ReactionDto;
@@ -26,6 +27,7 @@ public class ReactionService {
     private final IssueRepository issueRepository;
     private final MemberRepository memberRepository;
     private final DiaryRepository diaryRepository;
+    private final NotificationService notificationService;
 
     @Transactional
     public void saveDiaryOrCommentReaction(ReactionDto.Request reactionDto) {
@@ -48,6 +50,7 @@ public class ReactionService {
                     .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
 
             issueRepository.save(Issue.createIssue(sender, receiver, IssueType.DIARY_REACTION));
+            notificationService.send(String.valueOf(diary.getMember().getId()), sender.getName() + "님이 회원님의 다이어리에 좋아요를 눌렀습니다.",IssueType.COMMENT, null);
         } else {
             Comment comment = commentRepository.findById(reactionDto.getCommentId())
                     .orElseThrow(() -> new NoSuchElementException(
@@ -65,6 +68,7 @@ public class ReactionService {
                     .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
 
             issueRepository.save(Issue.createIssue(sender, receiver, IssueType.COMMENT_REACTION));
+            notificationService.send(String.valueOf(receiver.getId()), sender.getName() + "님이 회원님의 댓글에 좋아요를 눌렀습니다.",IssueType.COMMENT, null);
         }
         reactionRepository.save(reactionDto.toEntity());
     }
