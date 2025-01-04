@@ -65,7 +65,7 @@ public class WeatherCrawler_v2 {
                 WebElement timeElement = webElement.findElement(By.xpath("./li[1]/span[2]"));//시간
                 WebElement weatherElement = webElement.findElement(By.xpath("./li[2]/span[2]"));//날씨
                 //WebElement temperatureElement = webElement.findElement(By.className("hid feel"));//기온
-                WebElement temperatureElement = webElement.findElement(By.xpath("./li[3]/span[2]"));//기온
+                WebElement temperatureElement = webElement.findElement(By.xpath("./li[3]/span[1]"));//기온
                 WebElement feelingTemperatureElement = webElement.findElement(By.xpath("./li[4]/span[2]"));//체감온도
                 WebElement humidityElement = webElement.findElement(By.xpath("./li[8]/span[3]"));//바람
                 WebElement windElement = webElement.findElement(By.xpath("./li[9]/span[2]"));//습도

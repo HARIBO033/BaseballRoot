@@ -19,18 +19,6 @@ public class BaseballRootApplication {
         SpringApplication.run(BaseballRootApplication.class, args);
         System.out.println("Hello, World!");
 
-
-            // KBO
-		/*WebCrawler webCrawler = new WebCrawler();
-		List<ScheduleDto> scheduleDtoList = webCrawler.scrapeSchedule("20241022");
-
-		for (ScheduleDto scheduleDto : scheduleDtoList) {
-			System.out.println(scheduleDto);
-		}*/
-            //DiningcodeCrawler diningcodeCrawler = new DiningcodeCrawler();
-            //System.out.println(diningcodeCrawler.searchRestaurantByLocalName("잠실운동장"));
-
-
         // 날씨
 		/*WeatherCrawler weatherCrawler = new WeatherCrawler();
 
@@ -49,8 +37,10 @@ public class BaseballRootApplication {
 		{ // error
 			System.out.println("Error : " + s);
 		}*/
-       /* WeatherCrawler_v2 weatherCrawler_v2 = new WeatherCrawler_v2();
-        Map<String, String> locationKeywords = new HashMap<>();
+
+
+        WeatherCrawler_v2 weatherCrawler_v2 = new WeatherCrawler_v2();
+        /*Map<String, String> locationKeywords = new HashMap<>();
         locationKeywords.put("고척 스카이돔", "서울 구로구");
         locationKeywords.put("잠실운동장", "서울 송파구");
         locationKeywords.put("삼성 라이온즈 파크", "대구 수성구");
@@ -61,7 +51,7 @@ public class BaseballRootApplication {
         locationKeywords.put("한화생명 이글스파크", "대전 중구 부사동");
         locationKeywords.put("부산 사직야구장", "부산 동래구 사직동");
 
-        *//*for (String location : locationKeywords.keySet()) {
+        for (String location : locationKeywords.keySet()) {
             try {
                 String keyword = locationKeywords.get(location);
                 System.out.println("\n" + location + " 날씨 정보:");
@@ -69,7 +59,7 @@ public class BaseballRootApplication {
             } catch (Exception e) {
                 System.err.println("Error fetching weather for " + location + ": " + e.getMessage());
             }
-        }*//*
-        weatherCrawler_v2.fetchWeatherInfo("서울 송파구");*/
+        }*/
+        weatherCrawler_v2.fetchWeatherInfo("서울 송파구");
 	}
 }
