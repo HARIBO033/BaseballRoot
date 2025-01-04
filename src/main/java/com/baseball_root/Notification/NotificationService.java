@@ -86,14 +86,16 @@ public class NotificationService {
 
     /**
      * [SSE 통신]specific user에게 알림 전송
+     * 이벤트 발생시 생성된 send
      */
     public void send(String receiver, String content, IssueType type, String message) {
+        //receiver는 memberId만 가지고있음
         Notifications notification = createNotification(receiver, content, type, message);
         /* 로그인한 client의 sseEmitter 전체 호출 */
         Map<String, SseEmitter> sseEmitters = sseRepository.findAllEmitterStartWithByMemberId(receiver);
         sseEmitters.forEach(
                 (key, sseEmitter) -> {
-                    log.info("key, notification : {}, {}", key, notification);
+                    log.info("@@@ key, notification, sseEmitter : {}, {}, {}", key, notification, sseEmitter.toString());
                     sseRepository.saveEventCache(key, notification); //저장
                     emitEventToClient(sseEmitter, key, notification); //전송
                 }
@@ -107,7 +109,7 @@ public class NotificationService {
     @Transactional
     public Notifications createNotification(String receiver, String content, IssueType type, String message) {
         if(type.equals(IssueType.COMMENT)) { //댓글
-            return Notifications.builder()
+            Notifications notifications = Notifications.builder()
                     .notificationId(receiver + "_" + System.currentTimeMillis())
                     .receiver(receiver)
                     .content(content)
@@ -116,8 +118,9 @@ public class NotificationService {
                     .readYn('N')
                     .deletedYn('N')
                     .build();
+            return notificationRepository.save(notifications);
         } else if(type.equals(IssueType.DIARY_REACTION)) { //다이어리 좋아요
-            return Notifications.builder()
+            Notifications notifications = Notifications.builder()
                     .notificationId(receiver + "_" + System.currentTimeMillis())
                     .receiver(receiver)
                     .content(content)
@@ -126,8 +129,9 @@ public class NotificationService {
                     .readYn('N')
                     .deletedYn('N')
                     .build();
+            return notificationRepository.save(notifications);
         } else if(type.equals(IssueType.COMMENT_REACTION)) { // 댓글 좋아요
-            return Notifications.builder()
+            Notifications notifications = Notifications.builder()
                     .notificationId(receiver + "_" + System.currentTimeMillis())
                     .receiver(receiver)
                     .content(content)
@@ -136,8 +140,9 @@ public class NotificationService {
                     .readYn('N')
                     .deletedYn('N')
                     .build();
+            return notificationRepository.save(notifications);
         } else if(type.equals(IssueType.FOLLOW_REQUEST)) { // 팔ㄹㅗ우 요청
-            return Notifications.builder()
+            Notifications notifications = Notifications.builder()
                     .notificationId(receiver + "_" + System.currentTimeMillis())
                     .receiver(receiver)
                     .content(content)
@@ -146,8 +151,9 @@ public class NotificationService {
                     .readYn('N')
                     .deletedYn('N')
                     .build();
+            return notificationRepository.save(notifications);
         } else if(type.equals(IssueType.FOLLOW_ACCEPTED)) { //팔로우 수락
-            return Notifications.builder()
+            Notifications notifications = Notifications.builder()
                     .notificationId(receiver + "_" + System.currentTimeMillis())
                     .receiver(receiver)
                     .content(content)
@@ -156,6 +162,7 @@ public class NotificationService {
                     .readYn('N')
                     .deletedYn('N')
                     .build();
+            return notificationRepository.save(notifications);
         } else {
             return null;
         }

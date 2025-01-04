@@ -20,7 +20,8 @@ public class Notifications {
     private String notificationId;
 
     //@Embedded
-    @Column(name = "content", insertable=false, updatable=false)
+    //@Column(name = "content", insertable=false, updatable=false)
+    @Column(name = "content")
     private String content;
 
     //@Embedded
