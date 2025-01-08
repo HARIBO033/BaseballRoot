@@ -16,13 +16,13 @@ public class WeatherController {
     private final WeatherCrawler weatherCrawler;
 
     //keyword는 null 일 수 있음
-    @GetMapping("/weatherDetail/{keyword}")
+    @GetMapping("/weather/weatherDetail/{keyword}")
     public ResponseEntity<List<WeatherDto>> getWeatherDetailInfo(@PathVariable(name = "keyword") String keyword) throws IOException {
         List<WeatherDto> weatherDtoList = weatherCrawler.getWeatherDetail(keyword);
         return ResponseEntity.ok(weatherDtoList);
     }
 
-    @GetMapping("/weatherByLocation")
+    @GetMapping("/weather/weatherByLocation")
     public ResponseEntity<List<WeatherByLocationDto>> getLocationWeatherInfo() throws IOException {
         List<WeatherByLocationDto> LocationWeatherDtoList = weatherCrawler.getLocationWeather();
         return ResponseEntity.ok(LocationWeatherDtoList);
