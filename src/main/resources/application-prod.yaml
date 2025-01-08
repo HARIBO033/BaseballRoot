@@ -5,6 +5,13 @@
 #    username: root
 #    password: 1234
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0B
+      location: /temp
+      max-file-size: 100MB
+      max-request-size: 100MB
   # 컨트롤러에서 프론트로 보내줄 때 null field 생략
   jackson:
     default-property-inclusion: non_null
