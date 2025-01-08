@@ -31,15 +31,17 @@ public class CommentController {
     }
 
     @PostMapping("")
-    public void createComment(@PathVariable("diaryId") Long diaryId, @RequestBody CommentDto.Request commentDto) {
+    public ResponseEntity<String> createComment(@PathVariable("diaryId") Long diaryId, @RequestBody CommentDto.Request commentDto) {
         log.info("request : {}", commentDto);
         commentService.createComment(diaryId, commentDto);
+        return ResponseEntity.ok("댓글이 등록되었습니다.");
     }
 
     @DeleteMapping("/{commentId}")
-    public void deleteComment(@PathVariable("commentId") Long commentId) {
+    public ResponseEntity<String> deleteComment(@PathVariable("commentId") Long commentId) {
         log.info("delete id : {}", commentId);
         commentService.deleteComment(commentId);
+        return ResponseEntity.ok("댓글이 삭제되었습니다.");
     }
 
 }
