@@ -59,13 +59,13 @@ public class FeedService {
                 .filter(diary -> diary.getCreatedAt().isAfter(sevenDaysAgo))
                 .map(
                         diary -> {
-                            if (location != null && !location.equals(diary.getLocation())) {
+                            if (location != null && !location.equals(diary.getLocation()) && !location.equals("전체")) {
                                 return null;
                             }
-                            if (gameDate != null && !gameDate.equals(diary.getGameDate())) {
+                            if (gameDate != null && !gameDate.equals(diary.getGameDate()) && !gameDate.equals("전체")) {
                                 return null;
                             }
-                            if (team != null && (!team.equals(diary.getHome()) && !team.equals(diary.getAway()))) {
+                            if (team != null && (!team.equals(diary.getHome()) && !team.equals(diary.getAway())) && !team.equals("전체")) {
                                 return null;
                             }
                             return diary;
