@@ -3,6 +3,7 @@ package com.baseball_root.friend;
 import com.baseball_root.Issue.Issue;
 import com.baseball_root.Issue.IssueRepository;
 import com.baseball_root.Issue.IssueType;
+import com.baseball_root.Notification.NotificationService;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberDto;
 import com.baseball_root.member.MemberRepository;
@@ -20,6 +21,7 @@ public class FriendService {
     private final MemberRepository memberRepository;
     private final FriendManagementRepository friendManagementRepository;
     private final IssueRepository issueRepository;
+    private final NotificationService notificationService;
 
     public List<FriendManagementDto> getFriendRequestedList(Long memberId) {
         List<FriendManagementDto> friendManagementList =
@@ -58,6 +60,7 @@ public class FriendService {
 
         issueRepository.save(Issue.createIssue(sender, codeMatchingFriend, IssueType.FOLLOW_REQUEST));
         friendManagementRepository.save(friendManagement);
+        notificationService.send(String.valueOf(codeMatchingFriend.getId()), sender.getName() + "님이 친구 요청을 보냈습니다.", IssueType.FOLLOW_REQUEST, null);
     }
 
     /*  */
@@ -77,6 +80,7 @@ public class FriendService {
         friendManagement.setStatus(FriendStatus.ACCEPTED);
 
         issueRepository.save(Issue.createIssue(sender, receiver, IssueType.FOLLOW_ACCEPTED));
+        notificationService.send(String.valueOf(sender.getId()), receiver.getName() + "님이 친구 요청을 수락했습니다.", IssueType.FOLLOW_ACCEPTED, null);
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package com.baseball_root.diary.service;
 import com.baseball_root.Issue.Issue;
 import com.baseball_root.Issue.IssueRepository;
 import com.baseball_root.Issue.IssueType;
+import com.baseball_root.Notification.NotificationService;
 import com.baseball_root.diary.domain.Comment;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.CommentDto;
@@ -26,6 +27,7 @@ public class CommentService {
     private final MemberRepository memberRepository;
     private final DiaryRepository diaryRepository;
     private final IssueRepository issueRepository;
+    private final NotificationService notificationService;
 
     public List<Comment> getComments(Long diaryId) {
         List<Comment> commentList = commentRepository.findAll();
@@ -54,6 +56,7 @@ public class CommentService {
         commentRepository.save(comment);
         if (!Objects.equals(diary.getMember().getId(), author.getId())){
             issueRepository.save(Issue.createIssue(diary.getMember(), author, IssueType.COMMENT));
+            notificationService.send(String.valueOf(diary.getMember().getId()), author.getName() + "님이 회원님의 다이어리에 댓글을 남겼습니다.",IssueType.COMMENT, null);
         }
 
     }
