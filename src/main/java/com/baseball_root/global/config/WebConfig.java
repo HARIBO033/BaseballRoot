@@ -4,16 +4,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration("globalWebConfig")
 @ComponentScan(
         basePackages = "com.baseball_root",
         excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = com.baseball_root.global.config.WebConfig.class)
 )
-public class WebConfig {
-
+public class WebConfig implements WebMvcConfigurer{
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new ByteArrayHttpMessageConverter());
+    }
         /*@Bean
         public WebMvcConfigurer corsConfigurer() {
             return new WebMvcConfigurer() {
