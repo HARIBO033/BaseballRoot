@@ -3,8 +3,11 @@ package com.baseball_root.Notification;
 import com.baseball_root.Issue.IssueType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "notifications")
 @Getter
 @ToString(exclude = "receiver")
 @Builder
