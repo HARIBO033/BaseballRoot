@@ -56,18 +56,21 @@ public class DiaryService {
                 .build();
         diaryRepository.save(diary);
 
-        List<String> ImageNames = s3Service.uploadMultiFile(files);
-        for (String imageName : ImageNames){
-            String imageUrl = s3Service.getFileUrl(imageName);
-            AttachImage attachImage = AttachImage.builder()
-                    .url(imageUrl)
-                    .name(imageName)
-                    .diary(diary)
-                    .build();
-            attachImageRepository.save(attachImage);
+        if (files != null && !files.isEmpty()){
+            List<String> ImageNames = s3Service.uploadMultiFile(files);
+            for (String imageName : ImageNames) {
+                String imageUrl = s3Service.getFileUrl(imageName);
+                AttachImage attachImage = AttachImage.builder()
+                        .url(imageUrl)
+                        .name(imageName)
+                        .diary(diary)
+                        .build();
+                attachImageRepository.save(attachImage);
+            }
+            List<String> attachImageUrls = getAttachImageUrls(diary.getId());
+            return DiaryDto.Response.fromEntity(diary, attachImageUrls);
         }
-        List<String> attachImageUrls = getAttachImageUrls(diary.getId());
-        return DiaryDto.Response.fromEntity(diary, attachImageUrls);
+            return DiaryDto.Response.fromEntity(diary, List.of());
     }
 
     @Transactional
