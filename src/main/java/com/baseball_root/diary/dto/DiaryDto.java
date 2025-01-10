@@ -68,6 +68,7 @@ public class DiaryDto {
     @Getter
     @AllArgsConstructor
     public static class Response{
+        private Long id;
         private List<String> attachImagesUrl;
         private String home;
         private String away;
@@ -83,7 +84,8 @@ public class DiaryDto {
         private String nickname;
         private String createdAt;
 
-        private Response( String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
+        private Response(Long id, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
+            this.id = id;
             this.home = home;
             this.away = away;
             this.place = place;
@@ -99,8 +101,10 @@ public class DiaryDto {
             this.createdAt = createdAt;
         }
 
+
         public static Response of(Diary diary){
             return new Response(
+                    diary.getId(),
                     diary.getHome(),
                     diary.getAway(),
                     diary.getPlace(),

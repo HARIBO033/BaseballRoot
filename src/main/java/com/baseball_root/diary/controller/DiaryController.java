@@ -73,12 +73,12 @@ public class DiaryController {
      * @param diaryDto
      * @return DiaryDto.Response
      */
-    @PutMapping("/{diaryId}")
+    @PutMapping(value = "/{diaryId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<DiaryDto.Response> updateDiary(@PathVariable("diaryId") Long diaryId,
                                                          @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
                                                          @RequestPart(required = false, value = "files") List<MultipartFile> files) {
         log.info("@@ CONTROLLER TEST request : {}", diaryDto);
-        diaryService.updateDiary(diaryId, diaryDto, files);
+        //diaryService.updateDiary(diaryId, diaryDto, files);
         return ResponseEntity.ok(diaryService.updateDiary(diaryId, diaryDto, files));
     }
 
