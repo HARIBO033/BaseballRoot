@@ -25,14 +25,20 @@ public class FeedController {
     }
     // 내 피드를 모두 가져오기
     @GetMapping("/feeds/{memberId}/my-feed-list")
-    public ResponseEntity<List<DiaryDto.Response>> getMyFeedList(@PathVariable(name = "memberId") Long memberId) {
-        List<DiaryDto.Response> diaryList = feedService.getMyFeedList(memberId);
+    public ResponseEntity<List<DiaryDto.Response>> getMyFeedList(@PathVariable(name = "memberId") Long memberId,
+                                                                 @RequestParam(name = "location", required = false) String location,
+                                                                 @RequestParam(name = "gameDate", required = false) String gameDate,
+                                                                 @RequestParam(name = "team", required = false) String team) {
+        List<DiaryDto.Response> diaryList = feedService.getMyFeedList(memberId,location,gameDate,team);
         return ResponseEntity.ok(diaryList);
     }
     //선택된 친구의 피드를 가져오기
     @GetMapping("/feeds/{memberId}/friend-feed-list")
-    public ResponseEntity<List<DiaryDto.Response>> getFriendFeedList(@PathVariable(name = "memberId") Long memberId) {
-        List<DiaryDto.Response> diaryList = feedService.getFriendFeedList(memberId);
+    public ResponseEntity<List<DiaryDto.Response>> getFriendFeedList(@PathVariable(name = "memberId") Long memberId,
+                                                                     @RequestParam(name = "location", required = false) String location,
+                                                                     @RequestParam(name = "gameDate", required = false) String gameDate,
+                                                                     @RequestParam(name = "team", required = false) String team) {
+        List<DiaryDto.Response> diaryList = feedService.getFriendFeedList(memberId,location,gameDate,team);
         return ResponseEntity.ok(diaryList);
     }
 
