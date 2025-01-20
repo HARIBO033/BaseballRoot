@@ -1,7 +1,5 @@
 package com.baseball_root;
 
-import com.baseball_root.crawler.LocationWeatherCrawler;
-import com.baseball_root.crawler.WeatherCrawler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

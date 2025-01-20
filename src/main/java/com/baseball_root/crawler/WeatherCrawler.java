@@ -5,7 +5,6 @@ import com.baseball_root.Weather.WeatherDto;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,12 +12,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Service;
-//selenium sleep
-import static java.lang.Thread.sleep;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
+
+import static java.lang.Thread.sleep;
 
 @Slf4j
 @Service
@@ -26,14 +25,14 @@ public class WeatherCrawler {
     public List<WeatherDto> getWeatherDetail(String keyword) throws IOException {
         List<WeatherDto> weatherDtoList = new ArrayList<>();
         //System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        WebDriverManager.chromedriver().clearDriverCache();
+        //WebDriverManager.chromedriver().clearDriverCache();
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless"); // Headless 모드
         options.addArguments("--no-sandbox"); // 샌드박스 비활성화
         options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화
         options.addArguments("--disable-gpu"); // GPU 사용 비활성화
-        WebDriver driver = null;
+        WebDriver driver = new ChromeDriver(options);
         // 크롤링할 URL (기상청 또는 날씨 제공 사이트)
         Map<String, String> locationKeywords = new LinkedHashMap<>();
         locationKeywords.put("고척스카이돔", "https://www.weather.go.kr/w/index.do#dong/1153072000/37.4982338495579/126.867104761712/%EC%84%9C%EC%9A%B8%20%EA%B5%AC%EB%A1%9C%EA%B5%AC%20%EA%B3%A0%EC%B2%99%EB%8F%99/SCH/%EA%B3%A0%EC%B2%99%EC%8A%A4%EC%B9%B4%EC%9D%B4%EB%8F%94");
@@ -46,71 +45,23 @@ public class WeatherCrawler {
         locationKeywords.put("한화생명이글스파크", "https://www.weather.go.kr/w/index.do#dong/3014057500/36.31708044187382/127.42916818407977/%EB%8C%80%EC%A0%84%20%EC%A4%91%EA%B5%AC%20%EB%B6%80%EC%82%AC%EB%8F%99/SCH/%ED%95%9C%ED%99%94%EC%83%9D%EB%AA%85%EC%9D%B4%EA%B8%80%EC%8A%A4%ED%8C%8C%ED%81%AC");
         locationKeywords.put("부산사직야구장", "https://www.weather.go.kr/w/index.do#dong/2626058000/35.194017568250274/129.06154402103502/%EB%B6%80%EC%82%B0%20%EB%8F%99%EB%9E%98%EA%B5%AC%20%EC%82%AC%EC%A7%81%EB%8F%99/SCH/%EB%B6%80%EC%82%B0%EC%82%AC%EC%A7%81%EC%A2%85%ED%95%A9%EC%9A%B4%EB%8F%99%EC%9E%A5%20%EC%82%AC%EC%A7%81%EC%95%BC%EA%B5%AC%EC%9E%A5");
 
-        if (keyword == null) {
-            for (String value : locationKeywords.values()) {
-                driver = new ChromeDriver(options);
-                System.out.println("@@@@ value : " + value);
-
-                driver.get(value);
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-                try {
-                    WebElement clickATag = wait.until(ExpectedConditions.elementToBeClickable(
-                            By.xpath("/html/body/div[3]/section/div/div[2]/div[5]/div[3]/div/div[3]/div[1]/div[1]/div[3]/div[1]/div/div/a[2]")
-                    ));
-                    clickATag.click();
-
-                    List<WebElement> webElementList = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                            By.xpath("/html/body/div[3]/section/div/div[2]/div[5]/div[3]/div/div[3]/div[1]/div[1]/div[5]/div[2]/div[1]/div[1]/div/div[2]/ul[1]")
-                    ));
-
-                    WebElement webElement = webElementList.get(0);
-                    try {
-                        // 요소를 다시 탐색하여 stale 방지
-                        WebElement weatherElement = webElement.findElement(By.xpath("./li[2]/span[2]"));
-                        WebElement temperatureElement = webElement.findElement(By.xpath("./li[3]/span[2]"));
-                        String temperatureParts = temperatureElement.getAttribute("textContent").split("\\(")[0];
-
-                        String key = locationKeywords.entrySet()
-                                .stream()
-                                .filter(entry -> entry.getValue().equals(value))
-                                .map(Map.Entry::getKey)
-                                .findFirst()
-                                .orElse(null);
-
-                        weatherDtoList.add(
-                                WeatherDto.toLocationWeatherDto(key, weatherElement.getText(), temperatureParts)
-                        );
-
-                    } catch (StaleElementReferenceException e) {
-                        System.out.println("Stale Element Reference Exception, Retrying...");
-                        continue; // 요소를 재탐색합니다.
-                    }
-
-                } catch (Exception e) {
-                    log.error("Location Error: " + e.getMessage());
-                } finally {
-                    driver.quit();
-                }
-            }
-            return weatherDtoList;
-        } else if (keyword != null) {
-            driver = new ChromeDriver(options);
+        if (keyword != null) {
+            //driver = new ChromeDriver(options);
             try {
                 driver.get(locationKeywords.get(keyword));
                 WebElement clickATag = driver.findElement(By.xpath("/html/body/div[3]/section/div/div[2]/div[5]/div[3]/div/div[3]/div[1]/div[1]/div[3]/div[1]/div/div/a[2]"));
                 clickATag.click();
-                //Thread.sleep(3000);
 
                 driver.getPageSource();
 
                 driver.switchTo().defaultContent();
-                List<WebElement> webElementList = driver.findElements(By.xpath("/html/body/div[3]/section/div/div[2]/div[5]/div[3]/div/div[3]/div[1]/div[1]/div[5]/div[2]/div[1]/div[1]/div/div[2]/ul"));
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                List<WebElement> webElementList = driver.findElements(By.xpath("/html/body/div[3]/section/div/div[2]/div[5]/div[3]/div/div[3]/div[1]/div[1]/div[5]/div[2]/div[1]/div[1]/div/div[2]/ul"));
 
                 System.out.println("INVOKE ELEMENTS@@@@@@@@@@@@@@@@@@");
                 for (WebElement webElement : webElementList) {
                     WebElement timeElement = webElement.findElement(By.xpath("./li[1]/span[2]"));//시간
+                    //WebElement timeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("./li[1]/span[2]")));
                     WebElement weatherElement = webElement.findElement(By.xpath("./li[2]/span[2]"));//날씨
 
                     WebElement temperatureElement = webElement.findElement(By.xpath("./li[3]/span[2]"));//기온

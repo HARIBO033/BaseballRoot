@@ -4,6 +4,9 @@ package com.baseball_root.feed;
 import com.baseball_root.diary.dto.DiaryDto;
 import com.baseball_root.member.MemberDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,34 +26,37 @@ public class FeedController {
         List<MemberDto> memberList = feedService.getFeedSortedFriendList(memberId);
         return ResponseEntity.ok(memberList);
     }
+
     // 내 피드를 모두 가져오기
     @GetMapping("/feeds/{memberId}/my-feed-list")
-    public ResponseEntity<List<DiaryDto.Response>> getMyFeedList(@PathVariable(name = "memberId") Long memberId,
+    public ResponseEntity<Page<DiaryDto.Response>> getMyFeedList(@PathVariable(name = "memberId") Long memberId,
                                                                  @RequestParam(name = "location", required = false) String location,
                                                                  @RequestParam(name = "gameDate", required = false) String gameDate,
-                                                                 @RequestParam(name = "team", required = false) String team) {
-        List<DiaryDto.Response> diaryList = feedService.getMyFeedList(memberId,location,gameDate,team);
+                                                                 @RequestParam(name = "team", required = false) String team,
+                                                                 @PageableDefault(size = 10) Pageable pageable) {
+        Page<DiaryDto.Response> diaryList = feedService.getMyFeedList(memberId,location,gameDate,team,pageable);
         return ResponseEntity.ok(diaryList);
     }
     //선택된 친구의 피드를 가져오기
     @GetMapping("/feeds/{memberId}/friend-feed-list")
-    public ResponseEntity<List<DiaryDto.Response>> getFriendFeedList(@PathVariable(name = "memberId") Long memberId,
+    public ResponseEntity<Page<DiaryDto.Response>> getFriendFeedList(@PathVariable(name = "memberId") Long memberId,
                                                                      @RequestParam(name = "location", required = false) String location,
                                                                      @RequestParam(name = "gameDate", required = false) String gameDate,
-                                                                     @RequestParam(name = "team", required = false) String team) {
-        List<DiaryDto.Response> diaryList = feedService.getFriendFeedList(memberId,location,gameDate,team);
+                                                                     @RequestParam(name = "team", required = false) String team,
+                                                                     @PageableDefault(size = 5) Pageable pageable) {
+        Page<DiaryDto.Response> diaryList = feedService.getFriendFeedList(memberId,location,gameDate,team,pageable);
         return ResponseEntity.ok(diaryList);
     }
 
     // 친구들의 피드를 모두 가져오기
     @GetMapping("/feeds/{memberId}/all")
-    public ResponseEntity<List<DiaryDto.Response>> getAllFeedList(@PathVariable(name = "memberId") Long memberId,
+    public ResponseEntity<Page<DiaryDto.Response>> getAllFeedList(@PathVariable(name = "memberId") Long memberId,
                                                                   @RequestParam(name = "location", required = false) String location,
                                                                   @RequestParam(name = "gameDate", required = false) String gameDate,
-                                                                  @RequestParam(name = "team", required = false) String team) {
-        List<DiaryDto.Response> diaryList = feedService.getAllFeedList(memberId,location,gameDate,team);
+                                                                  @RequestParam(name = "team", required = false) String team,
+                                                                  @PageableDefault(size = 5) Pageable pageable) {
+        Page<DiaryDto.Response> diaryList = feedService.getAllFeedList(memberId,location,gameDate,team,pageable);
         return ResponseEntity.ok(diaryList);
     }
-
 
 }
