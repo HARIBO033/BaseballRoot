@@ -4,6 +4,7 @@ package com.baseball_root.feed;
 import com.baseball_root.diary.dto.DiaryDto;
 import com.baseball_root.member.MemberDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class FeedController {
     private final FeedService feedService;
 
@@ -24,6 +26,7 @@ public class FeedController {
     @GetMapping("/feeds/{memberId}/sorted-friend-list")
     public ResponseEntity<List<MemberDto>> getFeedSortedFriendList(@PathVariable(name = "memberId") Long memberId) {
         List<MemberDto> memberList = feedService.getFeedSortedFriendList(memberId);
+        log.info("getFeedSortedFriendList 호출 memberList = " + memberList);
         return ResponseEntity.ok(memberList);
     }
 
@@ -33,8 +36,9 @@ public class FeedController {
                                                                  @RequestParam(name = "location", required = false) String location,
                                                                  @RequestParam(name = "gameDate", required = false) String gameDate,
                                                                  @RequestParam(name = "team", required = false) String team,
-                                                                 @PageableDefault(size = 10) Pageable pageable) {
+                                                                 @PageableDefault(size = 5) Pageable pageable) {
         Page<DiaryDto.Response> diaryList = feedService.getMyFeedList(memberId,location,gameDate,team,pageable);
+        log.info("getMyFeedList 호출 diaryList = " + diaryList);
         return ResponseEntity.ok(diaryList);
     }
     //선택된 친구의 피드를 가져오기
@@ -45,6 +49,7 @@ public class FeedController {
                                                                      @RequestParam(name = "team", required = false) String team,
                                                                      @PageableDefault(size = 5) Pageable pageable) {
         Page<DiaryDto.Response> diaryList = feedService.getFriendFeedList(memberId,location,gameDate,team,pageable);
+        log.info("getFriendFeedList 호출 diaryList = " + diaryList);
         return ResponseEntity.ok(diaryList);
     }
 
@@ -56,6 +61,7 @@ public class FeedController {
                                                                   @RequestParam(name = "team", required = false) String team,
                                                                   @PageableDefault(size = 5) Pageable pageable) {
         Page<DiaryDto.Response> diaryList = feedService.getAllFeedList(memberId,location,gameDate,team,pageable);
+        log.info("getAllFeedList 호출 diaryList = " + diaryList);
         return ResponseEntity.ok(diaryList);
     }
 

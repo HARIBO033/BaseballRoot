@@ -21,7 +21,7 @@ public class CommentController {
 
     @GetMapping("")
     public ResponseEntity<List<CommentDto.Response>> getCommentsByDiary(@PathVariable(name = "diaryId") Long diaryId) {
-
+        log.info("getCommentsByDiary 호출 diaryId : {}", diaryId);
         // 댓글 및 대댓글 가져오기
         List<Comment> comments = commentService.getCommentsByDiary(diaryId);
 
@@ -32,14 +32,14 @@ public class CommentController {
 
     @PostMapping("")
     public ResponseEntity<String> createComment(@PathVariable("diaryId") Long diaryId, @RequestBody CommentDto.Request commentDto) {
-        log.info("request : {}", commentDto);
+        log.info("createComment 호출 request : {}", commentDto);
         commentService.createComment(diaryId, commentDto);
         return ResponseEntity.ok("댓글이 등록되었습니다.");
     }
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable("commentId") Long commentId) {
-        log.info("delete id : {}", commentId);
+        log.info("deleteComment 호출 delete id : {}", commentId);
         commentService.deleteComment(commentId);
         return ResponseEntity.ok("댓글이 삭제되었습니다.");
     }

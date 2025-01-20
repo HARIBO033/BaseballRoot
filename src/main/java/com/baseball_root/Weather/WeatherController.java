@@ -2,6 +2,7 @@ package com.baseball_root.Weather;
 
 import com.baseball_root.crawler.WeatherCrawler;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class WeatherController {
     private final WeatherCrawler weatherCrawler;
 
@@ -19,12 +21,14 @@ public class WeatherController {
     @GetMapping("/weather/weatherDetail/{keyword}")
     public ResponseEntity<List<WeatherDto>> getWeatherDetailInfo(@PathVariable(name = "keyword") String keyword) throws IOException {
         List<WeatherDto> weatherDtoList = weatherCrawler.getWeatherDetail(keyword);
+        log.info("getWeatherDetailInfo 호출 weatherDtoList = " + weatherDtoList);
         return ResponseEntity.ok(weatherDtoList);
     }
 
     @GetMapping("/weather/weatherByLocation")
     public ResponseEntity<List<WeatherByLocationDto>> getLocationWeatherInfo() throws IOException {
         List<WeatherByLocationDto> LocationWeatherDtoList = weatherCrawler.getLocationWeather();
+        log.info("getLocationWeatherInfo 호출 LocationWeatherDtoList = " + LocationWeatherDtoList);
         return ResponseEntity.ok(LocationWeatherDtoList);
     }
 

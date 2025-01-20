@@ -2,6 +2,7 @@ package com.baseball_root.Notification;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RestController
 @RequestMapping("/notification")
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationController {
 
     private final NotificationService notificationService;
@@ -19,6 +21,7 @@ public class NotificationController {
     @GetMapping(value = "/subscribe/{memberId}",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> subscribe(@PathVariable(name = "memberId") Long memberId,
                                                 @RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) {
+        log.info("subscribe 호출 memberId = " + memberId + " lastEventId = " + lastEventId);
         return ResponseEntity.ok(notificationService.subscribe(memberId, lastEventId));
     }
 

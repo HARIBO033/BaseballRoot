@@ -23,6 +23,7 @@ public class DiaryController {
     //캘린더에서 날짜를 선택하면 리스트를 반환
     @GetMapping("/crawling/monthly/{date}")//202410
     public ResponseEntity<List<ScheduleDto>> getMonthlyGameScheduleList(@PathVariable(name = "date") String date) {
+        log.info("getMonthlyGameScheduleList 호출 date : {}", date);
         List<ScheduleDto> scheduleDtoList = null;
         try {
             WebCrawler webCrawler = new WebCrawler();
@@ -38,6 +39,7 @@ public class DiaryController {
     @GetMapping("/{diaryId}")
     public ResponseEntity<DiaryDto.Response> getDetailDiary(@PathVariable(name = "diaryId") Long diaryId) {
         //diaryService.getDetailDiary(diaryId);
+        log.info("getDetailDiary 호출 diaryId : {}", diaryId);
         return ResponseEntity.ok(diaryService.getDetailDiary(diaryId));
     }
 
@@ -62,7 +64,7 @@ public class DiaryController {
     public ResponseEntity<DiaryDto.Response> createDiary(@PathVariable(name = "memberId") Long memberId,
                                                          @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
                                                          @RequestPart(required = false, value = "files") List<MultipartFile> files) {
-        log.info("request : {}", diaryDto);
+        log.info("createDiary invoke, request : {}", diaryDto);
 
         //diaryService.saveDiary(memberId, diaryDto, files);
         return ResponseEntity.ok(diaryService.saveDiary(memberId, diaryDto, files));
@@ -77,14 +79,14 @@ public class DiaryController {
     public ResponseEntity<DiaryDto.Response> updateDiary(@PathVariable("diaryId") Long diaryId,
                                                          @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
                                                          @RequestPart(required = false, value = "files") List<MultipartFile> files) {
-        log.info("@@ CONTROLLER TEST request : {}", diaryDto);
+        log.info("updateDiary invoke,  request : {}", diaryDto);
         //diaryService.updateDiary(diaryId, diaryDto, files);
         return ResponseEntity.ok(diaryService.updateDiary(diaryId, diaryDto, files));
     }
 
     @DeleteMapping("/{diaryId}")
     public ResponseEntity<String> deleteDiary(@PathVariable("diaryId") long diaryId) {
-        log.info("delete id : {}", diaryId);
+        log.info("deleteDiary invoke, delete id : {}", diaryId);
         diaryService.deleteDiary(diaryId);
         return ResponseEntity.ok("다이어리가 삭제되었습니다.");
     }
