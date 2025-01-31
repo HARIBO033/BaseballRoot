@@ -51,13 +51,6 @@ public class FriendService {
                 .status(FriendStatus.REQUESTED)
                 .build();
 
-        Issue.builder()
-                .sender(sender)
-                .receiver(codeMatchingFriend)
-                .issueType(IssueType.FOLLOW_REQUEST)
-                .isRead(false)
-                .build();
-
         issueRepository.save(Issue.createIssue(sender, codeMatchingFriend, IssueType.FOLLOW_REQUEST));
         friendManagementRepository.save(friendManagement);
         notificationService.send(String.valueOf(codeMatchingFriend.getId()), sender.getName() + "님이 친구 요청을 보냈습니다.", IssueType.FOLLOW_REQUEST, null);

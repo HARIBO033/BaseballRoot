@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -29,13 +30,17 @@ public class MemberService {
     @Transactional
     public MemberDto.Response saveMember(MemberDto.Request memberDto) {
         CreateUuid createUuid = new CreateUuid();
-        Member member = Member.builder()
+        Member member = createMemberEntity(memberDto, createUuid);
+        memberRepository.save(member);
+        return MemberDto.Response.fromEntity(member);
+    }
+
+    private Member createMemberEntity(MemberDto.Request memberDto, CreateUuid createUuid) {
+        return Member.builder()
                 .nickname(memberDto.getNickname())
                 .profileImage(memberDto.getProfileImage())
                 .favoriteTeam(memberDto.getFavoriteTeam())
-                .memberCode(createUuid.createUuid())
+                .memberCode(createUuid.createUuid()) //TODO : uuid 객체생성방식 변경
                 .build();
-        memberRepository.save(member);
-        return MemberDto.Response.fromEntity(member);
     }
 }

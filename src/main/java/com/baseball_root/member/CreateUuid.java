@@ -10,7 +10,6 @@ public class CreateUuid {
     public String createUuid() {
         // UUID 생성
         String uuidStr = UUID.randomUUID().toString();
-        System.out.println("생성된 UUID : " + uuidStr);
 
         byte[] uuidStrBytes = uuidStr.getBytes(StandardCharsets.UTF_8);
         byte[] hashBytes;
@@ -29,8 +28,7 @@ public class CreateUuid {
                 break;
             }
         }
-            System.out.println(sb.toString());
-        // UUID.randomUUID().toString();
+
         return sb.toString();
     }
 }

@@ -46,10 +46,6 @@ public class Member implements Comparable<Member> {
     @Column(name = "memberCode", nullable = false)
     private String memberCode;
 
-    /*@Column(name = "friends")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Member> friends = new ArrayList<>();
-*/
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "friends",
@@ -57,7 +53,6 @@ public class Member implements Comparable<Member> {
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private List<Member> friends = new ArrayList<>();
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Diary> diaries = new ArrayList<>();

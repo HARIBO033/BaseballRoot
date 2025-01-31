@@ -15,7 +15,6 @@ public interface FriendManagementRepository extends JpaRepository<FriendManageme
             "WHERE f.receiver.id=:receiverId AND f.status='REQUESTED'")
     List<FriendManagement> findByReceiverIdAndStatus_Requested(@Param("receiverId") Long receiverId);
 
-
     // sender와 receiver로 조회 결과가 있으면 REQUESTED 상태인지 확인
     @Query("SELECT f FROM FriendManagement f " +
             "WHERE f.sender.id=:senderId AND f.receiver.id=:receiverId AND f.status='REQUESTED'")
@@ -25,5 +24,4 @@ public interface FriendManagementRepository extends JpaRepository<FriendManageme
             "WHERE f.sender.id=:senderId AND f.receiver.id=:receiverId AND f.status='ACCEPTED'")
     FriendManagement findBySenderAndReceiverAndStatus_Accepted(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 
-    Optional<FriendManagement> findByReceiverId(Long receiverId);
 }

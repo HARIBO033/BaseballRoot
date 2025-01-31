@@ -81,7 +81,7 @@ public class S3Service {
     /**
      * S3에서 파일 삭제
      *
-     * @param fileName 파일 이름
+     * @param key 파일 이름
      */
     public void deleteFile(String key) {
         try {
@@ -95,9 +95,8 @@ public class S3Service {
 
     /**
      * 파일 존재 여부 확인
-     *
-     * @param fileName
-     * @return
+     * @param key 파일 이름
+     * @return 파일 존재 여부
      */
     private boolean existsFile(String key) {
         try {
@@ -108,17 +107,4 @@ public class S3Service {
         }
     }
 
-    /*public String uploadFile(String bucketName, String key, String filePath) throws IOException {
-        Path file = Path.of(filePath);
-        // S3 업로드 진행
-        RequestBody requestBody = RequestBody.fromFile(file);
-        PutObjectRequest request = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key)
-                .build();
-        s3Client.putObject(request, requestBody);
-
-        //return "업로드 성공";
-        return "https://" + bucketName + ".s3.ap-northeast-2.amazonaws.com/" + key;
-    }*/
 }

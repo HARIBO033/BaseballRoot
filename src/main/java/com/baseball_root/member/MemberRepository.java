@@ -10,12 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-
-
-    Member findByNickname(String nickname);
-
     Optional<Member> findByMemberCode(String memberCode);
-
-    /*@Query("SELECT DISTINCT m FROM Member m JOIN FETCH m.friends WHERE m.id = :memberId")
-    List<MemberDto> findFriendListById(@Param("memberId") Long memberId);*/
 }
