@@ -23,223 +23,223 @@ values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode', '롯데');
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '집관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '집관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '집관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '집관', 'WIN', '2024-01-14',
         '2024-12-04 23:20:11', '2024-12-04 23:20:11');
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2022-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2023-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
-        '2025-01-09 23:20:11', '2025-01-09 23:20:11');
-
-insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
-                   game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2023-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+        '2025-01-09 23:20:11', '2025-01-09 23:20:11');
+
+insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
+                   game_result, game_date, created_at, modified_at)
+values ('LG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'TIE', '2024',
+values ('LG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'TIE', '2024-01-14',
         '2024-10-13 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'LOTTE', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '집관', 'LOSE', '2024',
+values ('LG', 'LOTTE', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '집관', 'LOSE', '2024-01-14',
         '2024-10-12 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('SAMSUNG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'LOSE', '2024',
+values ('SAMSUNG', 'SSG', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'LOSE', '2024-01-14',
         '2024-10-11 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'LOSE', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'LOSE', '2024-01-14',
         '2024-10-10 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'LOSE', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'LOSE', '2024-01-14',
         '2024-10-09 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-08 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-07 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-06 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-05 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-04 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-03 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('맥도날드', '스타벅스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('맥도날드', '스타벅스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-02 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('양키즈', '코쟁이즈', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024',
+values ('양키즈', '코쟁이즈', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2024-10-01 23:20:11', '2024-10-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024-01-14',
         '2023-11-21 23:20:11', '2023-11-21 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'LOSE', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'LOSE', '2024-01-14',
         '2023-11-01 23:20:11', '2023-11-01 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'TIE', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'TIE', '2024-01-14',
         '2023-11-03 23:20:11', '2023-11-03 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'TIE', '2024',
+values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'TIE', '2024-01-14',
         '2024-10-03 23:20:11', '2024-10-03 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024-01-14',
         '2024-11-05 23:20:11', '2024-11-05 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024-01-14',
         '2024-11-11 23:20:11', '2024-11-11 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024-01-14',
         '2024-11-13 23:20:11', '2024-11-13 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024',
+values ('롯데 자이언츠', '한화 이글스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '직관', 'WIN', '2024-01-14',
         '2024-11-14 23:20:11', '2024-11-14 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 3, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 3, '직관', 'WIN', '2024-01-14',
         '2023-11-02 23:20:11', '2023-11-02 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 3, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 3, '직관', 'WIN', '2024-01-14',
         '2023-11-05 23:20:11', '2023-11-05 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 4, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 4, '직관', 'WIN', '2024-01-14',
         '2021-11-05 23:20:11', '2021-11-05 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 5, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 5, '직관', 'WIN', '2024-01-14',
         '2024-11-06 23:20:11', '2024-11-06 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 6, '직관', 'WIN', '2024',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 6, '직관', 'WIN', '2024-01-14',
         '2024-11-05 23:20:11', '2023-11-05 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 6, '직관', 'WIN', '2023',
+values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 6, '직관', 'WIN', '2023-01-14',
         '2024-11-07 01:20:11', '2024-11-07 01:20:11');
 
 

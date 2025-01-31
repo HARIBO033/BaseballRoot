@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,7 +39,7 @@ public class CommentService {
     //댓글 생성
     @Transactional
     public void createComment(Long diaryId, CommentDto.Request commentDto) {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+commentDto.getMemberId().toString());
+
         Member author = validationMember(commentDto);
         Diary diary = diaryRepository.findById(diaryId).orElseThrow(
                 () -> new IllegalArgumentException("다이어리 ID를 찾을 수 없습니다: " + diaryId)
@@ -63,12 +64,14 @@ public class CommentService {
 
 
     //다이어리 + 댓글 조회
-    public List<Comment> getCommentsByDiary(Long diaryId) {
+    public List<CommentDto.Response> getCommentsByDiary(Long diaryId) {
         // 해당 다이어리가 있는지 확인
         Diary diary = diaryRepository.findById(diaryId)
                 .orElseThrow(() -> new IllegalArgumentException("다이어리 ID를 찾을 수 없습니다: " + diaryId));
         // 해당 다이어리의 댓글들을 가져옴
-        return commentRepository.findByDiaryAndParentIsNull(diary);
+        List<Comment> comments = commentRepository.findByDiaryAndParentIsNull(diary);
+
+        return comments.stream().map(CommentDto.Response::fromEntity).collect(Collectors.toList());
         //return commentRepository.findByDiaryIdAndParentIsNull(diary.getId());
     }
 

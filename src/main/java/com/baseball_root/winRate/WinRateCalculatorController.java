@@ -26,14 +26,4 @@ public class WinRateCalculatorController {
         return ResponseEntity.ok(response);
     }
 
-    /*@GetMapping("/win-rate/calculates/{memberId}")
-    public ResponseEntity<Integer> calculateWinRate(@PathVariable(name = "memberId") Long memberId,
-                                                      @RequestParam(name = "location") String location,
-                                                      @RequestParam(name = "season") String season,
-                                                      @RequestParam(name = "team") String team) {
-        System.out.println("@@@@@@@@@@@@@" + memberId + " " + location+ " " + season+ " " + team+ " ");
-        int response = winRateCalculatorService.calculateWinRate(memberId, location, season, team);
-
-        return ResponseEntity.ok(response);
-    }*/
 }

@@ -33,6 +33,8 @@ public class CommentDto {
     @Setter
     @ToString
     public static class Response {
+        private Long memberId;
+        private String nickname;
         private Long diaryId;
         private Long commentId;
         private String content;
@@ -42,8 +44,11 @@ public class CommentDto {
         private boolean reactionType;
 
         private Long reactionCount;
+        private String createdAt;
 
         public Response(Comment comment) {
+            this.memberId = comment.getMember().getId();
+            this.nickname = comment.getMember().getNickname();
             this.diaryId = comment.getDiary().getId();
             this.commentId = comment.getId();
             this.content = comment.getContent();
@@ -53,6 +58,7 @@ public class CommentDto {
             if (!comment.getChildren().isEmpty())
                 this.children = CommentDto.Response.toDto(comment.getChildren());
             this.reactionCount = comment.getReactionCount();
+            this.createdAt = comment.getFormattedCreatedAt();
         }
 
         private static List<Response> toDto(List<Comment> children) {

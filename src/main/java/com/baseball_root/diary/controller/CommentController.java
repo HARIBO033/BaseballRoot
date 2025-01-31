@@ -23,11 +23,7 @@ public class CommentController {
     public ResponseEntity<List<CommentDto.Response>> getCommentsByDiary(@PathVariable(name = "diaryId") Long diaryId) {
         log.info("getCommentsByDiary 호출 diaryId : {}", diaryId);
         // 댓글 및 대댓글 가져오기
-        List<Comment> comments = commentService.getCommentsByDiary(diaryId);
-
-        return ResponseEntity.ok(comments.stream()
-                .map(CommentDto.Response::fromEntity)
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(commentService.getCommentsByDiary(diaryId));
     }
 
     @PostMapping("")
