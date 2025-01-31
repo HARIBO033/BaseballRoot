@@ -5,18 +5,20 @@ import com.baseball_root.diary.repository.DiaryRepository;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WinRateCalculatorService {
     private final DiaryRepository diaryRepository;
     private final MemberRepository memberRepository;
 
     public WinRateCalculatorDto.Response calculateWinRate(Long memberId, String location, String season, String team) {
-        System.out.println("memberId = " + memberId);
+        log.info("calculateWinRate 호출 memberId = " + memberId + " location = " + location + " season = " + season + " team = " + team);
         //totalGame 구하기 (
         List<Diary> diaryList = diaryRepository.findByLocationAndMemberIdAndCreatedAt(location, memberId, season);//TODO: 메소드 이름 수정하기
         int totalGame = diaryList.size();
