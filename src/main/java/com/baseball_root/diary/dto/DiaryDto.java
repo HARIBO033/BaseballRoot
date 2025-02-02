@@ -82,6 +82,7 @@ public class DiaryDto {
         private String gameResult;
         private String gameDate;
         private String nickname;
+        private Long reactionCount;
         private String createdAt;
 
         private Response(Long id, String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, String location, String gameResult, String gameDate, String nickname, String createdAt) {
@@ -135,6 +136,7 @@ public class DiaryDto {
                     .gameResult(diary.getGameResult())
                     .gameDate(diary.getGameDate())
                     .nickname(diary.getMember().getNickname())
+                    .reactionCount(diary.getReactionCount())
                     .createdAt(diary.getFormattedCreatedAt())
                     .build();
         }
