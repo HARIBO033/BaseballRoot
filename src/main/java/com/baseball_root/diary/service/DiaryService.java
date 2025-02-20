@@ -6,16 +6,23 @@ import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.DiaryDto;
 import com.baseball_root.diary.repository.DiaryRepository;
 import com.baseball_root.global.S3Service;
+import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
+import com.baseball_root.global.exception.custom_exception.InvalidPostIdException;
+import com.baseball_root.global.response.ErrorCode;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import static com.baseball_root.global.response.ErrorCode.INVALID_POST_ID_EXCEPTION;
+
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class DiaryService {
     private final DiaryRepository diaryRepository;
@@ -31,32 +38,19 @@ public class DiaryService {
     }*/
 
     public DiaryDto.Response getDetailDiary(Long id) {
-        Diary diary = diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 일기가 없습니다. id=" + id));
+        Diary diary = diaryRepository.findById(id).orElseThrow(InvalidPostIdException::new);
         List<String> attachImageUrls = getAttachImageUrls(id);
         return DiaryDto.Response.fromEntity(diary, attachImageUrls);
     }
 
     @Transactional
-    public DiaryDto.Response saveDiary(Long memberId, DiaryDto.Request diaryDto, List<MultipartFile> files){
+    public DiaryDto.Response saveDiary(Long memberId, DiaryDto.Request diaryDto, List<MultipartFile> files) {
         Member author = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + memberId));
-        Diary diary  = Diary.builder()
-                .home(diaryDto.getHome())
-                .away(diaryDto.getAway())
-                .place(diaryDto.getPlace())
-                .seat(diaryDto.getSeat())
-                .title(diaryDto.getTitle())
-                .content(diaryDto.getContent())
-                .lineUp(diaryDto.getLineUp())
-                .mvp(diaryDto.getMvp())
-                .member(author)
-                .location(diaryDto.getLocation())
-                .gameResult(diaryDto.getGameResult())
-                .gameDate(diaryDto.getGameDate())
-                .build();
+                .orElseThrow(InvalidMemberIdException::new);
+        Diary diary = getBuild(diaryDto, author);
         diaryRepository.save(diary);
 
-        if (files != null && !files.isEmpty()){
+        if (files != null && !files.isEmpty()) {
             List<String> ImageNames = s3Service.uploadMultiFile(files);
             for (String imageName : ImageNames) {
                 String imageUrl = s3Service.getFileUrl(imageName);
@@ -70,13 +64,13 @@ public class DiaryService {
             List<String> attachImageUrls = getAttachImageUrls(diary.getId());
             return DiaryDto.Response.fromEntity(diary, attachImageUrls);
         }
-            return DiaryDto.Response.fromEntity(diary, List.of());
+        return DiaryDto.Response.fromEntity(diary, List.of());
     }
 
+
     @Transactional
-    public DiaryDto.Response updateDiary(Long id, DiaryDto.Request diaryDto, List<MultipartFile> files){
-        System.out.println("diaryDto = " + diaryDto);
-        Diary diary = diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 일기가 없습니다. id=" + id));
+    public DiaryDto.Response updateDiary(Long id, DiaryDto.Request diaryDto, List<MultipartFile> files) {
+        Diary diary = diaryRepository.findById(id).orElseThrow(InvalidPostIdException::new);
         diary.update(
                 diaryDto.getSeat(),
                 diaryDto.getTitle(),
@@ -87,10 +81,11 @@ public class DiaryService {
         diaryRepository.flush();
 
         List<String> attachImageUrls = getAttachImageUrls(id);
-        return DiaryDto.Response.fromEntity(diary,attachImageUrls);
+        return DiaryDto.Response.fromEntity(diary, attachImageUrls);
     }
-    public Long deleteDiary(long id){
-        Diary diary = diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 일기가 없습니다. id=" + id));
+
+    public Long deleteDiary(long id) {
+        Diary diary = diaryRepository.findById(id).orElseThrow(InvalidPostIdException::new);
         diary.getAttachImages().forEach(attachImage -> {
             s3Service.deleteFile(attachImage.getName());
         });
@@ -99,8 +94,25 @@ public class DiaryService {
     }
 
     // Repository 에서 해당 일기에 속한 이미지 url 리스트 반환
-    public List<String> getAttachImageUrls(Long diaryId){
+    public List<String> getAttachImageUrls(Long diaryId) {
         List<AttachImage> attachImages = attachImageRepository.findByDiaryId(diaryId);
         return attachImages.stream().map(AttachImage::getUrl).toList();
     }
+    private static Diary getBuild(DiaryDto.Request diaryDto, Member author) {
+        return Diary.builder()
+                .home(diaryDto.getHome())
+                .away(diaryDto.getAway())
+                .place(diaryDto.getPlace())
+                .seat(diaryDto.getSeat())
+                .title(diaryDto.getTitle())
+                .content(diaryDto.getContent())
+                .lineUp(diaryDto.getLineUp())
+                .mvp(diaryDto.getMvp())
+                .member(author)
+                .location(diaryDto.getLocation())
+                .gameResult(diaryDto.getGameResult())
+                .gameDate(diaryDto.getGameDate())
+                .build();
+    }
+
 }

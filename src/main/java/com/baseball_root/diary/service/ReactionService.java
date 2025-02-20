@@ -10,6 +10,9 @@ import com.baseball_root.diary.dto.ReactionDto;
 import com.baseball_root.diary.repository.CommentRepository;
 import com.baseball_root.diary.repository.DiaryRepository;
 import com.baseball_root.diary.repository.ReactionRepository;
+import com.baseball_root.global.exception.custom_exception.InvalidCommentIdException;
+import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
+import com.baseball_root.global.exception.custom_exception.InvalidPostIdException;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +38,7 @@ public class ReactionService {
         // 댓글에 대한 반응인지 다이어리에 대한 반응인지 확인
         if (reactionDto.getDiaryId() != null && reactionDto.getCommentId() == null) {
             Diary diary = diaryRepository.findById(reactionDto.getDiaryId())
-                    .orElseThrow(() -> new NoSuchElementException(
-                            "Diary not found for id: " + reactionDto.getDiaryId()));
+                    .orElseThrow(InvalidPostIdException::new);
             diary.nullCheck();
             if (requestReactionType) {
                 diary.increaseReactionCount();
@@ -44,17 +46,16 @@ public class ReactionService {
                 diary.decreaseReactionCount();
             }
             Member sender = memberRepository.findById(reactionDto.getMemberId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
+                    .orElseThrow(InvalidMemberIdException::new);
 
             Member receiver = memberRepository.findById(diary.getMember().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
+                    .orElseThrow(InvalidMemberIdException::new);
 
             issueRepository.save(Issue.createIssue(sender, receiver, IssueType.DIARY_REACTION));
             notificationService.send(String.valueOf(diary.getMember().getId()), sender.getName() + "님이 회원님의 다이어리에 좋아요를 눌렀습니다.",IssueType.COMMENT, null);
         } else {
             Comment comment = commentRepository.findById(reactionDto.getCommentId())
-                    .orElseThrow(() -> new NoSuchElementException(
-                            "Comment not found for id: " + reactionDto.getCommentId()));
+                    .orElseThrow(InvalidCommentIdException::new);
             comment.nullCheck();
             if (requestReactionType) {
                 comment.increaseReactionCount();
@@ -62,10 +63,10 @@ public class ReactionService {
                 comment.decreaseReactionCount();
             }
             Member sender = memberRepository.findById(reactionDto.getMemberId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid sender id"));
+                    .orElseThrow(InvalidMemberIdException::new);
 
             Member receiver = memberRepository.findById(comment.getMember().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid receiver id"));
+                    .orElseThrow(InvalidMemberIdException::new);
 
             issueRepository.save(Issue.createIssue(sender, receiver, IssueType.COMMENT_REACTION));
             notificationService.send(String.valueOf(receiver.getId()), sender.getName() + "님이 회원님의 댓글에 좋아요를 눌렀습니다.",IssueType.COMMENT, null);
