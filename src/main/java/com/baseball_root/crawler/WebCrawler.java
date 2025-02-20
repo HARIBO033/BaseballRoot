@@ -1,6 +1,9 @@
 package com.baseball_root.crawler;
 
+import com.baseball_root.global.exception.CustomException;
+import com.baseball_root.global.exception.GlobalExceptionHandler;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class WebCrawler {
     public List<ScheduleDto> scrapeSchedule(String date) {
         List<ScheduleDto> scheduleList = new ArrayList<>();
@@ -39,7 +43,7 @@ public class WebCrawler {
             years.selectByValue(date.substring(0, 4));//01234567
             months.selectByValue(date.substring(4, 6));
             String strMonth = date.substring(4, 6);
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@months : " + strMonth);
+            log.info("월 : {}", strMonth);
             switch (strMonth) {
                 case "10", "11" -> {
                     league.selectByValue("3,4,5,7");
@@ -147,7 +151,8 @@ public class WebCrawler {
                 }
                 case "01", "02", "12" -> scheduleList.add(null);
             }
-        } catch (Exception e) {
+        } catch (CustomException e) {
+            log.error("해당 날짜에 일정이 없습니다.");
             e.printStackTrace();
         } finally {
             driver.quit();

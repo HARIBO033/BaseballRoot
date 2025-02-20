@@ -1,5 +1,7 @@
 package com.baseball_root.friend;
 
+import com.baseball_root.global.response.CommonResponse;
+import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +19,18 @@ public class FriendController {
 
     // 받은 친구 요청 리스트 조회
     @GetMapping("/{memberId}")
-    public ResponseEntity<List<FriendManagementDto>> getFriendRequestedList(@PathVariable("memberId") Long memberId) {
+    public CommonResponse<List<FriendManagementDto>> getFriendRequestedList(@PathVariable("memberId") Long memberId) {
         log.info("getFriendRequestedList 호출 memberId = " + memberId);
-        return ResponseEntity.ok(friendService.getFriendRequestedList(memberId));
+        return CommonResponse.success(SuccessCode.GET_FRIENDS_REQUEST_SUCCESS,friendService.getFriendRequestedList(memberId));
     }
 
     @GetMapping("/request/{senderId}/send")
-    public ResponseEntity<String> sendFriendRequest(@PathVariable(name = "senderId") Long senderId,
+    public CommonResponse<?> sendFriendRequest(@PathVariable(name = "senderId") Long senderId,
                                                     @RequestParam(name = "memberCode") String memberCode) {
 
         friendService.sendFriendRequest(senderId, memberCode);
         log.info("sendFriendRequest 호출 senderId = " + senderId + " memberCode = " + memberCode);
-        return ResponseEntity.ok(senderId + "번 유저가 " + memberCode + " 유저에게 " + "친구 추가 요청");
+        return CommonResponse.success(SuccessCode.SEND_FRIEND_REQUEST_SUCCESS);
     }
 
     // 친구 요청 수락 or 거절

@@ -1,5 +1,7 @@
 package com.baseball_root.Issue;
 
+import com.baseball_root.global.response.CommonResponse;
+import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,9 @@ public class IssueController {
     private final IssueService issueService;
 
     @GetMapping("/my-pages/issues/{memberId}")
-    public ResponseEntity<List<IssueDto.Response>> getIssueList(@PathVariable(name = "memberId") Long memberId) {
+    public CommonResponse<List<IssueDto.Response>> getIssueList(@PathVariable(name = "memberId") Long memberId) {
         List<IssueDto.Response> issueDtoList = issueService.getIssueList(memberId);
         log.info("getIssueList 호출 issueDtoList = " + issueDtoList);
-        return ResponseEntity.ok(issueDtoList);
+        return CommonResponse.success(SuccessCode.GET_ISSUE_LIST_SUCCESS, issueDtoList);
     }
 }

@@ -2,6 +2,7 @@ package com.baseball_root.feed;
 
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.DiaryDto;
+import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberDto;
 import com.baseball_root.member.MemberRepository;
@@ -24,7 +25,7 @@ public class FeedService {
     }
 
     public List<MemberDto> getFeedSortedFriendList(Long memberId) {
-        List<Member> friends = getMember(memberId).getFriends();
+        List<Member> friends = getMemberEntity(memberId).getFriends();
         friends.sort(null);
 
         return friends.stream().map(MemberDto::fromEntity).collect(Collectors.toList());
@@ -39,7 +40,7 @@ public class FeedService {
     }
 
     public Page<DiaryDto.Response> getMyFeedList(Long memberId, String location, String gameDate, String team, Pageable pageable) {
-        List<Diary> diaryList = getMember(memberId).getDiaries();
+        List<Diary> diaryList = getMemberEntity(memberId).getDiaries();
         diaryList.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
 
         List<DiaryDto.Response> filteredList = diaryList.stream()
@@ -50,9 +51,9 @@ public class FeedService {
     }
 
     public Page<DiaryDto.Response> getFriendFeedList(Long memberId, String location, String gameDate, String team, Pageable pageable) {
-        List<Diary> diaryList = getMember(memberId).getDiaries();
+        List<Diary> diaryList = getMemberEntity(memberId).getDiaries();
         diaryList.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
-        LocalDateTime twoWeeksAgo = LocalDateTime.now().minusDays(50);
+        LocalDateTime twoWeeksAgo = LocalDateTime.now().minusDays(100);
 
         List<DiaryDto.Response> filteredList = diaryList.stream()
                 .filter(diary -> diary.getCreatedAt().isAfter(twoWeeksAgo))
@@ -65,9 +66,9 @@ public class FeedService {
     }
 
     public Page<DiaryDto.Response> getAllFeedList(Long memberId, String location, String gameDate, String team, Pageable pageable) { //TODO: 구단이름은 enum으로 관리하자
-        List<Member> friends = getMember(memberId).getFriends();
+        List<Member> friends = getMemberEntity(memberId).getFriends();
         friends.sort(null);
-        LocalDateTime twoWeeksAgo = LocalDateTime.now().minusDays(50);//TODO : 또 바뀐다고함
+        LocalDateTime twoWeeksAgo = LocalDateTime.now().minusDays(100);//TODO : 또 바뀐다고함
         List<Diary> diaryList = friends.stream()
                 .map(Member::getDiaries).flatMap(List::stream)
                 .filter(diary -> diary.getCreatedAt().isAfter(twoWeeksAgo))
@@ -82,14 +83,13 @@ public class FeedService {
         }
 
         diaryList.sort((d1, d2) -> d2.getCreatedAt().compareTo(d1.getCreatedAt()));
-        System.out.println("diaryList = " + diaryList);
         List<DiaryDto.Response> filteredList = diaryList.stream().map(DiaryDto.Response::of).collect(Collectors.toList());
         return toPage(filteredList, pageable);
     }
 
 
-    public Member getMember(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member id"));
+    public Member getMemberEntity(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(InvalidMemberIdException::new);
     }
 
     public Diary filterDiary(String location, String gameDate, String team, Diary diary) {

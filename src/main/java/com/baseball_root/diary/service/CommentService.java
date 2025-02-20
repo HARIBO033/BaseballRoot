@@ -9,6 +9,10 @@ import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.CommentDto;
 import com.baseball_root.diary.repository.CommentRepository;
 import com.baseball_root.diary.repository.DiaryRepository;
+import com.baseball_root.global.exception.custom_exception.InvalidCommentIdException;
+import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
+import com.baseball_root.global.exception.custom_exception.InvalidPostIdException;
+import com.baseball_root.global.exception.custom_exception.NotFountParentCommentException;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,15 +45,13 @@ public class CommentService {
     public void createComment(Long diaryId, CommentDto.Request commentDto) {
 
         Member author = validationMember(commentDto);
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow(
-                () -> new IllegalArgumentException("다이어리 ID를 찾을 수 없습니다: " + diaryId)
-        );
+        Diary diary = diaryRepository.findById(diaryId).orElseThrow(InvalidPostIdException::new);
         Comment comment = commentDto.toEntity(diary, author);
 
         if (commentDto.getParentCommentId() != null) {
             //부모댓글 찾기
             Comment parentComment = commentRepository.findById(commentDto.getParentCommentId())
-                    .orElseThrow(() -> new IllegalArgumentException("부모 댓글이 없습니다."));
+                    .orElseThrow(NotFountParentCommentException::new);
             //부모댓글의 자식댓글로 저장
             comment.setParentComment(parentComment);
         }
@@ -67,7 +69,7 @@ public class CommentService {
     public List<CommentDto.Response> getCommentsByDiary(Long diaryId) {
         // 해당 다이어리가 있는지 확인
         Diary diary = diaryRepository.findById(diaryId)
-                .orElseThrow(() -> new IllegalArgumentException("다이어리 ID를 찾을 수 없습니다: " + diaryId));
+                .orElseThrow(InvalidPostIdException::new);
         // 해당 다이어리의 댓글들을 가져옴
         List<Comment> comments = commentRepository.findByDiaryAndParentIsNull(diary);
 
@@ -78,13 +80,14 @@ public class CommentService {
     // 댓글 삭제
     @Transactional
     public void deleteComment(Long commentId) {
-        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(InvalidCommentIdException::new);
         commentRepository.delete(comment);
     }
 
     public Member validationMember(CommentDto.Request commentDto) {
         if (commentDto.getMemberId() == null) {
-            throw new IllegalArgumentException("회원 정보가 없습니다.");
+            throw new InvalidMemberIdException();
         }
         return memberRepository.findById(commentDto.getMemberId()).orElseThrow();
     }

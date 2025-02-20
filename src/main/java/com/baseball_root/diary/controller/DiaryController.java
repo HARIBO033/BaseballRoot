@@ -4,6 +4,8 @@ import com.baseball_root.diary.dto.DiaryDto;
 import com.baseball_root.diary.service.DiaryService;
 import com.baseball_root.crawler.ScheduleDto;
 import com.baseball_root.crawler.WebCrawler;
+import com.baseball_root.global.response.CommonResponse;
+import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -20,9 +22,9 @@ import java.util.List;
 public class DiaryController {
     private final DiaryService diaryService;
 
-    //캘린더에서 날짜를 선택하면 리스트를 반환
+    // 일정 크롤링
     @GetMapping("/crawling/monthly/{date}")//202410
-    public ResponseEntity<List<ScheduleDto>> getMonthlyGameScheduleList(@PathVariable(name = "date") String date) {
+    public CommonResponse<List<ScheduleDto>> getMonthlyGameScheduleList(@PathVariable(name = "date") String date) {
         log.info("getMonthlyGameScheduleList 호출 date : {}", date);
         List<ScheduleDto> scheduleDtoList = null;
         try {
@@ -31,23 +33,16 @@ public class DiaryController {
         } catch (IllegalArgumentException e) {
             log.error("해당 날짜에 일정이 없습니다.");
         }
-        return ResponseEntity.ok(scheduleDtoList);
+        return CommonResponse.success(SuccessCode.GET_CRAWLING_SUCCESS, scheduleDtoList);
 
     }
-
 
     @GetMapping("/{diaryId}")
-    public ResponseEntity<DiaryDto.Response> getDetailDiary(@PathVariable(name = "diaryId") Long diaryId) {
+    public CommonResponse<?> getDetailDiary(@PathVariable(name = "diaryId") Long diaryId) {
         //diaryService.getDetailDiary(diaryId);
         log.info("getDetailDiary 호출 diaryId : {}", diaryId);
-        return ResponseEntity.ok(diaryService.getDetailDiary(diaryId));
+        return CommonResponse.success(SuccessCode.GET_POST_SUCCESS, diaryService.getDetailDiary(diaryId));
     }
-
-    /*@PostMapping("/save1")
-    public DiaryDto.Response createDiaryPage1(@RequestBody DiaryDto.Request diaryDto){
-        log.info("request : {}", diaryDto);
-        return diaryService.saveDiaryPage1(diaryDto);
-    }*/
 
     /**
      * @param memberId
@@ -61,13 +56,12 @@ public class DiaryController {
      * @RequestParam : URL 쿼리스트링으로 데이터를 받음
      */
     @PostMapping(value = "/save/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<DiaryDto.Response> createDiary(@PathVariable(name = "memberId") Long memberId,
-                                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
-                                                         @RequestPart(required = false, value = "files") List<MultipartFile> files) {
+    public CommonResponse<?> createDiary(@PathVariable(name = "memberId") Long memberId,
+                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
+                                         @RequestPart(required = false, value = "files") List<MultipartFile> files) {
         log.info("createDiary invoke, request : {}", diaryDto);
 
-        //diaryService.saveDiary(memberId, diaryDto, files);
-        return ResponseEntity.ok(diaryService.saveDiary(memberId, diaryDto, files));
+        return CommonResponse.success(SuccessCode.POST_POST_SUCCESS, diaryService.saveDiary(memberId, diaryDto, files));
     }
 
     /**
@@ -76,18 +70,18 @@ public class DiaryController {
      * @return DiaryDto.Response
      */
     @PutMapping(value = "/{diaryId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<DiaryDto.Response> updateDiary(@PathVariable("diaryId") Long diaryId,
+    public CommonResponse<?> updateDiary(@PathVariable("diaryId") Long diaryId,
                                                          @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
                                                          @RequestPart(required = false, value = "files") List<MultipartFile> files) {
         log.info("updateDiary invoke,  request : {}", diaryDto);
-        //diaryService.updateDiary(diaryId, diaryDto, files);
-        return ResponseEntity.ok(diaryService.updateDiary(diaryId, diaryDto, files));
+        return CommonResponse.success(SuccessCode.UPDATE_POST_SUCCESS, diaryService.updateDiary(diaryId, diaryDto, files));
     }
 
     @DeleteMapping("/{diaryId}")
-    public ResponseEntity<String> deleteDiary(@PathVariable("diaryId") long diaryId) {
+    public CommonResponse<?> deleteDiary(@PathVariable("diaryId") long diaryId) {
         log.info("deleteDiary invoke, delete id : {}", diaryId);
         diaryService.deleteDiary(diaryId);
-        return ResponseEntity.ok("다이어리가 삭제되었습니다.");
+        return CommonResponse.success(SuccessCode.DELETE_POST_SUCCESS);
     }
+
 }
