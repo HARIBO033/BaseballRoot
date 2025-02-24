@@ -67,7 +67,7 @@ public class WinRateCalculatorService {
             winRate = 0;
         } else {
             winRate = (int)(winCount * 100) / totalGame;
-            System.out.println("winRate = " + winRate);
+            //System.out.println("winRate = " + winRate);
         }
         long guessToWin = winCount;
         return WinRateCalculatorDto.Response.toResponse(totalGame, winCount, loseCount, tieCount, guessToWin, winRate);

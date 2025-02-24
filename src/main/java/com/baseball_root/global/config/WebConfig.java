@@ -21,18 +21,6 @@ public class WebConfig implements WebMvcConfigurer{
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new ByteArrayHttpMessageConverter());
     }
-        /*@Bean
-        public WebMvcConfigurer corsConfigurer() {
-            return new WebMvcConfigurer() {
-                @Override
-                public void addCorsMappings(CorsRegistry registry) {
-                    registry.addMapping("/**")
-                            .allowedOrigins("http://localhost:3000")
-                            .allowedMethods("GET", "POST", "PUT", "DELETE");
-                }
-            };
-        }*/
-
     @Bean(name = "globalCorsConfigurer")
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -40,12 +28,26 @@ public class WebConfig implements WebMvcConfigurer{
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")  // 모든 경로에 대해 적용
                         .allowedOrigins("http://15.165.85.56:9090")  // 허용할 도메인
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")  // 허용할 HTTP 메서드
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // 허용할 HTTP 메서드
                         .allowedHeaders("*")  // 허용할 헤더
                         .allowCredentials(true);  // 쿠키 포함 여부
             }
         };
     }
+    /*@Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**") // 모든 엔드포인트에 대해
+                        .allowedOrigins("http://15.165.85.56:9090") // 특정 Origin만 허용하고 싶다면 변경
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
+    }
+*/
 
 
 }

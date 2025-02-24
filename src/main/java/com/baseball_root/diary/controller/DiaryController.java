@@ -6,6 +6,7 @@ import com.baseball_root.crawler.ScheduleDto;
 import com.baseball_root.crawler.WebCrawler;
 import com.baseball_root.global.response.CommonResponse;
 import com.baseball_root.global.response.SuccessCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -57,7 +58,7 @@ public class DiaryController {
      */
     @PostMapping(value = "/save/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<?> createDiary(@PathVariable(name = "memberId") Long memberId,
-                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
+                                         @RequestPart(value = "diaryDto") @Valid DiaryDto.Request diaryDto,
                                          @RequestPart(required = false, value = "files") List<MultipartFile> files) {
         log.info("createDiary invoke, request : {}", diaryDto);
 
@@ -71,8 +72,8 @@ public class DiaryController {
      */
     @PutMapping(value = "/{diaryId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<?> updateDiary(@PathVariable("diaryId") Long diaryId,
-                                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
-                                                         @RequestPart(required = false, value = "files") List<MultipartFile> files) {
+                                         @RequestPart(value = "diaryDto") DiaryDto.Request diaryDto,
+                                         @RequestPart(required = false, value = "files") List<MultipartFile> files) {
         log.info("updateDiary invoke,  request : {}", diaryDto);
         return CommonResponse.success(SuccessCode.UPDATE_POST_SUCCESS, diaryService.updateDiary(diaryId, diaryDto, files));
     }

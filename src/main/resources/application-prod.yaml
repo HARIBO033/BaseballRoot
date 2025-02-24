@@ -14,6 +14,7 @@ spring:
       max-request-size: 100MB
   # 컨트롤러에서 프론트로 보내줄 때 null field 생략
   jackson:
+    property-naming-strategy: SNAKE_CASE
     default-property-inclusion: non_null
 
   datasource:

@@ -4,9 +4,12 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.unit.DataSize;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -44,6 +47,7 @@ public class S3Config {
                 .build();
 
     }
+
     /*@Bean
     public AmazonS3Client amazonS3Client() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
@@ -52,5 +56,11 @@ public class S3Config {
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
     }*/
-
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize(DataSize.parse("10MB"));
+        factory.setMaxRequestSize(DataSize.parse("20MB"));
+        return factory.createMultipartConfig();
+    }
 }
