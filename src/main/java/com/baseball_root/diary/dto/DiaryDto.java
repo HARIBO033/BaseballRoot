@@ -5,21 +5,19 @@ import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.member.Member;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
 @Builder
+
 public class DiaryDto {
-
-
 
     @Getter
     @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Request{
         @JsonProperty("home")
         private String home;
@@ -59,9 +57,9 @@ public class DiaryDto {
         private String gameDate;
 
 
-        public Diary toEntity(String home, String away,String place, String seat, String title, String content, String lineUp, String mvp, Member member){
+        /*public Diary toEntity(String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, Member member){
             return new Diary(home,away, place, seat, title, content, lineUp, mvp, member);
-        }
+        }*/
     }
 
     @Builder

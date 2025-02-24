@@ -13,6 +13,9 @@ spring:
       location: /temp
       max-file-size: 100MB
       max-request-size: 100MB
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
 
 server:
   port: 9090
