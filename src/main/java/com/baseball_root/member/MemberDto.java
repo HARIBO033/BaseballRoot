@@ -27,6 +27,9 @@ public class MemberDto {
         private String nickname;
         private String favoriteTeam;
         private String profileImage;
+        private int age;
+        private String gender;
+        private String name;
 
     }
 
@@ -38,6 +41,9 @@ public class MemberDto {
         private String favoriteTeam;
         private String memberCode;
         private String profileImage;
+        private int age;
+        private String gender;
+        private String name;
 
         public static Response fromEntity(Member member){
             return Response.builder()
@@ -46,6 +52,9 @@ public class MemberDto {
                     .favoriteTeam(member.getFavoriteTeam())
                     .memberCode(member.getMemberCode())
                     .profileImage(member.getProfileImage())
+                    .age(member.getAge())
+                    .gender(member.getGender())
+                    .name(member.getName())
                     .build();
         }
         public static Response fromEntity(Member member, String profileImage){
@@ -55,6 +64,9 @@ public class MemberDto {
                     .favoriteTeam(member.getFavoriteTeam())
                     .memberCode(member.getMemberCode())
                     .profileImage(profileImage)
+                    .age(member.getAge())
+                    .gender(member.getGender())
+                    .name(member.getName())
                     .build();
         }
     }
