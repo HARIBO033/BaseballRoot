@@ -1,6 +1,7 @@
 package com.baseball_root.member;
 
 import com.baseball_root.global.S3Service;
+import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class MemberService {
     @Transactional
     public MemberDto.Response updateMember(Long memberId, MemberDto.Request memberDto, MultipartFile file){
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + memberId));
+                .orElseThrow(InvalidMemberIdException::new);
         if (!member.getProfileImage().isEmpty()){
             s3Service.deleteFile(member.getProfileImage());
         }
@@ -41,6 +42,14 @@ public class MemberService {
                 .profileImage(memberDto.getProfileImage())
                 .favoriteTeam(memberDto.getFavoriteTeam())
                 .memberCode(createUuid.createUuid()) //TODO : uuid 객체생성방식 변경
+                .age(memberDto.getAge())
+                .name(memberDto.getName())
+                .gender(memberDto.getGender())
                 .build();
+    }
+
+    public MemberDto.Response getMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(InvalidMemberIdException::new);
+        return MemberDto.Response.fromEntity(member);
     }
 }

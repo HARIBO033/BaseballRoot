@@ -5,7 +5,6 @@ import com.baseball_root.global.response.CommonResponse;
 import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +23,13 @@ public class MemberController {
         List<MemberDto> friends = friendService.getFriendList(memberId);
         log.info("getFriends 호출 friends = " + friends);
     return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, friends);
+    }
+
+    @GetMapping("/members/{memberId}")
+    public CommonResponse<?> getMember(@PathVariable(name = "memberId") Long memberId){
+        MemberDto.Response member = memberService.getMember(memberId);
+        log.info("getMember 호출 member: " + member);
+        return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, member);
     }
 
     //회원 추가
