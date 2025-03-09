@@ -4,9 +4,9 @@ import com.baseball_root.global.response.CommonResponse;
 import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,5 +23,11 @@ public class IssueController {
         List<IssueDto.Response> issueDtoList = issueService.getIssueList(memberId);
         log.info("getIssueList 호출 issueDtoList = " + issueDtoList);
         return CommonResponse.success(SuccessCode.GET_ISSUE_LIST_SUCCESS, issueDtoList);
+    }
+
+    @PutMapping("/my-pages/issues/{issueId}/read")
+    public CommonResponse<?> markIssueAsRead(@PathVariable(name = "issueId") Long issueId) {
+        issueService.markIssueAsRead(issueId);
+        return CommonResponse.success(SuccessCode.REQUEST_SUCCESS);
     }
 }
