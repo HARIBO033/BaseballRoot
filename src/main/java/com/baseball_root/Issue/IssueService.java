@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,8 @@ public class IssueService {
         );
         List<Issue> issueList = issueRepository.findByReceiver(member);
         return issueList.stream()
+                // 14일 이내의 이슈만 필터링
+                .filter(issue -> issue.getCreatedAt().isAfter(LocalDateTime.now().minusDays(100))) // TODO: 테스트를 위해 100일로 설정 14일 이내로 바꿔야함
                 .map(IssueDto.Response::fromEntity)
                 .collect(Collectors.toList());
     }

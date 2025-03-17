@@ -52,7 +52,7 @@ public class ReactionService {
                     .orElseThrow(InvalidMemberIdException::new);
 
             issueRepository.save(Issue.createIssue(sender, receiver, IssueType.DIARY_REACTION));
-            notificationService.send(String.valueOf(diary.getMember().getId()), sender.getName() + "님이 회원님의 다이어리에 좋아요를 눌렀습니다.",IssueType.COMMENT, null);
+            notificationService.send(String.valueOf(diary.getMember().getId()), sender.getName() + "님이 회원님의 다이어리에 좋아요를 눌렀습니다.", IssueType.COMMENT, null);
         } else {
             Comment comment = commentRepository.findById(reactionDto.getCommentId())
                     .orElseThrow(InvalidCommentIdException::new);
@@ -67,9 +67,13 @@ public class ReactionService {
 
             Member receiver = memberRepository.findById(comment.getMember().getId())
                     .orElseThrow(InvalidMemberIdException::new);
-
-            issueRepository.save(Issue.createIssue(sender, receiver, IssueType.COMMENT_REACTION));
-            notificationService.send(String.valueOf(receiver.getId()), sender.getName() + "님이 회원님의 댓글에 좋아요를 눌렀습니다.",IssueType.COMMENT, null);
+            if (comment.getParent() == null) {
+                issueRepository.save(Issue.createIssue(sender, receiver, IssueType.COMMENT_REACTION));
+                notificationService.send(String.valueOf(receiver.getId()), sender.getName() + "님이 회원님의 댓글에 좋아요를 눌렀습니다.", IssueType.COMMENT, null);
+            } else {
+                issueRepository.save(Issue.createIssue(sender, receiver, IssueType.REPLY_REACTION));
+                notificationService.send(String.valueOf(receiver.getId()), sender.getName() + "님이 회원님의 대댓글에 좋아요를 눌렀습니다.", IssueType.REPLY, null);
+            }
         }
         reactionRepository.save(reactionDto.toEntity());
     }
