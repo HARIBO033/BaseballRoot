@@ -19,6 +19,7 @@ public class MemberDto {
     }
 
     @Getter
+    @Setter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
@@ -30,6 +31,7 @@ public class MemberDto {
         private int age;
         private String gender;
         private String name;
+        private String naverId;
 
     }
 

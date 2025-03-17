@@ -8,6 +8,8 @@ public enum SuccessCode {
     REGISTER_MEMBER_SUCCESS(HttpStatus.CREATED, "회원 가입에 성공했습니다."),
     DELETE_MEMBER_SUCCESS(HttpStatus.ACCEPTED, "회원 탈퇴가 완료되었습니다."),
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공했습니다."),
+    //회원가입먼저 해주세요
+    LOGIN_FAIL(HttpStatus.BAD_REQUEST, "로그인에 실패했습니다. 회원가입을 먼저 해주세요."),
     REFRESH_ACCESS_TOKEN_SUCCESS(HttpStatus.CREATED, "ACCESS TOKEN 재발급에 성공했습니다."),
     GET_POST_SUCCESS(HttpStatus.OK, "게시글 조회에 성공했습니다."),
     POST_POST_SUCCESS(HttpStatus.CREATED, "게시글 등록에 성공했습니다."),
@@ -41,7 +43,7 @@ public enum SuccessCode {
     UPDATE_REACTION_SUCCESS(HttpStatus.ACCEPTED, "리액션 최신화에 성공했습니다."),
     GET_FRIENDS_REQUEST_SUCCESS(HttpStatus.OK, "친구 요청 조회에 성공했습니다."),
     GET_ISSUE_LIST_SUCCESS(HttpStatus.OK, "이슈 리스트 조회에 성공했습니다."),
-    SEND_FRIEND_REQUEST_SUCCESS(HttpStatus.CREATED, "6183618666666친구 요청을 성공적으로 보냈습니다."),
+    SEND_FRIEND_REQUEST_SUCCESS(HttpStatus.CREATED, "친구 요청을 성공적으로 보냈습니다."),
     REQUEST_SUCCESS(HttpStatus.OK, "요청 성공"),
     ;
 

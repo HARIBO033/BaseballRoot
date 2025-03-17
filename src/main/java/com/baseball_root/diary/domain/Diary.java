@@ -45,7 +45,7 @@ public class Diary extends BaseTimeEntity{
     @Column(name = "content", nullable = true)
     private String content;
 
-    @Column(name = "lineUp", nullable = true)
+    @Column(name = "line_up", nullable = true)
     private String lineUp;
 
     @Column(name = "mvp", nullable = true)

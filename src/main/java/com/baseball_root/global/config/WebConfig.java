@@ -1,5 +1,6 @@
 package com.baseball_root.global.config;
 
+import com.baseball_root.global.MultipartJackson2HttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,16 @@ import java.util.List;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = com.baseball_root.global.config.WebConfig.class)
 )
 public class WebConfig implements WebMvcConfigurer{
+    private final MultipartJackson2HttpMessageConverter multipartJackson2HttpMessageConverter;
+
+    public WebConfig(MultipartJackson2HttpMessageConverter multipartJackson2HttpMessageConverter) {
+        this.multipartJackson2HttpMessageConverter = multipartJackson2HttpMessageConverter;
+    }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(0, multipartJackson2HttpMessageConverter); // 우선순위 높게 설정
+    }
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new ByteArrayHttpMessageConverter());
