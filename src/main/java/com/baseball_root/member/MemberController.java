@@ -5,6 +5,7 @@ import com.baseball_root.global.response.CommonResponse;
 import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,12 +33,22 @@ public class MemberController {
         return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, member);
     }
 
+    @PostMapping("/members/login")
+    public CommonResponse<MemberDto.Response> loginMember(@RequestBody MemberDto.Request memberDto) {
+        MemberDto.Response member = memberService.loginMember(memberDto);
+        if (member == null) {
+            return CommonResponse.success(SuccessCode.LOGIN_FAIL,null);
+        }
+        log.info("loginMember 호출 member = " + member);
+        return CommonResponse.success(SuccessCode.LOGIN_SUCCESS, member);
+    }
     //회원 추가
-    @PostMapping("/members")
-    public CommonResponse<MemberDto.Response> saveMember(@RequestBody MemberDto.Request memberDto) {
-        MemberDto.Response savedMember = memberService.saveMember(memberDto);
+    @PostMapping(value = "/members/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public CommonResponse<MemberDto.Response> saveMember(@RequestPart(value = "memberDto") MemberDto.Request memberDto,
+                                                         @RequestPart(required = false, value = "file") MultipartFile file) {
+        MemberDto.Response savedMember = memberService.saveMember(memberDto,file);
         log.info("saveMember 호출 savedMember = " + savedMember);
-        return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, savedMember);
+        return CommonResponse.success(SuccessCode.REGISTER_MEMBER_SUCCESS, savedMember);
     }
 
     //프로필 수정
