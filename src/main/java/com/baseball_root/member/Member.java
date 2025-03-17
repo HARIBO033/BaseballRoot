@@ -33,18 +33,21 @@ public class Member implements Comparable<Member> {
     @Column(name = "nickname", nullable = true)
     private String nickname;
 
-    @Column(name = "profileImage", nullable = true)
+    @Column(name = "profile_image", nullable = true)
     private String profileImage;
 
     @Column(name = "gender", nullable = true)
     private String gender;
 
-    @Column(name = "favoriteTeam", nullable = true)
+    @Column(name = "favorite_team", nullable = true)
     private String favoriteTeam;
 
     //고유코드
-    @Column(name = "memberCode", nullable = false)
+    @Column(name = "member_code", nullable = false)
     private String memberCode;
+
+    @Column(name = "naver_id", nullable = false)
+    private String naverId;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
