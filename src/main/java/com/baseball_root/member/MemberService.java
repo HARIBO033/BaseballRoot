@@ -28,9 +28,11 @@ public class MemberService {
 
     @Transactional
     public MemberDto.Response saveMember(MemberDto.Request memberDto, MultipartFile file) {
-        String key = s3Service.uploadFile(file);
-        String imageUrl = s3Service.getFileUrl(key);
-        memberDto.setProfileImage(imageUrl);
+        if (!file.isEmpty()){
+            String key = s3Service.uploadFile(file);
+            String imageUrl = s3Service.getFileUrl(key);
+            memberDto.setProfileImage(imageUrl);
+        }
         CreateUuid createUuid = new CreateUuid();
         Member member = createMemberEntity(memberDto, createUuid);
         memberRepository.save(member);
