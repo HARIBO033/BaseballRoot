@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
     ALREADY_EXISTS_EMAIL_EXCEPTION(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다."),
     ALREADY_EXISTS_NICKNAME_EXCEPTION(HttpStatus.BAD_REQUEST, "이미 존재하는 닉네임입니다."),
+    ALREADY_EXISTS_MEMBER_EXCEPTION(HttpStatus.BAD_REQUEST, "이미 존재하는 회원입니다."),
     BINDING_EXCEPTION(HttpStatus.BAD_REQUEST, "Binding Exception"),
     EMAIL_NOT_FOUND_EXCEPTION(HttpStatus.BAD_REQUEST, "존재하지 않는 이메일입니다."),
     INVALID_PASSWORD_EXCEPTION(HttpStatus.BAD_REQUEST, "비밀번호가 올바르지 않습니다."),
@@ -27,6 +28,7 @@ public enum ErrorCode {
     NOT_FOUND_PARENT_COMMENT_EXCEPTION(HttpStatus.BAD_REQUEST, "부모 댓글을 찾을 수 없습니다."),
     INVALID_ATTACHMENT_ID_EXCEPTION(HttpStatus.BAD_REQUEST, "잘못된 이미지 ID입니다."),
     DELETE_ATTACHMENT_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "이미지 파일 삭제에 실패했습니다."),
+    NOT_FOUND_MEMBER_EXCEPTION(HttpStatus.BAD_REQUEST, "회원 정보를 찾을 수 없습니다.")
     ;
 
     private final HttpStatus status;

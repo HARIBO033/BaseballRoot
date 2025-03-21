@@ -52,9 +52,9 @@ public class MemberController {
     }
 
     //프로필 수정
-    @PutMapping("/members/{memberId}")
+    @PutMapping(value = "/members/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<MemberDto.Response> updateMemberInfo(@PathVariable(name = "memberId") Long memberId,
-                                                               @RequestPart(value = "memberDto") MemberDto.Request memberDto,
+                                                               @RequestPart(value = "memberDto") MemberDto.UpdateMemberRequest memberDto,
                                                                @RequestPart(required = false, value = "file") MultipartFile file) {
         log.info("@@FIlE : {}", file);
         MemberDto.Response updatedMember = memberService.updateMember(memberId, memberDto, file);

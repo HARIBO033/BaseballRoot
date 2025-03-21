@@ -82,6 +82,9 @@ public class Member implements Comparable<Member> {
         this.nickname = nickname;
         this.favoriteTeam = favoriteTeam;
     }
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
     // 가장 최근에 작성한 Diary 반환
     public Diary getLatestDiary() {
         return diaries.stream()
@@ -106,5 +109,6 @@ public class Member implements Comparable<Member> {
         }
         return otherLatestDiary.getCreatedAt().compareTo(myLatestDiary.getCreatedAt());
     }
+
 
 }

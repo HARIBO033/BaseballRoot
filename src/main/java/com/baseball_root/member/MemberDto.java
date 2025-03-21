@@ -34,6 +34,28 @@ public class MemberDto {
         private String naverId;
 
     }
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateMemberRequest{
+        private Long id;
+        private String nickname;
+        private String favoriteTeam;
+        private String profileImage;
+    }
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LoginMemberRequest{
+        private Long id;
+        private String nickname;
+        private String favoriteTeam;
+        private String profileImage;
+    }
 
     @Getter
     @Builder
