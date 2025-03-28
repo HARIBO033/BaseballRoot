@@ -51,10 +51,7 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class LoginMemberRequest{
-        private Long id;
-        private String nickname;
-        private String favoriteTeam;
-        private String profileImage;
+        private String naverId;
     }
 
     @Getter

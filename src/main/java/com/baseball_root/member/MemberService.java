@@ -18,16 +18,15 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final S3Service s3Service;
 
-    public MemberDto.Response loginMember(MemberDto.Request memberDto) {
-        Member member = getMemberById(memberDto.getId());
-
-        if (member.getMemberCode() == null) {
-            throw new NotFoundMemberException();
-        }
-
+    //
+    public MemberDto.Response loginMember(MemberDto.LoginMemberRequest memberDto) {
         return memberRepository.findByNaverId(memberDto.getNaverId())
                 .map(MemberDto.Response::fromEntity)
                 .orElse(null);
+
+        /*return memberRepository.findByNaverId(memberDto.getNaverId())
+                .map(MemberDto.Response::fromEntity)
+                .orElse(null);*/
     }
 
     @Transactional

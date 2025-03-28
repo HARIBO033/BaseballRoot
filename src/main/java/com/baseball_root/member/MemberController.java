@@ -34,7 +34,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public CommonResponse<MemberDto.Response> loginMember(@RequestBody MemberDto.Request memberDto) {
+    public CommonResponse<MemberDto.Response> loginMember(@RequestBody MemberDto.LoginMemberRequest memberDto) {
         MemberDto.Response member = memberService.loginMember(memberDto);
         if (member == null) {
             return CommonResponse.success(SuccessCode.LOGIN_FAIL,null);
