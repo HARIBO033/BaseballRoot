@@ -25,6 +25,13 @@ public class IssueController {
         return CommonResponse.success(SuccessCode.GET_ISSUE_LIST_SUCCESS, issueDtoList);
     }
 
+    @GetMapping("/my-pages/issues/{memberId}/issueCount")
+    public CommonResponse<?> getIssueCount(@PathVariable(name = "memberId") Long memberId){
+        int issueCount = issueService.getIssueList(memberId).size();
+        log.info("getIssueCount 호출 issueCount = " + issueCount);
+        return CommonResponse.success(SuccessCode.GET_ISSUE_LIST_SUCCESS, issueCount);
+    }
+
     @PutMapping("/my-pages/issues/{issueId}/read")
     public CommonResponse<?> markIssueAsRead(@PathVariable(name = "issueId") Long issueId) {
         issueService.markIssueAsRead(issueId);
