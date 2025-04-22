@@ -93,4 +93,12 @@ public class MemberService {
             member.setProfileImage(s3Service.getFileUrl(key));
         }
     }
+
+    public void deleteMember(Long memberId) {
+        Member member = getMemberById(memberId);
+        if (member.getProfileImage() != null && !member.getProfileImage().isEmpty()) {
+            s3Service.deleteFile(member.getProfileImage());
+        }
+        memberRepository.delete(member);
+    }
 }
