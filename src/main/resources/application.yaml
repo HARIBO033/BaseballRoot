@@ -17,5 +17,10 @@ spring:
     property-naming-strategy: SNAKE_CASE
     default-property-inclusion: non_null
 
+weatherperson:
+  api:
+    key: af176147adb1d200c47ff09f2f0bdc49
+    url: https://api.openweathermap.org/data/2.5/forecast
+
 server:
   port: 9090
