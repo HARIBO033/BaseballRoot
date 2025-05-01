@@ -25,19 +25,19 @@ public class DiaryDto {
         @JsonProperty("away")
         private String away;
 
-        @NotBlank
+        @NotBlank(message = "장소는 필수 입력값입니다.")
         @JsonProperty("place")
         private String place;
 
         @JsonProperty("seat")
         private String seat;
 
-        @NotBlank
+        @NotBlank(message = "제목은 필수 입력값입니다.")
         @JsonProperty("title")
         private String title;
 
         @Length(max = 500, message = "내용은 500자리를 넘을 수 없습니다.")
-        @NotBlank(message = "내용은 필수 입력값입니다.")
+        //@NotBlank(message = "내용은 필수 입력값입니다.")
         @JsonProperty("content")
         private String content;
 
@@ -53,6 +53,7 @@ public class DiaryDto {
         @JsonProperty("gameResult")
         private String gameResult;
 
+        @NotBlank(message = "경기 날짜는 필수 입력값입니다.")
         @JsonProperty("gameDate")
         private String gameDate;
 
