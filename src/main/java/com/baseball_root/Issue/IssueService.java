@@ -28,6 +28,20 @@ public class IssueService {
                 .collect(Collectors.toList());
     }
 
+    public long getIssueListCount(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new IllegalArgumentException("회원 ID를 찾을 수 없습니다: " + memberId)
+        );
+        List<Issue> issueList = issueRepository.findByReceiver(member);
+        return issueList.stream()
+                // 14일 이내의 이슈만 필터링
+                .filter(issue -> issue.getCreatedAt().isAfter(LocalDateTime.now().minusDays(100))) // TODO: 테스트를 위해 100일로 설정 14일 이내로 바꿔야함
+                // isRead가 false인 이슈만 필터링
+                .filter(issue -> !issue.isRead())
+                //size만 리턴
+                .count();
+    }
+
     @Transactional
     public void markIssueAsRead(Long issueId) {
         Issue issue = issueRepository.findById(issueId).orElseThrow(

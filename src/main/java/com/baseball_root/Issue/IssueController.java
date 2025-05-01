@@ -27,7 +27,7 @@ public class IssueController {
 
     @GetMapping("/my-pages/issues/{memberId}/issueCount")
     public CommonResponse<?> getIssueCount(@PathVariable(name = "memberId") Long memberId){
-        int issueCount = issueService.getIssueList(memberId).size();
+        long issueCount = issueService.getIssueListCount(memberId);
         log.info("getIssueCount 호출 issueCount = " + issueCount);
         return CommonResponse.success(SuccessCode.GET_ISSUE_LIST_SUCCESS, issueCount);
     }
