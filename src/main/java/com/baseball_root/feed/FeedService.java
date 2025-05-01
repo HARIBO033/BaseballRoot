@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,23 +71,30 @@ public class FeedService {
         List<Member> friends = getMemberEntity(memberId).getFriends();
         friends.sort(null);
         LocalDateTime twoWeeksAgo = LocalDateTime.now().minusDays(100);//TODO : 또 바뀐다고함
-        List<Diary> diaryList = friends.stream()
+        List<Diary> combinedDiaryList = new ArrayList<>();
+        List<Diary> myDiaryList = getMemberEntity(memberId).getDiaries().stream()
+                .filter(diary -> diary.getCreatedAt().isAfter(twoWeeksAgo))
+                .map(diary -> filterDiary(location, gameDate, team, diary))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        combinedDiaryList.addAll(myDiaryList);
+        List<Diary> friendDiaryList = friends.stream()
                 .map(Member::getDiaries).flatMap(List::stream)
                 .filter(diary -> diary.getCreatedAt().isAfter(twoWeeksAgo))
                 .map(diary -> filterDiary(location, gameDate, team, diary))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+        combinedDiaryList.addAll(friendDiaryList);
 
-        for (int i = 0; i < diaryList.size(); i++) {
-            if (diaryList.get(i) == null) {
-                diaryList.remove(i);
-                i--;
-            }
-        }
-
-        diaryList.sort((d1, d2) -> d2.getCreatedAt().compareTo(d1.getCreatedAt()));
-        List<DiaryDto.Response> filteredList = diaryList.stream().map(DiaryDto.Response::of).collect(Collectors.toList());
+        // 최신순 정렬
+        combinedDiaryList.sort((d1, d2) -> d2.getCreatedAt().compareTo(d1.getCreatedAt()));
+        List<DiaryDto.Response> filteredList = combinedDiaryList.stream()
+                .map(DiaryDto.Response::of)
+                .collect(Collectors.toList());
         return toPage(filteredList, pageable);
     }
+
+
 
 
     public Member getMemberEntity(Long memberId) {
@@ -96,7 +105,7 @@ public class FeedService {
         if (location != null && !location.equals(diary.getLocation()) && !location.equals("전체")) {
             return null;
         }
-        if (gameDate != null && !gameDate.equals(diary.getGameDate().substring(0,4)) && !gameDate.equals("전체")) {
+        if (gameDate != null && !gameDate.equals(diary.getGameDate().substring(0, 4)) && !gameDate.equals("전체")) {
             return null;
         }
         if (team != null && (!team.equals(diary.getHome()) && !team.equals(diary.getAway())) && !team.equals("전체")) {
