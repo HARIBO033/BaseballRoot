@@ -3,7 +3,10 @@ package com.baseball_root.member;
 import com.baseball_root.diary.domain.Diary;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
@@ -49,7 +52,7 @@ public class Member implements Comparable<Member> {
     @Column(name = "naver_id", nullable = false)
     private String naverId;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name = "friends",
             joinColumns = @JoinColumn(name = "member_id"),
@@ -60,20 +63,35 @@ public class Member implements Comparable<Member> {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Diary> diaries = new ArrayList<>();
 
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false;
+
+    public void anonymizeAndSoftDelete() {
+        this.name = "탈퇴한 사용자";
+        this.nickname = "탈퇴한 사용자";
+        this.profileImage = null;
+        this.gender = "탈퇴한 사용자";
+        this.memberCode = "탈퇴한 사용자";
+        this.naverId = "탈퇴한 사용자";
+        this.age = null;
+        this.favoriteTeam = "탈퇴한 사용자";
+        this.deleted = true;
+    }
+
     public String makeMemberCode() {
         CreateUuid createUuid = new CreateUuid();
         memberCode = createUuid.createUuid();
         return memberCode;
     }
 
-    public MemberDto toDto(){
+    public MemberDto toDto() {
         return MemberDto.builder()
                 .id(this.id)
                 .nickname(this.nickname)
                 .build();
     }
 
-    public void addFriend(Member friend){
+    public void addFriend(Member friend) {
         this.friends.add(friend);
     }
 
@@ -82,9 +100,11 @@ public class Member implements Comparable<Member> {
         this.nickname = nickname;
         this.favoriteTeam = favoriteTeam;
     }
+
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+
     // 가장 최근에 작성한 Diary 반환
     public Diary getLatestDiary() {
         return diaries.stream()
@@ -109,6 +129,5 @@ public class Member implements Comparable<Member> {
         }
         return otherLatestDiary.getCreatedAt().compareTo(myLatestDiary.getCreatedAt());
     }
-
 
 }

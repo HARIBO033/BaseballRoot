@@ -1,23 +1,23 @@
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (3, 'il', 'il', 'profilePhoto', 'male', 'memberCode', 'SSG 랜더스', 'aaaaa');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'yee', 'yee', 'profilePhoto', 'male', 'memberCode', 'LG 트윈스', 'bbbbb');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'sam', 'sam', 'profilePhoto', 'male', 'memberCode', '한화', 'ccccc');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'sa', 'sa', 'profilePhoto', 'male', 'memberCode', '롯데', 'ddddd');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'oh', 'oh', 'profilePhoto', 'male', 'memberCode', '롯데', 'eeeee');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'nuri', 'momo3', 'profilePhoto', 'male', 'memberCode', '롯데', 'fffff');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'haun', 'momo4', 'profilePhoto', 'male', 'memberCode', '롯데', 'ggggg');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'mina', 'momo5', 'profilePhoto', 'male', 'memberCode', '롯데', 'hhhhh');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'jin', 'momo6', 'profilePhoto', 'male', 'memberCode', 'LG', 'iiiii');
-insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id)
-values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode', '롯데', 'jjjjj');
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (3, 'il', 'il', 'profilePhoto', 'male', 'memberCode', 'SSG 랜더스', 'aaaaa', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'yee', 'yee', 'profilePhoto', 'male', 'memberCode', 'LG 트윈스', 'bbbbb', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'sam', 'sam', 'profilePhoto', 'male', 'memberCode', '한화', 'ccccc', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'sa', 'sa', 'profilePhoto', 'male', 'memberCode', '롯데', 'ddddd', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'oh', 'oh', 'profilePhoto', 'male', 'memberCode', '롯데', 'eeeee', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'nuri', 'momo3', 'profilePhoto', 'male', 'memberCode', '롯데', 'fffff', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'haun', 'momo4', 'profilePhoto', 'male', 'memberCode', '롯데', 'ggggg', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'mina', 'momo5', 'profilePhoto', 'male', 'memberCode', '롯데', 'hhhhh', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'jin', 'momo6', 'profilePhoto', 'male', 'memberCode', 'LG', 'iiiii', false);
+insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
+values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode', '롯데', 'jjjjj', false);
 
 insert into issue (is_read, created_at, issue_type, sender_id, receiver_id)
 values (false, '2025-03-16 23:20:11', 'COMMENT_REACTION', 1, 2);

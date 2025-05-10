@@ -8,7 +8,6 @@ import com.baseball_root.diary.repository.DiaryRepository;
 import com.baseball_root.global.S3Service;
 import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
 import com.baseball_root.global.exception.custom_exception.InvalidPostIdException;
-import com.baseball_root.global.response.ErrorCode;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
-import static com.baseball_root.global.response.ErrorCode.INVALID_POST_ID_EXCEPTION;
 
 @Service
 @Slf4j
@@ -98,6 +95,7 @@ public class DiaryService {
         List<AttachImage> attachImages = attachImageRepository.findByDiaryId(diaryId);
         return attachImages.stream().map(AttachImage::getUrl).toList();
     }
+
     private static Diary getBuild(DiaryDto.Request diaryDto, Member author) {
         return Diary.builder()
                 .home(diaryDto.getHome())
@@ -114,5 +112,6 @@ public class DiaryService {
                 .gameDate(diaryDto.getGameDate())
                 .build();
     }
+
 
 }

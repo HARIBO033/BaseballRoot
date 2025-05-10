@@ -16,4 +16,5 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     @Query("SELECT d FROM Diary d WHERE d.location = :location and d.member.id = :memberId and year (d.createdAt) = :season")
     List<Diary> findByLocationAndMemberIdAndCreatedAt(@Param("location") String location, @Param("memberId") Long memberId, @Param("season") String season);
 
+    List<Diary> findAllByMember(Member member);
 }
