@@ -1,5 +1,10 @@
 package com.baseball_root.member;
 
+import com.baseball_root.diary.domain.Comment;
+import com.baseball_root.diary.domain.Diary;
+import com.baseball_root.diary.repository.CommentRepository;
+import com.baseball_root.diary.repository.DiaryRepository;
+import com.baseball_root.friend.FriendManagementRepository;
 import com.baseball_root.global.S3Service;
 import com.baseball_root.global.exception.custom_exception.AlreadyExistsMemberException;
 import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
@@ -9,13 +14,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @Transactional
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-
+    private final FriendManagementRepository friendManagementRepository;
     private final MemberRepository memberRepository;
+    private final DiaryRepository diaryRepository;
+    private final CommentRepository commentRepository;
     private final S3Service s3Service;
 
     //
@@ -67,8 +76,12 @@ public class MemberService {
     }
 
     private Member getMemberById(Long memberId) {
-        return memberRepository.findById(memberId)
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(InvalidMemberIdException::new);
+        if (member.isDeleted()) {
+            throw new NotFoundMemberException();
+        }
+        return member;
     }
 
     private void validateDuplicateNaverId(String naverId) {
@@ -94,11 +107,34 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public void deleteMember(Long memberId) {
         Member member = getMemberById(memberId);
         if (member.getProfileImage() != null && !member.getProfileImage().isEmpty()) {
             s3Service.deleteFile(member.getProfileImage());
         }
-        memberRepository.delete(member);
+        // 연관 데이터 익명화
+        anonymizeMemberPosts(member);
+        anonymizeMemberComments(member);
+
+        // 본인 정보 익명화 및 탈퇴 처리
+        member.anonymizeAndSoftDelete();
+        memberRepository.save(member);
+    }
+
+    public void anonymizeMemberPosts(Member member) {
+        List<Diary> diaries = diaryRepository.findAllByMember(member);
+        for (Diary diary : diaries) {
+            diary.setAuthorName("탈퇴한 사용자");
+        }
+        diaryRepository.saveAll(diaries);
+    }
+
+    public void anonymizeMemberComments(Member member) {
+        List<Comment> comments = commentRepository.findAllByMember(member);
+        for (Comment comment : comments) {
+            comment.setWriterName("탈퇴한 사용자");
+        }
+        commentRepository.saveAll(comments);
     }
 }

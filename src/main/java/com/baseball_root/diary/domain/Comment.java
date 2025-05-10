@@ -51,7 +51,11 @@ public class Comment extends BaseTimeEntity{
 
     private Long reactionCount = 0L;  // 댓글의 반응 수
 
+    private String writerName;  // 탈퇴후 댓글 작성자 이름
 
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
     public void setParentComment(Comment comment) {
         this.parent = comment;
     }

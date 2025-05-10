@@ -57,9 +57,9 @@ public class CommentService {
         }
 
         commentRepository.save(comment);
-        if (!Objects.equals(diary.getMember().getId(), author.getId())){
+        if (!Objects.equals(diary.getMember().getId(), author.getId())) {
             if (commentDto.getParentCommentId() == null) {
-                issueRepository.save(Issue.createIssue(diary.getMember(), author, IssueType.COMMENT));
+                issueRepository.save(Issue.createIssue(author, diary.getMember(), IssueType.COMMENT));
                 notificationService.send(String.valueOf(diary.getMember().getId()), author.getName() + "님이 회원님의 다이어리에 댓글을 남겼습니다.", IssueType.COMMENT, null);
             } else {
                 issueRepository.save(Issue.createIssue(comment.getParent().getMember(), author, IssueType.REPLY));
@@ -96,4 +96,6 @@ public class CommentService {
         }
         return memberRepository.findById(commentDto.getMemberId()).orElseThrow();
     }
+
+
 }
