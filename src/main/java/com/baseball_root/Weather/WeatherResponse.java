@@ -13,6 +13,7 @@ public class WeatherResponse {
     private String stadium;
     private double lat;
     private double lon;
+    private WeatherForecast.WeatherForecastByThreeHour currentWeather;
     private List<WeatherForecast.WeatherForecastByThreeHour> forecast;
 }
 

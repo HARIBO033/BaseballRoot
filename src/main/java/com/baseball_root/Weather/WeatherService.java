@@ -11,6 +11,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +52,11 @@ public class WeatherService {
 
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
         JsonNode body = response.getBody();
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        long minDiff = Long.MAX_VALUE;
+        WeatherForecast.WeatherForecastByThreeHour currentWeather = null;
         List<WeatherForecast.WeatherForecastByThreeHour> forecastList = new ArrayList<>();
         for (JsonNode item : body.get("list")) {
             String time = item.get("dt_txt").asText();
@@ -63,23 +70,25 @@ public class WeatherService {
             int humidity = item.get("main").get("humidity").asInt();
             int windSpeed = item.get("wind").get("speed").asInt();
 
-            forecastList.add(new WeatherForecast.WeatherForecastByThreeHour(
-                    time,
-                    temp,
-                    tempMin,
-                    tempMax,
-                    feelLikeTemp,
-                    mainWeather,
-                    descriptionWeather,
-                    icon,
-                    humidity,
-                    windSpeed
-            ));
+            WeatherForecast.WeatherForecastByThreeHour forecast = new WeatherForecast.WeatherForecastByThreeHour(
+                    time, temp, tempMin, tempMax, feelLikeTemp, mainWeather, descriptionWeather, icon, humidity, windSpeed
+            );
+
+            forecastList.add(forecast);
+
+            LocalDateTime forecastTime = LocalDateTime.parse(time, formatter);
+            long diff = Math.abs(Duration.between(now, forecastTime).toMinutes());
+
+            if (diff < minDiff) {
+                minDiff = diff;
+                currentWeather = forecast;
+            }
         }
 
-        return new WeatherResponse(stadiumName, coords[0], coords[1], forecastList);
+        return new WeatherResponse(stadiumName, coords[0], coords[1], currentWeather, forecastList);
     }
-    @Cacheable(value = "stadiumWeather",  unless = "#result == null")
+
+    @Cacheable(value = "stadiumWeather", unless = "#result == null")
     public List<StadiumWeatherResponse> getAllStadiumWeather() {
         System.out.println("cache check : getAllStadiumWeather");
         List<StadiumWeatherResponse> result = new ArrayList<>();
@@ -103,6 +112,7 @@ public class WeatherService {
                 int temp = firstItem.get("main").get("temp").asInt();
                 String weather = firstItem.get("weather").get(0).get("description").asText();
                 String icon = firstItem.get("weather").get(0).get("icon").asText();
+
 
                 forecastList.add(new WeatherForecast(time, temp, weather, icon));
 
