@@ -67,3 +67,7 @@ tasks.named('bootJar') {
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-parameters"
 }
+
+bootRun {
+    jvmArgs = ['-Duser.timezone=Asia/Seoul']
+}
