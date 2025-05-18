@@ -57,16 +57,16 @@ public class MemberController {
                                                                @RequestPart(value = "memberDto") MemberDto.UpdateMemberRequest memberDto,
                                                                @RequestPart(required = false, value = "file") MultipartFile file) {
         log.info("@@FIlE : {}", file);
+        log.info("updateMemberInfo 호출 memberId = " + memberId);
         MemberDto.Response updatedMember = memberService.updateMember(memberId, memberDto, file);
-        log.info("updateMemberInfo 호출 updatedMember = " + updatedMember);
         return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, updatedMember);
     }
 
     //회원 탈퇴
     @DeleteMapping("/members/{memberId}")
     public CommonResponse<?> deleteMember(@PathVariable(name = "memberId") Long memberId) {
-        memberService.deleteMember(memberId);
         log.info("deleteMember 호출 memberId = " + memberId);
+        memberService.deleteMember(memberId);
         return CommonResponse.success(SuccessCode.DELETE_MEMBER_SUCCESS, null);
     }
 }

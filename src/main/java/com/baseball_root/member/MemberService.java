@@ -125,7 +125,7 @@ public class MemberService {
     public void anonymizeMemberPosts(Member member) {
         List<Diary> diaries = diaryRepository.findAllByMember(member);
         for (Diary diary : diaries) {
-            diary.setAuthorName("탈퇴한 사용자");
+            diary.setAuthorName("*****");
         }
         diaryRepository.saveAll(diaries);
     }
@@ -133,7 +133,7 @@ public class MemberService {
     public void anonymizeMemberComments(Member member) {
         List<Comment> comments = commentRepository.findAllByMember(member);
         for (Comment comment : comments) {
-            comment.setWriterName("탈퇴한 사용자");
+            comment.setWriterName("*****");
         }
         commentRepository.saveAll(comments);
     }

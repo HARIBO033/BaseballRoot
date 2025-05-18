@@ -69,11 +69,11 @@ public class Member implements Comparable<Member> {
     public void anonymizeAndSoftDelete() {
         this.name = "탈퇴한 사용자";
         this.nickname = "탈퇴한 사용자";
-        this.profileImage = null;
+        this.profileImage = "탈퇴한 사용자";
         this.gender = "탈퇴한 사용자";
         this.memberCode = "탈퇴한 사용자";
         this.naverId = "탈퇴한 사용자";
-        this.age = null;
+        this.age = -1;
         this.favoriteTeam = "탈퇴한 사용자";
         this.deleted = true;
     }
