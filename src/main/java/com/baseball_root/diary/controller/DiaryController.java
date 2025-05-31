@@ -28,12 +28,9 @@ public class DiaryController {
     public CommonResponse<List<ScheduleDto>> getMonthlyGameScheduleList(@PathVariable(name = "date") String date) {
         log.info("getMonthlyGameScheduleList 호출 date : {}", date);
         List<ScheduleDto> scheduleDtoList = null;
-        try {
-            WebCrawler webCrawler = new WebCrawler();
-            scheduleDtoList = webCrawler.scrapeSchedule(date);
-        } catch (IllegalArgumentException e) {
-            log.error("해당 날짜에 일정이 없습니다.");
-        }
+
+        scheduleDtoList = diaryService.getKboGameScheduleList(date);
+
         return CommonResponse.success(SuccessCode.GET_CRAWLING_SUCCESS, scheduleDtoList);
 
     }

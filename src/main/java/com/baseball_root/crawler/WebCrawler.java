@@ -13,13 +13,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Component
 public class WebCrawler {
     public List<ScheduleDto> scrapeSchedule(String date) {
+        log.info("WebCrawler.scrapeSchedule 호출 date : {}", date);
         List<ScheduleDto> scheduleList = new ArrayList<>();
 
         WebDriverManager.chromedriver().setup(); // WebDriverManager를 사용하면 별도로 드라이버를 다운로드 받지 않아도 됨

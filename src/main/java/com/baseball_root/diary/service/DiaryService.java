@@ -2,6 +2,8 @@ package com.baseball_root.diary.service;
 
 import com.baseball_root.attach.AttachImage;
 import com.baseball_root.attach.AttachImageRepository;
+import com.baseball_root.crawler.ScheduleDto;
+import com.baseball_root.crawler.WebCrawler;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.dto.DiaryDto;
 import com.baseball_root.diary.repository.DiaryRepository;
@@ -12,6 +14,9 @@ import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,13 +31,28 @@ public class DiaryService {
     private final MemberRepository memberRepository;
     private final AttachImageRepository attachImageRepository;
     private final S3Service s3Service;
-    /*public List<DiaryDto.Response> getDiaryList(Long memberId, String date){
-        // 날짜와 member 를 받아와서 해당 날짜의 일기 리스트를 반환
-        return diaryRepository.findByMemberIdAndDate(memberId, date)
-                .stream()
-                .map(DiaryDto.Response::fromEntity)
-                .toList();
-    }*/
+    private final WebCrawler webCrawler;
+
+    private final CacheManager cacheManager;
+
+    @Scheduled(cron = "0 0 3 * * ?") // 매일 새벽 3시
+    public void clearKboScheduleCache() {
+        cacheManager.getCache("kboSchedule").clear();
+        System.out.println("🧹 KBO 스케줄 캐시 초기화됨 (매일 3시)");
+    }
+
+    @Cacheable(value = "kboSchedule", key = "#p0", unless = "#result == null or #result.isEmpty()")
+    public List<ScheduleDto> getKboGameScheduleList(String date) {
+        // 일정 크롤링
+        log.info("getKboGameScheduleList 호출 date : {}", date);
+        List<ScheduleDto> scheduleDtoList = null;
+        try {
+            scheduleDtoList = webCrawler.scrapeSchedule(date);
+        } catch (IllegalArgumentException e) {
+            log.error("해당 날짜에 일정이 없습니다");
+        }
+        return scheduleDtoList;
+    }
 
     public DiaryDto.Response getDetailDiary(Long id) {
         Diary diary = diaryRepository.findById(id).orElseThrow(InvalidPostIdException::new);
