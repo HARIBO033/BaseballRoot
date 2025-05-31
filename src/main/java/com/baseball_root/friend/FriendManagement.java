@@ -42,6 +42,7 @@ public class FriendManagement {
         return FriendManagementDto.builder()
                 .id(this.id)
                 .senderName(this.sender.getName())
+                .senderId(this.sender.getId())
                 .receiverId(this.receiver.getId())
                 .status(this.status)
                 .build();
