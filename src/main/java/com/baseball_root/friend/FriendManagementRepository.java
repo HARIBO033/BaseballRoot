@@ -21,7 +21,7 @@ public interface FriendManagementRepository extends JpaRepository<FriendManageme
     Optional<FriendManagement> findBySenderAndReceiverAndStatus_Requested(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 
     @Query("SELECT f FROM FriendManagement f " +
-            "WHERE f.sender.id=:senderId AND f.receiver.id=:receiverId AND f.status='ACCEPTED'")
+            "WHERE f.sender.id=:senderId OR f.receiver.id=:receiverId OR f.status='ACCEPTED'")
     FriendManagement findBySenderAndReceiverAndStatus_Accepted(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 
 }

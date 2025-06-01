@@ -248,8 +248,8 @@ values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'l
         '2024-11-07 01:20:11', '2024-11-07 01:20:11');
 
 
-insert into friends (friend_id, member_id) values (1, 2);
+/*insert into friends (friend_id, member_id) values (1, 2);
 insert into friends (friend_id, member_id) values (3, 2);
 insert into friends (friend_id, member_id) values (4, 2);
 insert into friends (friend_id, member_id) values (5, 2);
-insert into friends (friend_id, member_id) values (6, 2);
+insert into friends (friend_id, member_id) values (6, 2);*/

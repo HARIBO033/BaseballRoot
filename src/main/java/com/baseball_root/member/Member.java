@@ -52,7 +52,7 @@ public class Member implements Comparable<Member> {
     @Column(name = "naver_id", nullable = false)
     private String naverId;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "friends",
             joinColumns = @JoinColumn(name = "member_id"),
@@ -66,6 +66,8 @@ public class Member implements Comparable<Member> {
     @Column(name = "deleted", nullable = false)
     private boolean deleted = false;
 
+
+
     public void anonymizeAndSoftDelete() {
         this.name = "탈퇴한 사용자";
         this.nickname = "탈퇴한 사용자";
@@ -77,6 +79,7 @@ public class Member implements Comparable<Member> {
         this.favoriteTeam = "탈퇴한 사용자";
         this.deleted = true;
     }
+
 
     public String makeMemberCode() {
         CreateUuid createUuid = new CreateUuid();

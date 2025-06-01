@@ -23,11 +23,14 @@ public class FriendManagement {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id", nullable = false)
+    @JoinColumn(name = "sender_id", foreignKey = @ForeignKey(name = "fk_sender_id", foreignKeyDefinition = "FOREIGN KEY (sender_id) REFERENCES member(id) ON DELETE CASCADE"))
     private Member sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id", nullable = false)
+    @JoinColumn(name = "receiver_id", foreignKey = @ForeignKey(
+            name = "fk_receiver_id",
+            foreignKeyDefinition = "FOREIGN KEY (receiver_id) REFERENCES member(id) ON DELETE CASCADE"
+    ))
     private Member receiver;
 
     @Enumerated(EnumType.STRING)

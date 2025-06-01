@@ -100,6 +100,8 @@ public class FriendService {
 
         member.getFriends().remove(friend);
         friend.getFriends().remove(member);
+
+        friendManagementRepository.delete(friendManagement);
     }
 
     public List<MemberDto> getFriendList(Long memberId) {
