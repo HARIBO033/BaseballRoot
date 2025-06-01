@@ -89,7 +89,7 @@ public class FriendService {
     public void deleteFriend(Long memberId, Long friendId) {
 
         FriendManagement friendManagement = friendManagementRepository
-                .findBySenderAndReceiverAndStatus_Accepted(memberId, friendId);
+                .findBySenderOrReceiverAndStatus_Accepted(memberId, friendId);
         if (friendManagement == null) {
             throw new EntityNotFoundException("Friend relationship not found.");
         }

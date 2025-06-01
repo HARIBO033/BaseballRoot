@@ -1,7 +1,5 @@
 package com.baseball_root.friend;
 
-import com.baseball_root.friend.FriendManagement;
-import com.baseball_root.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,8 +18,7 @@ public interface FriendManagementRepository extends JpaRepository<FriendManageme
             "WHERE f.sender.id=:senderId AND f.receiver.id=:receiverId AND f.status='REQUESTED'")
     Optional<FriendManagement> findBySenderAndReceiverAndStatus_Requested(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 
-    @Query("SELECT f FROM FriendManagement f " +
-            "WHERE f.sender.id=:senderId OR f.receiver.id=:receiverId OR f.status='ACCEPTED'")
-    FriendManagement findBySenderAndReceiverAndStatus_Accepted(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
+    @Query("SELECT f FROM FriendManagement f WHERE ((f.sender.id = :senderId AND f.receiver.id = :receiverId) OR (f.sender.id = :receiverId AND f.receiver.id = :senderId)) AND f.status = 'ACCEPTED'")
+    FriendManagement findBySenderOrReceiverAndStatus_Accepted(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 
 }
