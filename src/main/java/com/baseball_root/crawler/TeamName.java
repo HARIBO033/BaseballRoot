@@ -4,7 +4,7 @@ package com.baseball_root.crawler;
 public enum TeamName {
     UNKNOWN("기본팀"), // 기본값 처리용
     DOOSAN("두산"),
-    HANWHA("한화"),
+    HANHWA("한화"),
     KIA("KIA"),
     KIWOOM("키움"),
     KT("KT"),
