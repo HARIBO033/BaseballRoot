@@ -13,6 +13,7 @@ public class FriendManagementDto {
     private Long id;
 
     private String senderName;
+    private String senderNickname;
     private Long senderId;
     private Long receiverId;
     private FriendStatus status;

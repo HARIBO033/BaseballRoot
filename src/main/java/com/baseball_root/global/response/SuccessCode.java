@@ -44,6 +44,7 @@ public enum SuccessCode {
     GET_FRIENDS_REQUEST_SUCCESS(HttpStatus.OK, "친구 요청 조회에 성공했습니다."),
     GET_ISSUE_LIST_SUCCESS(HttpStatus.OK, "이슈 리스트 조회에 성공했습니다."),
     SEND_FRIEND_REQUEST_SUCCESS(HttpStatus.CREATED, "친구 요청을 성공적으로 보냈습니다."),
+    DELETE_FRIEND_REQUEST_SUCCESS(HttpStatus.ACCEPTED, "친구 요청을 성공적으로 삭제했습니다."),
     REQUEST_SUCCESS(HttpStatus.OK, "요청 성공"),
     ;
 
