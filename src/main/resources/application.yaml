@@ -6,6 +6,9 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
   servlet:
     multipart:
       enabled: true
