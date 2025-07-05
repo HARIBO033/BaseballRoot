@@ -21,7 +21,10 @@ public class WinRateCalculatorService {
         log.info("calculateWinRate 호출 memberId = " + memberId + " location = " + location + " season = " + season + " team = " + team);
         //totalGame 구하기 (
         List<Diary> diaryList = diaryRepository.findByLocationAndMemberIdAndCreatedAt(location, memberId, season);//TODO: 메소드 이름 수정하기
-        int totalGame = diaryList.size();
+        System.out.println("@@@@"+diaryList
+                .stream()
+                .map(diary -> diary.getGameResult() + " " + diary.getHome() + " vs " + diary.getAway() + " " + diary.getCreatedAt())
+                .toList());
 
         if (team.equals("우리팀")) {
             Member member = memberRepository.findById(memberId)
@@ -40,6 +43,7 @@ public class WinRateCalculatorService {
                     .filter(diary -> diary.getGameResult().equals("TIE"))
                     .filter(diary -> diary.getHome().equals(ourTeam) || diary.getAway().equals(ourTeam))
                     .count();
+            int totalGame = (int)(winCount + loseCount + tieCount);
             return getResponse(totalGame, winCount, loseCount, tieCount);
         } else {
             //전체팀
@@ -52,7 +56,7 @@ public class WinRateCalculatorService {
             long tieCount = diaryList.stream()
                     .filter(diary -> diary.getGameResult().equals("TIE"))
                     .count();
-
+            int totalGame = (int)(winCount + loseCount + tieCount);
             return getResponse(totalGame, winCount, loseCount, tieCount);
 
         }
@@ -62,7 +66,10 @@ public class WinRateCalculatorService {
     private WinRateCalculatorDto.Response getResponse(int totalGame, long winCount, long loseCount, long tieCount) {
         int winRate;
         if (totalGame == 0) {
-            throw new IllegalArgumentException("해당하는 경기가 없습니다.");
+            winRate = 0;
+            winCount = 0;
+            loseCount = 0;
+            tieCount = 0;
         } else if (winCount == 0) {
             winRate = 0;
         } else {

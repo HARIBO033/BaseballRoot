@@ -24,7 +24,7 @@ public class  WinRateCalculatorController {
                                            @RequestParam(name = "season") String season,
                                            @RequestParam(name = "team") String team) {
         WinRateCalculatorDto.Response response = winRateCalculatorService.calculateWinRate(memberId, location, season, team);
-        log.info("calculateWinRate 호출 response = " + response);
+        log.info("controller calculateWinRate 호출 response = " + response);
         return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, response);
     }
 
