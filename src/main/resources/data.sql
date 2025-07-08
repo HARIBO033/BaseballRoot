@@ -1,23 +1,23 @@
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (3, 'il', 'il', 'profilePhoto', 'male', 'memberCode1', 'SSG 랜더스', 'aaaaa', false);
+values (3, 'il', 'il', 'profilePhoto', 'male', 'memberCode1', 'SSG', 'aaaaa', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'yee', 'yee', 'profilePhoto', 'male', 'memberCode2', 'LG 트윈스', 'bbbbb', false);
+values (5, 'yee', 'yee', 'profilePhoto', 'male', 'memberCode2', 'LG', 'bbbbb', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'sam', 'sam', 'profilePhoto', 'male', 'memberCode3', '한화', 'ccccc', false);
+values (5, 'sam', 'sam', 'profilePhoto', 'male', 'memberCode3', 'HANHWA', 'ccccc', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'sa', 'sa', 'profilePhoto', 'male', 'memberCode4', '롯데', 'ddddd', false);
+values (5, 'sa', 'sa', 'profilePhoto', 'male', 'memberCode4', 'LOTTE', 'ddddd', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'oh', 'oh', 'profilePhoto', 'male', 'memberCode5', '롯데', 'eeeee', false);
+values (5, 'oh', 'oh', 'profilePhoto', 'male', 'memberCode5', 'LOTTE', 'eeeee', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'nuri', 'momo3', 'profilePhoto', 'male', 'memberCode6', '롯데', 'fffff', false);
+values (5, 'nuri', 'momo3', 'profilePhoto', 'male', 'memberCode6', 'LOTTE', 'fffff', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'haun', 'momo4', 'profilePhoto', 'male', 'memberCode7', '롯데', 'ggggg', false);
+values (5, 'haun', 'momo4', 'profilePhoto', 'male', 'memberCode7', 'LOTTE', 'ggggg', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'mina', 'momo5', 'profilePhoto', 'male', 'memberCode8', '롯데', 'hhhhh', false);
+values (5, 'mina', 'momo5', 'profilePhoto', 'male', 'memberCode8', 'LOTTE', 'hhhhh', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
 values (5, 'jin', 'momo6', 'profilePhoto', 'male', 'memberCode9', 'LG', 'iiiii', false);
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
-values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode10', '롯데', 'jjjjj', false);
+values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode10', 'SAMSUNG', 'jjjjj', false);
 
 insert into issue (is_read, created_at, issue_type, sender_id, receiver_id)
 values (false, '2025-03-16 23:20:11', 'COMMENT_REACTION', 1, 2);
@@ -28,49 +28,49 @@ values (false, '2025-03-14 23:20:11', 'COMMENT_REACTION', 1, 2);
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '집관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '집관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '집관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 2, '집관', 'WIN', '2024-01-14',
         '2024-12-04 23:20:11', '2024-12-04 23:20:11');
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG 트윈스', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)
-values ('LG', 'SSG', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
+values ('LG', 'SSG 랜더스', '잠실종합운동장', 'seat', 'title', 'content', 'lineUp', 'mvp', 1, '직관', 'WIN', '2024-01-14',
         '2025-01-09 23:20:11', '2025-01-09 23:20:11');
 insert into diary (home, away, place, seat, title, content, line_up, mvp, member_id, location,
                    game_result, game_date, created_at, modified_at)

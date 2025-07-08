@@ -1,5 +1,6 @@
 package com.baseball_root.winRate;
 
+import com.baseball_root.crawler.TeamName;
 import com.baseball_root.diary.domain.Diary;
 import com.baseball_root.diary.repository.DiaryRepository;
 import com.baseball_root.member.Member;
@@ -21,27 +22,24 @@ public class WinRateCalculatorService {
         log.info("calculateWinRate 호출 memberId = " + memberId + " location = " + location + " season = " + season + " team = " + team);
         //totalGame 구하기 (
         List<Diary> diaryList = diaryRepository.findByLocationAndMemberIdAndCreatedAt(location, memberId, season);//TODO: 메소드 이름 수정하기
-        System.out.println("@@@@"+diaryList
-                .stream()
-                .map(diary -> diary.getGameResult() + " " + diary.getHome() + " vs " + diary.getAway() + " " + diary.getCreatedAt())
-                .toList());
 
         if (team.equals("우리팀")) {
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new IllegalArgumentException("해당 멤버가 없습니다. id=" + memberId));
             String ourTeam = member.getFavoriteTeam();
+            String koreanTeamName = TeamName.getKoreanNameFromEnum(TeamName.valueOf(ourTeam));
             //관람한 우리팀의 승리 횟수 구하기
             long winCount = diaryList.stream()
                     .filter(diary -> diary.getGameResult().equals("WIN"))
-                    .filter(diary -> diary.getHome().equals(ourTeam) || diary.getAway().equals(ourTeam))
+                    .filter(diary -> diary.getHome().equals(koreanTeamName) || diary.getAway().equals(koreanTeamName))
                     .count();
             long loseCount = diaryList.stream()
                     .filter(diary -> diary.getGameResult().equals("LOSE"))
-                    .filter(diary -> diary.getHome().equals(ourTeam) || diary.getAway().equals(ourTeam))
+                    .filter(diary -> diary.getHome().equals(koreanTeamName) || diary.getAway().equals(koreanTeamName))
                     .count();
             long tieCount = diaryList.stream()
                     .filter(diary -> diary.getGameResult().equals("TIE"))
-                    .filter(diary -> diary.getHome().equals(ourTeam) || diary.getAway().equals(ourTeam))
+                    .filter(diary -> diary.getHome().equals(koreanTeamName) || diary.getAway().equals(koreanTeamName))
                     .count();
             int totalGame = (int)(winCount + loseCount + tieCount);
             return getResponse(totalGame, winCount, loseCount, tieCount);
