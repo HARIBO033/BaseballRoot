@@ -1,5 +1,6 @@
 package com.baseball_root.diary.domain;
 
+import com.baseball_root.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,21 +10,32 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"diary_id", "member_id", "comment_id"}))
 public class Reaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "diary_id")
+    private Diary diary;
 
-    @Column(name = "member_id", nullable = false)
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @Column(name = "diary_id", nullable = true)
-    private Long diaryId;
-
-    @Column(name = "comment_id", nullable = true)
-    private Long commentId;
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     private boolean reactionType;
 
+
+    public Diary getDiary() {
+        return diary;
+    }
+
+    public void setDiary(Diary diary) {
+        this.diary = diary;
+    }
 }

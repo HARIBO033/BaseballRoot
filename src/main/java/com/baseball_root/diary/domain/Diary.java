@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -69,6 +70,11 @@ public class Diary extends BaseTimeEntity{
     @Column(name = "game_date", nullable = false)
     private String gameDate;
 
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reaction> reactions = new ArrayList<>();
+
+    @Builder.Default // Default 를 붙여주면 null 이 들어오지 않음!
+    @Column(name = "reaction_count", nullable = false)
     private Long reactionCount = 0L;
     private String authorName; // 탈퇴 후 작성자 이름 유지용
     public Diary(String home, String away, String place, String seat, String title, String content, String lineUp, String mvp, Member member) {
