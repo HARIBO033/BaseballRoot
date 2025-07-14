@@ -20,8 +20,8 @@ public class ReactionController {
     @PostMapping("/diaries/reactions")
     public CommonResponse<?> saveDiaryOrCommentReaction(@RequestBody ReactionDto.Request reactionDto) {
         log.info("saveDiaryOrCommentReaction 호출 request : {}", reactionDto);
-        reactionService.saveDiaryOrCommentReaction(reactionDto);
-        return CommonResponse.success(SuccessCode.UPDATE_REACTION_SUCCESS);
+        boolean reactionStatus = reactionService.saveDiaryOrCommentReaction(reactionDto);
+        return CommonResponse.success(SuccessCode.UPDATE_REACTION_SUCCESS, reactionStatus);
     }
 
 }

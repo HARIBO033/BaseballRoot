@@ -19,7 +19,7 @@ values (5, 'jin', 'momo6', 'profilePhoto', 'male', 'memberCode9', 'LG', 'iiiii',
 insert into member (age, name, nickname, profile_image, gender, member_code, favorite_team, naver_id, deleted)
 values (5, 'myueng', 'momo7', 'profilePhoto', 'male', 'memberCode10', 'SAMSUNG', 'jjjjj', false);
 
-insert into issue (is_read, created_at, issue_type, sender_id, receiver_id)
+/*insert into issue (is_read, created_at, issue_type, sender_id, receiver_id)
 values (false, '2025-03-16 23:20:11', 'COMMENT_REACTION', 1, 2);
 insert into issue (is_read, created_at, issue_type, sender_id, receiver_id)
 values (false, '2025-03-17 23:20:11', 'COMMENT_REACTION', 1, 2);
@@ -246,7 +246,7 @@ insert into diary (home, away, place, seat, title, content, line_up, mvp, member
                    game_result, game_date, created_at, modified_at)
 values ('LG 트윈스', 'SSG 랜더스', 'place', 'seat', 'title', 'content', 'lineUp', 'mvp', 6, '직관', 'WIN', '2023-01-14',
         '2024-11-07 01:20:11', '2024-11-07 01:20:11');
-
+*/
 
 /*insert into friends (friend_id, member_id) values (1, 2);
 insert into friends (friend_id, member_id) values (3, 2);

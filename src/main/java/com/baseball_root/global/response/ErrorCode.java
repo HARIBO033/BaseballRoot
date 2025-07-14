@@ -28,7 +28,9 @@ public enum ErrorCode {
     NOT_FOUND_PARENT_COMMENT_EXCEPTION(HttpStatus.BAD_REQUEST, "부모 댓글을 찾을 수 없습니다."),
     INVALID_ATTACHMENT_ID_EXCEPTION(HttpStatus.BAD_REQUEST, "잘못된 이미지 ID입니다."),
     DELETE_ATTACHMENT_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "이미지 파일 삭제에 실패했습니다."),
-    NOT_FOUND_MEMBER_EXCEPTION(HttpStatus.BAD_REQUEST, "회원 정보를 찾을 수 없습니다.")
+    NOT_FOUND_MEMBER_EXCEPTION(HttpStatus.BAD_REQUEST, "회원 정보를 찾을 수 없습니다."),
+
+    CANNOT_LIKE_OWN_POST_OR_COMMENT_EXCEPTION(HttpStatus.BAD_REQUEST, "자신의 게시글이나 댓글에 좋아요를 누를 수 없습니다.")
     ;
 
     private final HttpStatus status;
