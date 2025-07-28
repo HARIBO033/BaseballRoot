@@ -18,7 +18,7 @@ public interface ReactionRepository extends JpaRepository<Reaction, Long> {
 
     boolean existsByMemberAndDiaryAndCommentIsNull(Member member, Diary diary);
 
-    Optional<Reaction> findByMemberAndCommentAndDiaryIsNull(Member member, Comment comment);
+    Optional<Reaction> findByMemberAndComment(Member member, Comment comment);
 
     boolean existsByMemberAndCommentAndDiaryIsNull(Member member, Comment comment);
 

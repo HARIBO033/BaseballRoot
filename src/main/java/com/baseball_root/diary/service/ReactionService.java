@@ -88,7 +88,7 @@ public class ReactionService {
                 throw new CannotLikeOwnPostOrCommentException();
             }
 
-            Optional<Reaction> existing = reactionRepository.findByMemberAndCommentAndDiaryIsNull(sender, comment);
+            Optional<Reaction> existing = reactionRepository.findByMemberAndComment(sender, comment);
 
             if (existing.isPresent()) {
                 //좋아요 취소
