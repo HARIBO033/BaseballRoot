@@ -21,8 +21,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,9 +40,9 @@ public class ReactionService {
     public boolean saveDiaryOrCommentReaction(ReactionDto.Request reactionDto) {
         boolean requestReactionType = reactionDto.isReactionType();
         // 댓글에 대한 반응인지 다이어리에 대한 반응인지 확인
-        if (reactionDto.getDiaryId() != null && reactionDto.getCommentId() == null) {
-            Diary diary = diaryRepository.findById(reactionDto.getDiaryId())
-                    .orElseThrow(InvalidPostIdException::new);
+        Diary diary = diaryRepository.findById(reactionDto.getDiaryId())
+                .orElseThrow(InvalidPostIdException::new);
+        if (reactionDto.getCommentId() == null || reactionDto.getCommentId() == 0L) {
             diary.nullCheck();
 
             Member sender = memberRepository.findById(reactionDto.getMemberId())
@@ -96,7 +97,7 @@ public class ReactionService {
                 return false;
             } else {
                 //좋아요 추가
-                Reaction newReaction = reactionDto.toEntity(null, sender, comment, true);
+                Reaction newReaction = reactionDto.toEntity(diary, sender, comment, true);
                 reactionRepository.save(newReaction);
                 comment.increaseReactionCount();
 
@@ -125,4 +126,12 @@ public class ReactionService {
         }
     }
 
+    public List<ReactionDto.Response> getDiaryAndCommentReaction(Long postId, Long memberId) {
+        Optional<List<Reaction>> reactionList = reactionRepository.findByMemberIdAndDiaryIdAndReactionTypeTrue(memberId, postId);
+
+        return reactionList.stream()
+                .flatMap(List::stream)
+                .map(ReactionDto.Response::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

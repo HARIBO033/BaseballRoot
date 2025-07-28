@@ -9,12 +9,12 @@ import lombok.Setter;
 public class ScheduleDto {
     private final String currentDay;
     private final String time;
-    private final TeamName team1;
+    private final KboTeamName team1;
     private String vs;
-    private final TeamName team2;
+    private final KboTeamName team2;
     private final String location;
 
-    public ScheduleDto(String currentDay, String time, TeamName team1, String vs, TeamName team2, String location) {
+    public ScheduleDto(String currentDay, String time, KboTeamName team1, String vs, KboTeamName team2, String location) {
         this.currentDay = currentDay;
         this.time = time;
         this.team1 = team1;

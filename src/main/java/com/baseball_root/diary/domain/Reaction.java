@@ -4,12 +4,14 @@ import com.baseball_root.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"diary_id", "member_id", "comment_id"}))
 public class Reaction {
     @Id

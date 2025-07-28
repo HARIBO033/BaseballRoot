@@ -6,9 +6,9 @@ import com.baseball_root.global.response.CommonResponse;
 import com.baseball_root.global.response.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,4 +24,10 @@ public class ReactionController {
         return CommonResponse.success(SuccessCode.UPDATE_REACTION_SUCCESS, reactionStatus);
     }
 
+    @GetMapping("/diaries/reactions/statuses")
+    public CommonResponse<List<ReactionDto.Response>> getDiaryAndCommentReactions(@RequestParam(name = "diaryId") Long diaryId, @RequestParam(name = "memberId") Long memberId) {
+        log.info("getDiaryOrCommentReactionCount 호출 postId: {}, memberId: {}", diaryId, memberId);
+        List<ReactionDto.Response> reactionsStatus = reactionService.getDiaryAndCommentReaction(diaryId, memberId);
+        return CommonResponse.success(SuccessCode.REQUEST_SUCCESS, reactionsStatus);
+    }
 }

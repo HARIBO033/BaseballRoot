@@ -65,8 +65,8 @@ public class WebCrawler {
                         Element location = schedule.selectFirst("td:nth-child(8)");
 
                         // team1과 team2 텍스트를 TeamName 타입으로 변환
-                        TeamName teamName1 = team1 != null ? TeamName.fromKoreanName(team1.text()) : TeamName.UNKNOWN;
-                        TeamName teamName2 = team2 != null ? TeamName.fromKoreanName(team2.text()) : TeamName.UNKNOWN;
+                        KboTeamName teamName1 = team1 != null ? KboTeamName.fromKoreanName(team1.text()) : KboTeamName.UNKNOWN;
+                        KboTeamName teamName2 = team2 != null ? KboTeamName.fromKoreanName(team2.text()) : KboTeamName.UNKNOWN;
 
                         if (day == null) {
                             scheduleList.add(null);
@@ -117,10 +117,11 @@ public class WebCrawler {
                         Element vs = schedule.selectFirst("td.play > em");
                         Element team2 = schedule.selectFirst("td.play > span:nth-child(3)");
                         Element location = schedule.selectFirst("td:nth-child(8)");
-
+                        System.out.println(team1.text() + " @@@@@@@@@@@@@@@@@@@@@@");
+                        log.info("team1 : {}, team2 : {}", team1.text(), team2.text());
                         // team1과 team2 텍스트를 TeamName 타입으로 변환
-                        TeamName teamName1 = team1 != null ? TeamName.fromKoreanName(team1.text()) : TeamName.UNKNOWN;
-                        TeamName teamName2 = team2 != null ? TeamName.fromKoreanName(team2.text()) : TeamName.UNKNOWN;
+                        KboTeamName teamName1 = team1 != null ? KboTeamName.fromKoreanName(team1.text()) : KboTeamName.UNKNOWN;
+                        KboTeamName teamName2 = team2 != null ? KboTeamName.fromKoreanName(team2.text()) : KboTeamName.UNKNOWN;
 
                         if (location == null || "-".equals(location.text())) {
                             location = schedule.selectFirst("td:nth-child(7)");
