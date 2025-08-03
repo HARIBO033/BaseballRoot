@@ -46,7 +46,7 @@ public class WebCrawler {
             years.selectByValue(date.substring(0, 4));//01234567
             months.selectByValue(date.substring(4, 6));
             String strMonth = date.substring(4, 6);
-            log.info("월 : {}", strMonth);
+
             switch (strMonth) {
                 case "10", "11" -> {
                     league.selectByValue("3,4,5,7");
