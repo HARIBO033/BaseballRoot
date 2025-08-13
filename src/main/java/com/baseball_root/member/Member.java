@@ -52,7 +52,7 @@ public class Member implements Comparable<Member> {
     @Column(name = "naver_id", nullable = false)
     private String naverId;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "friends",
             joinColumns = @JoinColumn(name = "member_id"),
@@ -91,6 +91,7 @@ public class Member implements Comparable<Member> {
         return MemberDto.builder()
                 .id(this.id)
                 .nickname(this.nickname)
+                .profileImage(this.profileImage)
                 .build();
     }
 

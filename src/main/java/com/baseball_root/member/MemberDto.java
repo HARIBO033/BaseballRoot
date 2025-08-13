@@ -10,11 +10,13 @@ import lombok.*;
 public class MemberDto {
     private Long id;
     private String nickname;
+    private String profileImage;
 
     public static MemberDto fromEntity(Member member) {
         return MemberDto.builder()
                 .id(member.getId())
                 .nickname(member.getNickname())
+                .profileImage(member.getProfileImage())
                 .build();
     }
 

@@ -14,6 +14,7 @@ public class FriendManagementDto {
 
     private String senderName;
     private String senderNickname;
+    private String senderProfileImage;
     private Long senderId;
     private Long receiverId;
     private FriendStatus status;

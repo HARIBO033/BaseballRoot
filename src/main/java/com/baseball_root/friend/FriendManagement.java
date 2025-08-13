@@ -46,6 +46,7 @@ public class FriendManagement {
                 .id(this.id)
                 .senderName(this.sender.getName())
                 .senderNickname(this.sender.getNickname())
+                .senderProfileImage(this.sender.getProfileImage())
                 .senderId(this.sender.getId())
                 .receiverId(this.receiver.getId())
                 .status(this.status)
