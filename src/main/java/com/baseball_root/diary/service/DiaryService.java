@@ -35,12 +35,6 @@ public class DiaryService {
 
     private final CacheManager cacheManager;
 
-    @Scheduled(cron = "0 0 3 * * ?") // 매일 새벽 3시
-    public void clearKboScheduleCache() {
-        cacheManager.getCache("kboSchedule").clear();
-        System.out.println("🧹 KBO 스케줄 캐시 초기화됨 (매일 3시)");
-    }
-
     @Cacheable(value = "kboSchedule", key = "#p0", unless = "#result == null or #result.isEmpty()")
     public List<ScheduleDto> getKboGameScheduleList(String date) {
         // 일정 크롤링
@@ -53,7 +47,6 @@ public class DiaryService {
         }
         return scheduleDtoList;
     }
-
     public DiaryDto.Response getDetailDiary(Long id) {
         Diary diary = diaryRepository.findById(id).orElseThrow(InvalidPostIdException::new);
         List<String> attachImageUrls = getAttachImageUrls(id);

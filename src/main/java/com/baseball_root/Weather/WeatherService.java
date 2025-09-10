@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,12 +31,12 @@ public class WeatherService {
     @Autowired
     private CacheManager cacheManager;
 
-    @Scheduled(fixedRate = 3 * 60 * 60 * 1000) // 3시간 마다 실행
+   /* @Scheduled(fixedRate = 3 * 60 * 60 * 1000) // 3시간 마다 실행
     public void clearWeatherCache() {
         cacheManager.getCache("stadiumWeather").clear();
         cacheManager.getCache("weatherForecast").clear();
         System.out.println("🧹 캐시 초기화됨 (3시간 주기)");
-    }
+    }*/
 
     @Cacheable(value = "weatherForecast", key = "#p0", unless = "#result == null")//unless : 결과가 null이면 캐싱하지않음
     public WeatherResponse getWeatherForecast(String stadiumName) {

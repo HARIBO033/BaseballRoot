@@ -18,6 +18,7 @@ import com.baseball_root.global.exception.custom_exception.InvalidPostIdExceptio
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ public class ReactionService {
     private final MemberRepository memberRepository;
     private final DiaryRepository diaryRepository;
     private final NotificationService notificationService;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Transactional
     public boolean saveDiaryOrCommentReaction(ReactionDto.Request reactionDto) {
@@ -54,16 +56,23 @@ public class ReactionService {
                 throw new CannotLikeOwnPostOrCommentException();
             }
             Optional<Reaction> existing = reactionRepository.findByMemberAndDiaryAndCommentIsNull(sender, diary);
+
+            String redisKey = "diary:" + diary.getId() + ":reactions";
+
             if (existing.isPresent()) {
                 //좋아요 취소
                 reactionRepository.delete(existing.get());
-                diary.decreaseReactionCount();
+                //diary.decreaseReactionCount();
+                // Redis에서 해당 회원의 좋아요 상태 제거
+                redisTemplate.opsForValue().decrement(redisKey);
                 return false;
             } else {
                 //좋아요 추가
                 Reaction newReaction = reactionDto.toEntity(diary, sender, null, true);
                 reactionRepository.save(newReaction);
-                diary.increaseReactionCount();
+                //diary.increaseReactionCount();
+                // Redis에 해당 회원의 좋아요 상태 추가
+                redisTemplate.opsForValue().increment(redisKey);
 
                 issueRepository.save(Issue.createIssue(sender, receiver, IssueType.DIARY_REACTION));
                 notificationService.send(
@@ -90,16 +99,20 @@ public class ReactionService {
 
             Optional<Reaction> existing = reactionRepository.findByMemberAndComment(sender, comment);
 
+            String redisKey = "comment:" + comment.getId() + ":reactions";
             if (existing.isPresent()) {
                 //좋아요 취소
                 reactionRepository.delete(existing.get());
-                comment.decreaseReactionCount();
+                //comment.decreaseReactionCount();
+                // Redis에서 해당 회원의 좋아요 상태 제거
+                redisTemplate.opsForValue().decrement(redisKey);
                 return false;
             } else {
                 //좋아요 추가
                 Reaction newReaction = reactionDto.toEntity(diary, sender, comment, true);
                 reactionRepository.save(newReaction);
-                comment.increaseReactionCount();
+                //comment.increaseReactionCount();
+                redisTemplate.opsForValue().increment(redisKey);
 
                 // 알림 및 이슈 저장
                 if (comment.getParent() == null) {
