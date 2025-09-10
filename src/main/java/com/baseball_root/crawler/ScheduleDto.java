@@ -7,12 +7,15 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ScheduleDto {
-    private final String currentDay;
-    private final String time;
-    private final KboTeamName team1;
+    private String currentDay;
+    private String time;
+    private KboTeamName team1;
     private String vs;
-    private final KboTeamName team2;
-    private final String location;
+    private KboTeamName team2;
+    private String location;
+
+    public ScheduleDto() { // Jackson 역직렬화용 기본 생성자
+    }
 
     public ScheduleDto(String currentDay, String time, KboTeamName team1, String vs, KboTeamName team2, String location) {
         this.currentDay = currentDay;

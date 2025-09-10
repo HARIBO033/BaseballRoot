@@ -79,4 +79,8 @@ public class Comment extends BaseTimeEntity{
             this.reactionCount = 0L;
         }
     }
+
+    public void setReactionCount(Integer reactionCount) {
+        this.reactionCount = reactionCount.longValue();
+    }
 }

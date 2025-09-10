@@ -100,6 +100,7 @@ public class Diary extends BaseTimeEntity{
         this.mvp = mvp;
     }
 
+    /* Reaction Count 는 Redis 로 관리하기로 함
     public void increaseReactionCount() {
         if (this.reactionCount == null) {
             this.reactionCount = 0L;  // 기본값 설정
@@ -112,7 +113,7 @@ public class Diary extends BaseTimeEntity{
             throw new IllegalStateException("ReactionCount 는 0보다 작을 수 없습니다.");
         }
         this.reactionCount--;
-    }
+    }*/
 
     public void nullCheck(){
         if(this.reactionCount == null){
@@ -125,4 +126,7 @@ public class Diary extends BaseTimeEntity{
                 .toList();
     }
 
+    public void setReactionCount(Integer reactionCount) {
+        this.reactionCount = Long.valueOf(reactionCount);
+    }
 }

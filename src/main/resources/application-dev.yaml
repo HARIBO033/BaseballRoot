@@ -1,4 +1,8 @@
 spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
   h2:
     console:
       enabled: true
@@ -8,7 +12,6 @@ spring:
         username: sa
         password:
         driver-class-name: org.h2.Driver
-
   jpa:
     defer-datasource-initialization: true
     hibernate:
@@ -16,7 +19,7 @@ spring:
     show-sql: true
   sql:
     init:
-      mode: always
+      mode: never
 #  servlet:
 #    multipart:
 #      max-file-size: 10MB

@@ -3,6 +3,7 @@ package com.baseball_root.Issue;
 import com.baseball_root.member.Member;
 import com.baseball_root.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class IssueService {
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "issueCount", key = "#p0", unless = "#result == 0", cacheManager = "cacheManager")
     public long getIssueListCount(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new IllegalArgumentException("회원 ID를 찾을 수 없습니다: " + memberId)

@@ -5,6 +5,13 @@
 #    username: root
 #    password: 1234
 spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: fpeltm033!@
+  cache:
+    type: redis
   servlet:
     multipart:
       enabled: true
