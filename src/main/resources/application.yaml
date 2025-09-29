@@ -21,6 +21,8 @@ spring:
     default-property-inclusion: non_null
     time-zone: Asia/Seoul
 
+app:
+  default-profile-image: https://baseball-root-images.s3.ap-northeast-2.amazonaws.com/baseballRootDefaultImage.png
 
 weatherperson:
   api:
