@@ -10,6 +10,7 @@ import com.baseball_root.global.exception.custom_exception.AlreadyExistsMemberEx
 import com.baseball_root.global.exception.custom_exception.InvalidMemberIdException;
 import com.baseball_root.global.exception.custom_exception.NotFoundMemberException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,9 @@ public class MemberService {
     private final DiaryRepository diaryRepository;
     private final CommentRepository commentRepository;
     private final S3Service s3Service;
+
+    @Value("${app.default-profile-image}")
+    private String defaultImage;
 
     //
     public MemberDto.Response loginMember(MemberDto.LoginMemberRequest memberDto) {
@@ -65,7 +69,7 @@ public class MemberService {
     private Member createMemberEntity(MemberDto.Request memberDto) {
         return Member.builder()
                 .nickname(memberDto.getNickname())
-                .profileImage(memberDto.getProfileImage())
+                .profileImage(memberDto.getProfileImage() == null || memberDto.getProfileImage().isBlank() ? defaultImage : memberDto.getProfileImage())
                 .favoriteTeam(memberDto.getFavoriteTeam())
                 .memberCode(new CreateUuid().createUuid()) //TODO: uuid 객체 생성 방식 변경
                 .age(memberDto.getAge())
